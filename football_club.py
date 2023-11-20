@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
-from typing import List, Dict, Tuple
+import logging
+from typing import List, Dict
 
 @dataclass
 class Player:
@@ -51,6 +52,24 @@ class FootballClub:
     finances: float = 0.0
     scheduled_matches: List[Dict[str, str]] = field(default_factory=list)
 
+    def __init__(self, name, finances=0.0):
+        self.name = name  
+        self.players = []  
+        self.match_results = {} 
+        self.finances = finances  
+        self.scheduled_matches = []
+        self.logger = self.set_logger(self.name)
+
+    def set_logger(self, name: str):
+        logger =  logging.getLogger("my_logger")
+        logger.setLevel(logging.INFO)
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        file_handler = logging.FileHandler(f'{name}.log')
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+        return logger
+
     def add_player(self, player: Player):
         """
          Adds a Player to the Club.
@@ -61,9 +80,10 @@ class FootballClub:
                  False - Player number is already taken
         """
         if self._is_player_number_taken(player.number):
-            print(f"Player number {player.number} is already taken.")
+            logging.warning(f"Player number {player.number} is already taken.")
             return False
         self.players.append(player)
+        self.logger.info(f"Player {player.name} added to the club.")
         return True
 
     def _is_player_number_taken(self, number: int) -> bool:
@@ -87,9 +107,9 @@ class FootballClub:
         
         if player_to_remove:
             self.players.remove(player_to_remove)
-            print(f"Player {name} removed from the club.")
+            self.logger.info(f"Player {name} removed from the club.")
         else:
-            print(f"No player named '{name}' found in the club.")
+            self.logger.warning(f"No player named '{name}' found in the club.")
 
     def record_match_result(self, match_result: MatchResult):
         """
@@ -97,11 +117,11 @@ class FootballClub:
          
          @param date - the date match was played.
          @param outcome - the outcome of the match. 
-         @param score - 
+         @param score - number of goals scored
          @param opponent - team against which the match was played
         """
         self.match_results[match_result.date] = match_result
-        print(f"Match on {match_result.date}: {match_result} recorded.")
+        self.logger.info(f"Match on {match_result.date}: {match_result} recorded.")
 
 
     def get_player_info(self, name: str):
@@ -128,7 +148,7 @@ class FootballClub:
         player_count = len(self.players)
         return f"Football Club {self.name} with {player_count} player{'s' if player_count != 1 else ''}."
 
-    def transfer_player(self, player_name: int, to_club: 'FootballClub', transfer_fee: float):
+    def transfer_player(self, player_name: str, to_club: 'FootballClub', transfer_fee: float):
         """
          Transfer a player from one club to another.
          
@@ -145,10 +165,10 @@ class FootballClub:
             to_club._update_finances(transfer_fee)
             self.players.remove(player_to_transfer)
             to_club.add_player(player_to_transfer)
-            print(f"Transferred {player_to_transfer.name} to {to_club.name} for ${transfer_fee}")
+            self.logger.info(f"Transferred {player_to_transfer.name} to {to_club.name} for ${transfer_fee}")
             return True
         else:
-            print(f"Transfer failed for player {player_name}.")
+            self.logger.warning(f"Transfer failed for player {player_name}.")
             return False
 
     def _update_finances(self, amount: float):
@@ -178,17 +198,17 @@ class FootballClub:
             player = next((player for player in self.players if player.name == player_name), None)
             if player:
                 player.goals += 1
-                print(f"{player.name} now has {player.goals} goal(s).")
+                self.logger.info(f"{player.name} now has {player.goals} goal(s).")
             else:
-                print(f"Player '{player_name}' not found in club {self.name}.")
+                self.logger.warning(f"Player '{player_name}' not found in club {self.name}.")
 
         for player_name in match_result.assist_givers:
             player = next((player for player in self.players if player.name == player_name), None)
             if player:
                 player.assists += 1
-                print(f"{player.name} now has {player.assists} assist(s).")
+                self.logger.info(f"{player.name} now has {player.assists} assist(s).")
             else:
-                print(f"Player '{player_name}' not found in club {self.name}.")
+                self.logger.warning(f"Player '{player_name}' not found in club {self.name}.")
 
 
 if __name__ == "__main__":
@@ -222,8 +242,6 @@ if __name__ == "__main__":
     club.record_match_result(match_result_2)
 
     player_info = club.get_player_info("John Doe")
-    print(player_info)
-
     club.remove_player("Jane Smith")
 
     club.update_player_statistics(match_result_1)
@@ -231,8 +249,3 @@ if __name__ == "__main__":
 
     club_B = FootballClub("FC Rival")
     club.transfer_player(player_john.number, club_B, 500000)
-    print(f"Player {player_john.name} has been transferred to {club_B.name}.")
-
-    print(f"Finances for {club.name}: ${club.finances}")
-    print(f"Finances for {club_B.name}: ${club_B.finances}")
-    
