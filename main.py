@@ -28,6 +28,7 @@ class ShopInventory:
         :return: None
         """
         self.inventory.append(item)
+        self.logger.info(f"Добавлен товар: {item}")
 
     def remove_item(self, item: str) -> None:
         """
@@ -37,17 +38,18 @@ class ShopInventory:
         """
         if item in self.inventory:
             self.inventory.remove(item)
-            print(f"Товар удален: {item}")
+            self.logger.info(f"Товар удален: {item}")
         else:
-            print("error!")
+            self.logger.warning(f"Попытка удалить несуществующий товар: {item}")
 
     def display_inventory(self) -> None:
         """
         функция отображения инвентаря
         :return: None
         """
+        self.logger.info("Вывод инвентаря:")
         for item in self.inventory:
-            print(item)
+            self.logger.debug(item)
 
     def count_items(self) -> int:
         """
@@ -66,9 +68,9 @@ class ShopInventory:
         """
         exists = item in self.inventory
         if exists:
-            print(f"Товар '{item}' присутствует в инвентаре.")
+            self.logger.info(f"Товар '{item}' присутствует в инвентаре.")
         else:
-            print(f"Товар '{item}' отсутствует в инвентаре.")
+            self.logger.info(f"Товар '{item}' отсутствует в инвентаре.")
         return exists
 
     def save_to_csv(self, filename: str = 'inventory.csv') -> None:
@@ -83,8 +85,9 @@ class ShopInventory:
                 writer.writerow(['Товары'])
                 for item in self.inventory:
                     writer.writerow([item])
+            self.logger.info(f"Данные загружены из файла: {filename}")
         except FileNotFoundError:
-            print(f"Файл {filename} не найден!")
+            self.logger.warning(f"Файл {filename} не найден.")
 
     def load_from_csv(self, filename='inventory.csv') -> None:
         """
@@ -97,8 +100,9 @@ class ShopInventory:
                 reader = csv.reader(csvfile)
                 next(reader)  # Пропускаем заголовок
                 self.inventory = [row[0] for row in reader]
+            self.logger.info(f"Данные загружены из файла: {filename}")
         except FileNotFoundError:
-            print(f"Файл {filename} не найден!")
+            self.logger.warning(f"Файл {filename} не найден.")
 
     def bubble_sort_inventory(self):
         """
@@ -110,7 +114,7 @@ class ShopInventory:
             for j in range(0, n - i - 1):
                 if self.inventory[j] > self.inventory[j + 1]:
                     self.inventory[j], self.inventory[j + 1] = self.inventory[j + 1], self.inventory[j]
-        print("Инвентарь отсортирован методом сортировки пузырьком.")
+        self.logger.info("Инвентарь отсортирован методом сортировки пузырьком.")
 
     def search_item_by_name(self, partial_name: str) -> list[str]:
         """
@@ -120,9 +124,9 @@ class ShopInventory:
         """
         matching_items = [item for item in self.inventory if partial_name.lower() in item.lower()]
         if matching_items:
-            print(f"Найдены товары с частью названия '{partial_name}': {matching_items}")
+            self.logger.info(f"Найдены товары с частью названия '{partial_name}': {matching_items}")
         else:
-            print(f"Товары с частью названия '{partial_name}' не найдены.")
+            self.logger.info(f"Товары с частью названия '{partial_name}' не найдены.")
         return matching_items
 
     def clear_inventory(self) -> None:
