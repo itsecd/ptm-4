@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 import logging
 from typing import List, Dict
 
+
 @dataclass
 class Player:
     name: str
@@ -25,7 +26,6 @@ class Player:
         )
 
 
-
 @dataclass
 class MatchResult:
     date: str
@@ -35,7 +35,6 @@ class MatchResult:
     goal_scorers: List[str] = field(default_factory=list) 
     assist_givers: List[str] = field(default_factory=list)
 
-
     def __str__(self):
         """
          All info about match
@@ -43,6 +42,7 @@ class MatchResult:
          @return string with all info about player
         """
         return f"{self.outcome} against {self.opponent} with score {self.score}"
+
 
 @dataclass
 class FootballClub:
@@ -53,6 +53,12 @@ class FootballClub:
     scheduled_matches: List[Dict[str, str]] = field(default_factory=list)
 
     def __init__(self, name, finances=0.0):
+        """
+         Initializes the object with name and finances. 
+         
+         @param name - the name of the player
+         @param finances - the number of finances 
+        """
         self.name = name  
         self.players = []  
         self.match_results = {} 
@@ -61,6 +67,13 @@ class FootballClub:
         self.logger = self.set_logger(self.name)
 
     def set_logger(self, name: str):
+        """
+         Sets up a logger to log to a file. 
+         
+         @param name - the name of the club, which will be logged
+         
+         @return the logger that was set up for this class
+        """
         logger =  logging.getLogger("my_logger")
         logger.setLevel(logging.INFO)
         formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -122,7 +135,6 @@ class FootballClub:
         """
         self.match_results[match_result.date] = match_result
         self.logger.info(f"Match on {match_result.date}: {match_result} recorded.")
-
 
     def get_player_info(self, name: str):
         """
