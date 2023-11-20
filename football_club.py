@@ -15,9 +15,14 @@ class Player:
          
          @return string with all info about player
         """
-        return (f"{self.outcome} against {self.opponent} with score {self.score}. "
-                f"Goals by: {', '.join(name for _, name in self.goal_scorers)}. "
-                f"Assists by: {', '.join(name for _, name in self.assist_givers)}")
+        return (f"Player Info:\n"
+            f"Name: {self.name}\n"
+            f"Position: {self.position}\n"
+            f"Number: {self.number}\n"
+            f"Goals: {self.goals}\n"
+            f"Assists: {self.assists}"
+        )
+
 
 
 @dataclass
@@ -230,3 +235,4 @@ if __name__ == "__main__":
 
     print(f"Finances for {club.name}: ${club.finances}")
     print(f"Finances for {club_B.name}: ${club_B.finances}")
+    
