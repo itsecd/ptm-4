@@ -122,7 +122,7 @@ class FootballClub:
             self.players.remove(player_to_remove)
             self.logger.info(f"Player {name} removed from the club.")
         else:
-            self.logger.warning(f"No player named '{name}' found in the club.")
+            self.logger.warning(f"Can't remove player, because no player named '{name}' found in the club.")
 
     def record_match_result(self, match_result: MatchResult):
         """
@@ -149,7 +149,7 @@ class FootballClub:
             self.logger.info(f"Info about {player.name} was requested")
             return f"Player Info:\nName: {player.name}\nPosition: {player.position}\nNumber: {player.number}\nGoals: {player.goals}\nAssists: {player.assists}"
         else:
-            self.logger.warning(f"No player named '{name}' found in the club.")
+            self.logger.warning(f"Can't get info about player, because no player named '{name}' found in the club.")
             return f"No player named '{name}' found in the club."
 
     def __str__(self):
