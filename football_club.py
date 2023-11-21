@@ -146,8 +146,10 @@ class FootballClub:
         """
         player = next((player for player in self.players if player.name == name), None)
         if player:
+            self.logger.info(f"Info about {player.name} was requested")
             return f"Player Info:\nName: {player.name}\nPosition: {player.position}\nNumber: {player.number}\nGoals: {player.goals}\nAssists: {player.assists}"
         else:
+            self.logger.warning(f"No player named '{name}' found in the club.")
             return f"No player named '{name}' found in the club."
 
     def __str__(self):
@@ -190,6 +192,7 @@ class FootballClub:
          @param amount - amount to add to the finances of the club.
         """
         self.finances += amount
+        self.logger.info("Finances was updated.")
 
     def _is_financial_transaction_valid(self, amount: float) -> bool:
         """
@@ -201,8 +204,9 @@ class FootballClub:
                  False - the transaction isn't valid.
         """
         if self.finances + amount < 0:
-            print(f"Insufficient funds for the transaction.")
+            self.logger.warning("Insufficient funds for the transaction.")
             return False
+        self.logger.info("Sufficient funds for the transaction.")
         return True
 
     def update_player_statistics(self, match_result: MatchResult):
