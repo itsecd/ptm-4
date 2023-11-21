@@ -1,0 +1,13 @@
+2023-11-21 19:22:16,105 - INFO - Player John Doe added to the club.
+2023-11-21 19:22:16,105 - INFO - Player Jane Smith added to the club.
+2023-11-21 19:22:16,105 - INFO - Match on 2023-11-25: Victory against FC Coders with score 2-0 recorded.
+2023-11-21 19:22:16,105 - INFO - Match on 2023-12-01: Draw against FC Hackers with score 1-1 recorded.
+2023-11-21 19:22:16,105 - INFO - Info about John Doe was requested
+2023-11-21 19:22:16,105 - INFO - Player Jane Smith removed from the club.
+2023-11-21 19:22:16,105 - INFO - John Doe now has 1 goal(s).
+2023-11-21 19:22:16,105 - WARNING - Player 'Jane Smith' not found in club FC Pythonistas.
+2023-11-21 19:22:16,105 - WARNING - Player 'Jane Smith' not found in club FC Pythonistas.
+2023-11-21 19:22:16,105 - INFO - John Doe now has 1 assist(s).
+2023-11-21 19:22:16,105 - INFO - John Doe now has 2 goal(s).
+2023-11-21 19:22:16,105 - WARNING - Player 'Jane Smith' not found in club FC Pythonistas.
+2023-11-21 19:22:16,105 - WARNING - Transfer failed for player 9.
