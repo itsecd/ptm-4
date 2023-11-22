@@ -3,6 +3,15 @@ import pandas as pd
 import torch
 import numpy as np
 from torch.nn import Linear, Sigmoid
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler('example.log')
+file_handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 
 def load_data():
@@ -12,13 +21,13 @@ def load_data():
     try:
         data = pd.read_csv("./apples_pears.csv")
     except Exception as e:
-        print(f"Ошибка при открытии файла: {str(e)}")
+        logger.warning(f"Ошибка при открытии файла: {str(e)}")
     X = data.iloc[:, :2].values
     y = data['target'].values.reshape((-1, 1))
     return data, X, y
 
 
-def plot_graph(data, c, cmap):
+def plot_graph(data: list, c: str, cmap: str):
     """
     Построение графика.
     :param c: данные для графика.
@@ -32,7 +41,7 @@ def plot_graph(data, c, cmap):
     plt.show()
 
 
-def neuron_create(data, X):
+def neuron_create(data: list, X: tuple):
     """
     Создание нейрона.
     :param data: Данные для создания нейрона.
@@ -48,7 +57,7 @@ def neuron_create(data, X):
     return neuron
 
 
-def neuron_learning(X, y, neuron, learning_rate, iter_num):
+def neuron_learning(X: tuple, y: tuple, neuron: tuple, learning_rate: float, iter_num: int):
     """
     Обучение нейрона.
     :param X: параметр X для обучения.
@@ -64,7 +73,7 @@ def neuron_learning(X, y, neuron, learning_rate, iter_num):
     for t in range(iter_num):
         y_pred = neuron(X)
         loss = loss_fn(y_pred, y)
-        """print('{} {}'.format(t, loss.data))"""
+        logger.info(f"Iteration {t}: loss={loss.data}")
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -97,11 +106,11 @@ def difficult_sampling():
     plt.show()
     X = torch.autograd.Variable(torch.FloatTensor(X))
     y = torch.autograd.Variable(torch.LongTensor(y.astype(np.int64)))
-    print(X.data.shape, y.data.shape)
+    logger.info(f"Difficult sampling: X shape={X.data.shape}, y shape={y.data.shape}")
     return X, y
 
 
-def sigmoid_neuron(X, y):
+def sigmoid_neuron(X: tuple, y: tuple):
     """
     Обучение нейрона с сигмоидой на линейно неразделимой выборке.
     :param X: параметр X для обучения.
@@ -115,7 +124,7 @@ def sigmoid_neuron(X, y):
     for t in range(500):
         y_pred = neuron(X)
         loss = loss_fn(y_pred, y)
-        """print('{} {}'.format(t, loss.data))"""
+        logger.info(f"Iteration {t}: loss={loss.data}")
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -143,13 +152,13 @@ def sigmoid_neuron(X, y):
 
 if __name__ == '__main__':
     data, X, y = load_data()
-    print("Набор данных «Яблоки-груши» в виде точек на плоскости:")
+    logger.info("Набор данных «Яблоки-груши» в виде точек на плоскости:")
     plot_graph(data, data['target'], "rainbow")
-    print("Результат классификации ещё необученным нейроном:")
+    logger.info("Результат классификации ещё необученным нейроном:")
     neuron = neuron_create(data, X)
-    print("Результат обучения при learning_rate = 0.001 и 500 итераций")
+    logger.info("Результат обучения при learning_rate = 0.001 и 500 итераций")
     neuron_learning(X, y, neuron, 0.001, 500)
-    print("Результат более сложной выборки:")
+    logger.info("Результат более сложной выборки:")
     diff_X, diff_y = difficult_sampling()
-    print("Результат обучения нейрона с сигмоидой на линейно неразделимой выборке:")
+    logger.info("Результат обучения нейрона с сигмоидой на линейно неразделимой выборке:")
     sigmoid_neuron(diff_X, diff_y)
