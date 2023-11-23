@@ -1,13 +1,17 @@
 import telebot
+
 from telebot import types
 from charts import line, hist
-import os
-from telegram.ext import Updater
+
 bot = telebot.TeleBot('А вот токен не дам')
 
 
 @bot.message_handler(commands=['start'])
-def start(message):
+def start(message) -> None:
+    """
+    функция обрабатывает команду /start и нажатие на кнопку "Поздороваться"
+    :param message: сообщение
+    """
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton("Поздороваться")
     markup.add(btn1)
@@ -18,14 +22,22 @@ def start(message):
 
 
 @bot.message_handler(commands=['whou'])
-def whou(message):
+def who(message) -> None:
+    """
+    функция обрабатывает команду /who, отвечая пользователю
+    :param message: сообщение
+    """
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     bot.send_message(message.from_user.id, "Я бот", reply_markup=markup)
     print(message.text)
 
 
 @bot.message_handler(content_types=['text'])
-def get_text_messages(message):
+def get_text_messages(message) -> None:
+    """
+    Функция обрабатывает нажатие различных кнопок, привязывая к ним определенные действия
+    :param message: сообщение
+    """
     if message.text == 'Поздороваться':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)  # создание новых кнопок
         btn1 = types.KeyboardButton('Кто создатель бота?')
@@ -58,13 +70,23 @@ def get_text_messages(message):
     print(message.text)
 
 
-def chart_x(message, chart):
+def chart_x(message, chart) -> None:
+    """
+    Функция собирает данные для построения графиков
+    :param message: сообщение
+    :param chart: какой график строить (линейный или гистограмму)
+    """
     lst_x = message.text.split()
     y = bot.send_message(message.from_user.id, "Задайте координаты y", parse_mode='Markdown')
     bot.register_next_step_handler(y, chart_y, lst_x, chart)
 
 
-def chart_y(message, lst_x, chart):
+def chart_y(message, lst_x, chart) -> None:
+    """
+        Функция собирает данные для построения графиков
+        :param message: сообщение
+        :param chart: какой график строить (линейный или гистограмму)
+    """
     lst_y = message.text.split()
     lst_y = sorted(lst_y)
     lst_x = sorted(lst_x)
