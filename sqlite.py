@@ -1,11 +1,13 @@
 import sqlite3 as sq
 
+from loguru import logger
+
 
 async def db_start():
     global db, cur
     db = sq.connect('new.db')
     cur = db.cursor()
-
+    logger.info('Create table')
     cur.execute(
         "CREATE TABLE IF NOT EXISTS PROFILE(user_id TEXT PRIMARY KEY,name TEXT, age TEXT, photo TEXT, number TEXT ,description TEXT, location TEXT)")
 
