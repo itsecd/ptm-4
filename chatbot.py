@@ -220,7 +220,7 @@ async def inline_echo(inline_query: types.InlineQuery):
     input_content = InputTextMessageContent(text)
     result_id = hashlib.md5(text.encode()).hexdigest()
     item = InlineQueryResultArticle(
-        input_message_content=input_content, id=result_id, title='Echo!!', description='Chech echo', thumb_url='https://avatars.dzeninfra.ru/get-zen_doc/34175/pub_5cea2361585c2f00b5c9cb0b_5cea310a752e5b00b25b9c01/scale_1200')
+        input_message_content=input_content, id=result_id, title='Echo!!', description='Check echo', thumb_url='https://avatars.dzeninfra.ru/get-zen_doc/34175/pub_5cea2361585c2f00b5c9cb0b_5cea310a752e5b00b25b9c01/scale_1200')
     await bot.answer_inline_query(inline_query_id=inline_query.id, results=[item])
     logger.info(f"chat id: {result_id} commands: link")
 
