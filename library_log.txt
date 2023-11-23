@@ -1,12 +1,12 @@
-2023-11-22 16:09:24,510 - INFO - Добавлена персона: Alice, Возраст: 25
-2023-11-22 16:09:24,510 - INFO - Добавлена персона: Bob, Возраст: 30
-2023-11-22 16:09:24,510 - INFO - Добавлена книга: The Great Gatsby (Автор: F. Scott Fitzgerald, Владелец: Нет)
-2023-11-22 16:09:24,510 - INFO - Добавлена книга: To Kill a Mockingbird (Автор: Harper Lee, Владелец: Нет)
-2023-11-22 16:09:24,510 - INFO - Alice, Возраст: 25 взял в аренду книгу: The Great Gatsby (Автор: F. Scott Fitzgerald, Владелец: Alice)
-2023-11-22 16:09:24,510 - INFO - Bob, Возраст: 30 взял в аренду книгу: To Kill a Mockingbird (Автор: Harper Lee, Владелец: Bob)
-2023-11-22 16:09:24,510 - INFO - Вывод информации о людях:
-2023-11-22 16:09:24,510 - INFO - Вывод информации о книгах:
-2023-11-22 16:09:24,510 - INFO - Данные о библиотеке сохранены в файл: library.txt
-2023-11-22 16:09:24,511 - WARNING - Ошибка при загрузке данных о библиотеке из файла library.txt: invalid literal for int() with base 10: 'Возраст: 25'
-2023-11-22 16:09:24,511 - INFO - Вывод информации о людях:
-2023-11-22 16:09:24,511 - INFO - Вывод информации о книгах:
+2023-11-23 13:17:17,632 - INFO - Person added: Alice, Age: 25
+2023-11-23 13:17:17,632 - INFO - Person added: Bob, Age: 30
+2023-11-23 13:17:17,632 - INFO - Book added: The Great Gatsby (Author: F. Scott Fitzgerald, Owner: No)
+2023-11-23 13:17:17,632 - INFO - Book added: To Kill a Mockingbird (Author: Harper Lee, Owner: No)
+2023-11-23 13:17:17,632 - INFO - Alice, Age: 25 I rented a book: The Great Gatsby (Author: F. Scott Fitzgerald, Owner: Alice)
+2023-11-23 13:17:17,632 - INFO - Bob, Age: 30 I rented a book: To Kill a Mockingbird (Author: Harper Lee, Owner: Bob)
+2023-11-23 13:17:17,632 - INFO - Output of information about people:
+2023-11-23 13:17:17,632 - INFO - Output of information about books:
+2023-11-23 13:17:17,633 - INFO - The library data is saved to a file: library.txt
+2023-11-23 13:17:17,637 - WARNING - Error loading library data from a file library.txt: invalid literal for int() with base 10: 'Age: 25'
+2023-11-23 13:17:17,637 - INFO - Output of information about people:
+2023-11-23 13:17:17,637 - INFO - Output of information about books:
