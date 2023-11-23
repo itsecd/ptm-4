@@ -1,8 +1,11 @@
 import telebot
-
+import logging
 from telebot import types
 from charts import line, hist
 
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+logger = logging.getLogger(__name__)
 bot = telebot.TeleBot('А вот токен не дам')
 
 
@@ -16,9 +19,7 @@ def start(message) -> None:
     btn1 = types.KeyboardButton("Поздороваться")
     markup.add(btn1)
     bot.send_message(message.from_user.id, "Я тебя уже заждался", reply_markup=markup)
-    print(message.from_user.id)
-    print(message.from_user.first_name, message.from_user.last_name)
-    print(message.text)
+    logger.info("User %s started the bot", message.from_user.id)
 
 
 @bot.message_handler(commands=['whou'])
@@ -29,7 +30,7 @@ def who(message) -> None:
     """
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     bot.send_message(message.from_user.id, "Я бот", reply_markup=markup)
-    print(message.text)
+    logger.info("User %s asked who the bot is", message.from_user.id)
 
 
 @bot.message_handler(content_types=['text'])
@@ -48,6 +49,7 @@ def get_text_messages(message) -> None:
         bot.send_message(message.from_user.id, 'Создатель бота - это лучший человек в мире, хакер, взломавший одну'
                                                ' розетку, представляю вам:', parse_mode='Markdown')
         bot.send_photo(chat_id=message.from_user.id, photo=open('GFvB3q5Q0P0.jpg', 'rb'))
+        logger.info("User %s asked who the bot creator is", message.from_user.id)
     elif message.text == 'Что ты можешь?':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         btn_line = types.KeyboardButton('Линейный график')
@@ -55,6 +57,7 @@ def get_text_messages(message) -> None:
         markup.add(btn_line, btn_hist)
         bot.send_message(message.from_user.id, 'Я могу построить для тебя график! Выбирай, какой хочешь?'
                          , reply_markup=markup)
+        logger.info("User %s asked what a bot could do", message.from_user.id)
     elif message.text == 'Линейный график':
         chart = 1
         x = bot.send_message(message.from_user.id, "Задайте координаты х", parse_mode='Markdown')
@@ -66,6 +69,7 @@ def get_text_messages(message) -> None:
 
     else:
         bot.send_animation(chat_id=message.from_user.id, animation=open('_ty_nesesh_yapfiles.ru_yapfiles.ru.gif', 'rb'))
+        logger.warning("User %s sent an invalid message: %s", message.from_user.id, message.text)
 
     print(message.text)
 
@@ -94,11 +98,14 @@ def chart_y(message, lst_x, chart) -> None:
         line(lst_x, lst_y)
         bot.send_message(message.from_user.id, "График построен", parse_mode='Markdown')
         bot.send_photo(chat_id=message.from_user.id, photo=open('line.png', 'rb'))
+        logger.info("User %s created a line chart", message.from_user.id)
     elif chart == 2:
         hist(lst_x, lst_y)
         bot.send_message(message.from_user.id, "График построен", parse_mode='Markdown')
         bot.send_photo(chat_id=message.from_user.id, photo=open('hist.png', 'rb'))
+        logger.info("User %s created a histogram", message.from_user.id)
 
 
 if __name__ == "__main__":
+    logger.info("Bot started")
     bot.polling(none_stop=True, interval=0)
