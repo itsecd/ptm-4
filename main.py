@@ -33,6 +33,8 @@ def plot_graph(data: list, c: str, cmap: str):
     :param c: данные для графика.
     :param cmap: данные для графика.
     """
+
+    logger.info("Набор данных «Яблоки-груши» в виде точек на плоскости:")
     plt.figure(figsize=(10, 8))
     plt.scatter(data.iloc[:, 0], data.iloc[:, 1], c=c, cmap=cmap)
     plt.title('Яблоки и груши', fontsize=15)
@@ -53,6 +55,7 @@ def neuron_create(data: list, X: tuple):
     proba_pred = neuron(torch.autograd.Variable(torch.FloatTensor(X)))
     y_pred = proba_pred > 0.5
     y_pred = y_pred.data.numpy().reshape(-1)
+    logger.info("Результат классификации ещё необученным нейроном:")
     plot_graph(data, y_pred, "spring")
     return neuron
 
@@ -80,6 +83,7 @@ def neuron_learning(X: tuple, y: tuple, neuron: tuple, learning_rate: float, ite
     proba_pred = neuron(X)
     y_pred = proba_pred > 0.5
     y_pred = y_pred.data.numpy().reshape(-1)
+    logger.info(f"Результат обучения при learning_rate = {learning_rate} и {iter_num} итераций")
     plot_graph(data, y_pred, "spring")
 
 
@@ -92,6 +96,7 @@ def difficult_sampling():
     K = 3
     X = np.zeros((N * K, D))
     y = np.zeros(N * K, dtype='uint8')
+    logger.info("Результат более сложной выборки:")
     for j in range(K):
         ix = range(N * j, N * (j + 1))
         r = np.linspace(0.0, 1, N)
@@ -139,6 +144,7 @@ def sigmoid_neuron(X: tuple, y: tuple):
     Z = Z.data.numpy()
     Z = np.argmax(Z, axis=1)
     Z = Z.reshape(xx.shape)
+    logger.info("Результат обучения нейрона с сигмоидой на линейно неразделимой выборке:")
     plt.figure(figsize=(10, 8))
     plt.contourf(xx, yy, Z, cmap=plt.cm.rainbow, alpha=0.3)
     plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.rainbow)
@@ -152,13 +158,8 @@ def sigmoid_neuron(X: tuple, y: tuple):
 
 if __name__ == '__main__':
     data, X, y = load_data()
-    logger.info("Набор данных «Яблоки-груши» в виде точек на плоскости:")
     plot_graph(data, data['target'], "rainbow")
-    logger.info("Результат классификации ещё необученным нейроном:")
     neuron = neuron_create(data, X)
-    logger.info("Результат обучения при learning_rate = 0.001 и 500 итераций")
     neuron_learning(X, y, neuron, 0.001, 500)
-    logger.info("Результат более сложной выборки:")
     diff_X, diff_y = difficult_sampling()
-    logger.info("Результат обучения нейрона с сигмоидой на линейно неразделимой выборке:")
     sigmoid_neuron(diff_X, diff_y)
