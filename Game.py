@@ -1,6 +1,8 @@
+import curses
+import random
 from curses.textpad import rectangle
 from datetime import datetime
-import curses, random
+from run import logger
 
 
 class Globals:
@@ -29,7 +31,6 @@ class Globals:
         self.directions_list = list()
         self.__gen_directions()
 
-
     # Essa função apenas constroe o self.directions_list automáticamente.
     def __gen_directions(self):
         all_directions = ["left", "down", "up", "right"]
@@ -51,11 +52,10 @@ class Menu(Globals):
         # Guarda o index do item selecionado do menu.
         self.selected_item = 0
 
-
     @property
     def start(self):
         curses.wrapper(self.__run)
-
+        logger.info('MENU_OPEN', description='menu was opened')
 
     # Tira o cursor piscando, define um par de cores e depois desenha a tela.
     def __run(self, screen):
@@ -63,7 +63,6 @@ class Menu(Globals):
         curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK)
 
         self.__loop(screen)
-
 
     # screen é o objeto que desenha as informações na tela. O loop atualiza as informações a todo momento.
     def __loop(self, screen):
@@ -84,7 +83,6 @@ class Menu(Globals):
             else:
                 screen.refresh()
 
-
     # Desenha os itens do menu centralizados na tela.
     def __show_menu(self, screen):
         for index, text in enumerate(self.menu_list):
@@ -97,7 +95,6 @@ class Menu(Globals):
 
             screen.addstr(y, x, text)
             screen.attroff(curses.color_pair(1))
-
 
     # Detecta as teclas precionadas e retorna True se for uma tecla "return".
     def __keyboard(self, screen):
@@ -135,7 +132,7 @@ class Play(Globals):
     @property
     def start(self):
         curses.wrapper(self.__run)
-
+        logger.info('PLAYING_START', description='playing was started')
 
     # Configura a taxa de atualização da tela e carrega os "sprites iniciais" na tela.
     def __run(self, screen):
@@ -162,7 +159,6 @@ class Play(Globals):
         self.__load_content(screen)
         self.__loop(screen)
 
-
     def __loop(self, screen):
         while 1:
             # Se a cobra estiver subindo/descendo, ela vai mais devagar...
@@ -182,7 +178,6 @@ class Play(Globals):
                 break
 
             screen.refresh()
-
 
     # Cira o corpo da cobra, define uma direção e spawna uma maçã.
     def __load_content(self, screen):
@@ -204,7 +199,6 @@ class Play(Globals):
             self.__snake_body_fill
         )
 
-
     # Seleciona, aleatoriamente, uma posição na tela, baseado em seu tamanho.
     def __get_apple_position(self):
         while 1:
@@ -216,9 +210,7 @@ class Play(Globals):
             # Se a posição cair em cima da cobra, ele gera novamente até encontrar...
             if apple not in self.__snake_body:
                 break
-
         return apple
-
 
     # Faz a maçã aparecer na tela e guarda as cordenadas dessa posição.
     def __spawn_apple(self, screen):
@@ -228,7 +220,7 @@ class Play(Globals):
             self.apple[0], self.apple[1],
             self.__apple_fill
         )
-
+        logger.info('APPLE_SPAWN', description='apple was spawned', params={"X": self.apple[0], "Y": self.apple[1]})
 
     # Muda de direção, ou não, com base na tecla precionada.
     def __get_new_direction(self, screen, direction):
@@ -246,15 +238,18 @@ class Play(Globals):
             and new_direction != self.oposite[direction]
             and new_direction != "return"
         ):
+            logger.info('DIRECTION_CHANGE', description='snake direction was changed',
+                        params={"previous": self.__current_direction, "current": new_direction})
             self.__current_direction = new_direction
 
         # Se a tecla for "return" ele troca os valores de self.__pause...
         elif new_direction == "return":
             if self.__pause:
                 self.__pause = False
+                logger.info('PLAYING_CONTINUE', description='playing was continued')
             else:
                 self.__pause = True
-
+                logger.info('PLAYING_PAUSED', description='playing was paused')
 
     # Desenha uma nova cabeça na frente da cobra, com base na direção atual.
     def __move_snake_head(self, screen):
@@ -267,7 +262,7 @@ class Play(Globals):
         elif self.__current_direction == "left":
             self.__ghost_snake_head = [self.__snake_head[0], self.__snake_head[1] - 1]
 
-        elif self.__current_direction  == "up":
+        elif self.__current_direction == "up":
             self.__ghost_snake_head = [self.__snake_head[0] - 1, self.__snake_head[1]]
 
         elif self.__current_direction == "down":
@@ -283,7 +278,6 @@ class Play(Globals):
         # Depois, salva essas novas cordenadas na lista em memória.
         self.__snake_body.insert(0, self.__ghost_snake_head)
 
-
     # Remove a cauda da cobra, tanto em memória quanto em tela, e contar um ponto.
     def __remove_the_tail(self, screen):
         if self.__snake_head == self.apple:
@@ -291,6 +285,7 @@ class Play(Globals):
 
             self.score[1] += 1
             screen.addstr(2, 7, f" Score: {self.score[1]} ")
+            logger.info('APPLE_EATEN', description='apple was eaten', params={"scope": self.score[1]})
 
         else:
             screen.addstr(
@@ -301,17 +296,20 @@ class Play(Globals):
 
             self.__snake_body.pop()
 
-
     # Condições para perder no jogo.
     def __condictions_to_lose(self):
         if (
             # Se a cabeça da cobra bater nas quinas do mapa...
             self.__snake_head[0] <= 2 or self.__snake_head[0] >= self.__y_len - 3
             or self.__snake_head[1] <= 5 or self.__snake_head[1] >= self.__x_len - 6
-
-            # Se a cabeça da cobra bater no seu próprio corpo...
-            or self.__ghost_snake_head in self.__snake_body[1:]
         ):
+            logger.info('SNAKE_DIED', description='snake ran into a wall', params={"scope": self.score[1]})
+            return 1
+        if (
+                # Se a cabeça da cobra bater no seu próprio corpo...
+                self.__ghost_snake_head in self.__snake_body[1:]
+        ):
+            logger.info('SNAKE_DIED', description='snake ran into its body part', params={"scope": self.score[1]})
             return 1
 
 
@@ -334,13 +332,11 @@ class ScoreBoard(Globals):
     def start(self):
         curses.wrapper(self.__run)
 
-
     def __run(self, screen):
         curses.curs_set(False)
         screen.clear()
 
         self.__loop(screen)
-
 
     def __loop(self, screen):
         while 1:
