@@ -5,6 +5,7 @@
 
 import random, sys, time, pygame
 from pygame.locals import *
+import logging
 
 FPS = 30
 WINDOWWIDTH = 640
@@ -40,6 +41,8 @@ GREENRECT  = pygame.Rect(XMARGIN + BUTTONSIZE + BUTTONGAPSIZE, YMARGIN + BUTTONS
 
 def main():
     global FPSCLOCK, DISPLAYSURF, BASICFONT, BEEP1, BEEP2, BEEP3, BEEP4
+    logging.basicConfig(level=logging.INFO, filename="my_log.log",filemode="w",
+                    format="%(asctime)s %(levelname)s %(message)s")
 
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
@@ -52,18 +55,20 @@ def main():
     infoRect.topleft = (10, WINDOWHEIGHT - 25)
 
     # load the sound files
-    BEEP1 = pygame.mixer.Sound('sounds\\beep1.mp3')
-    BEEP2 = pygame.mixer.Sound('sounds\\beep2.mp3')
-    BEEP3 = pygame.mixer.Sound('sounds\\beep3.mp3')
-    BEEP4 = pygame.mixer.Sound('sounds\\beep4.mp3')
+    try:
+        BEEP1 = pygame.mixer.Sound('sounds\\beep1.mp3')
+        BEEP2 = pygame.mixer.Sound('sounds\\beep2.mp3')
+        BEEP3 = pygame.mixer.Sound('sounds\\beep3.mp3')
+        BEEP4 = pygame.mixer.Sound('sounds\\beep4.mp3')
+        logging.info("Initialized game sounds")
+    except: 
+        logging.exception("No sound files found")
 
     # Initialize some variables for a new game
-    pattern = [] # stores the pattern of colors
-    currentStep = 0 # the color the player must push next
+    pattern, currentStep, waitingForInput, score = initParam()
+    
     lastClickTime = 0 # timestamp of the player's last button push
-    score = 0
-    # when False, the pattern is playing. when True, waiting for the player to click a colored button:
-    waitingForInput = False
+    logging.info("Initialized variables")
 
     while True: # main game loop
         clickedButton = None # button that was clicked (set to YELLOW, RED, GREEN, or BLUE)
@@ -92,8 +97,6 @@ def main():
                 elif event.key == K_s:
                     clickedButton = GREEN
 
-
-
         if not waitingForInput:
             # play the pattern
             pygame.display.update()
@@ -113,37 +116,46 @@ def main():
 
                 if currentStep == len(pattern):
                     # pushed the last button in the pattern
-                    changeBackgroundAnimation()
+                    #changeBackgroundAnimation()
                     score += 1
                     waitingForInput = False
                     currentStep = 0 # reset back to first step
+                    logging.info("The sequence is guessed")
 
             elif (clickedButton and clickedButton != pattern[currentStep]) or (currentStep != 0 and time.time() - TIMEOUT > lastClickTime):
                 # pushed the incorrect button, or has timed out
+                logging.info("The sequence is not guessed")
                 gameOverAnimation()
                 # reset the variables for a new game:
-                pattern = []
-                currentStep = 0
-                waitingForInput = False
-                score = 0
+                pattern, currentStep, waitingForInput, score = initParam()
+                logging.info("Reset variables for a new game")
                 pygame.time.wait(1000)
                 changeBackgroundAnimation()
 
         pygame.display.update()
         FPSCLOCK.tick(FPS)
-
+        
+def initParam():
+    pattern = []
+    currentStep = 0
+    waitingForInput = False
+    score = 0
+    return pattern, currentStep, waitingForInput, score
 
 def terminate():
     pygame.quit()
+    logging.info("Exiting the program")
     sys.exit()
+    
 
 
 def checkForQuit():
     for event in pygame.event.get(QUIT): # get all the QUIT events
-        terminate() # terminate if any QUIT events are present
+        terminate() # terminate if any QUIT events are present        
     for event in pygame.event.get(KEYUP): # get all the KEYUP events
         if event.key == K_ESCAPE:
-            terminate() # terminate if the KEYUP event was for the Esc key
+            logging.info("The ESC button is pressed")
+            terminate() # terminate if the KEYUP event was for the Esc key            
         pygame.event.post(event) # put the other KEYUP event objects back
 
 
@@ -185,7 +197,7 @@ def drawButtons():
     pygame.draw.rect(DISPLAYSURF, YELLOW, YELLOWRECT)
     pygame.draw.rect(DISPLAYSURF, BLUE,   BLUERECT)
     pygame.draw.rect(DISPLAYSURF, RED,    REDRECT)
-    pygame.draw.rect(DISPLAYSURF, GREEN,  GREENRECT)
+    pygame.draw.rect(DISPLAYSURF, GREEN,  GREENRECT)    
 
 
 def changeBackgroundAnimation(animationSpeed=40):
@@ -207,6 +219,7 @@ def changeBackgroundAnimation(animationSpeed=40):
         pygame.display.update()
         FPSCLOCK.tick(FPS)
     bgColor = newBgColor
+    logging.info("Background changed")
 
 
 def gameOverAnimation(color=WHITE, animationSpeed=50):
@@ -231,7 +244,8 @@ def gameOverAnimation(color=WHITE, animationSpeed=50):
                 DISPLAYSURF.blit(flashSurf, (0, 0))
                 drawButtons()
                 pygame.display.update()
-                FPSCLOCK.tick(FPS)
+                FPSCLOCK.tick(FPS)                
+    logging.info("The animation of the loss is played")
 
 
 
