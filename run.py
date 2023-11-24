@@ -1,18 +1,15 @@
 #!/usr/bin/env python
-import sys
 from loguru import logger
 import Game
 
-log_format = "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | " \
-             "<level>{message}</level> | " + \
-             "<cyan>{extra[script]}</cyan> | " + \
-             "<cyan>{extra[description]}</cyan> | " + \
-             "<blue>{extra[params]}</blue>"
+log_format = "{time:YYYY-MM-DD HH:mm:ss.SSS} | {level} | {message} | " + \
+             "{extra[script]} | {extra[description]} | {extra[params]}"
 log_config = {
-    "handlers": [{"sink": "snake.log", "format": log_format}],
+    "handlers": [],
     "extra": {"script": "Game.py", "description": "", "params": ""}
 }
 logger.configure(**log_config)
+logger.add("snake.log", format=log_format,  retention="1 day")
 
 
 def main():
@@ -21,11 +18,9 @@ def main():
 
     # play = Game.Play("#", "*")
     play = Game.Play("█", "░")
-
-    logger.info('GAME_START', script="run.py", description='snake game was started')
+    logger.info('GAME_STARTED', script="run.py", description='snake game was started')
     while 1:
         menu.start
-
         if menu.selected_item == 0:
             # Volta pro menu se a tela for redimencionada
             try:
@@ -39,7 +34,7 @@ def main():
             score_board.start
 
         else:
-            logger.info('GAME_END', script="run.py", description='snake game was ended')
+            logger.info('GAME_ENDED', script="run.py", description='snake game was ended')
             break
 
 

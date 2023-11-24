@@ -1,0 +1,116 @@
+2023-11-24 15:37:12.876 | INFO | GAME_STARTED | run.py | snake game was started | 
+2023-11-24 15:37:12.876 | INFO | MENU_OPENED | Game.py | menu was opened | 
+2023-11-24 15:37:14.741 | INFO | MENU_CLOSED | Game.py | menu was closed | 
+2023-11-24 15:37:14.742 | INFO | PLAYING_STARTED | Game.py | playing was started | 
+2023-11-24 15:37:14.750 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 11, 'Y': 30}
+2023-11-24 15:37:15.503 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:37:15.751 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'left'}
+2023-11-24 15:37:18.295 | INFO | APPLE_EATEN | Game.py | apple was eaten, snake grew up | {'scope': 1, 'snake_length': 2}
+2023-11-24 15:37:18.298 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 7, 'Y': 84}
+2023-11-24 15:37:18.545 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'down'}
+2023-11-24 15:37:18.982 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:19.667 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:37:20.412 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'right'}
+2023-11-24 15:37:23.267 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:37:23.700 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:24.137 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:37:24.631 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'left'}
+2023-11-24 15:37:25.065 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'down'}
+2023-11-24 15:37:25.561 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:26.181 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:37:26.617 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'left'}
+2023-11-24 15:37:27.237 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'down'}
+2023-11-24 15:37:27.486 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:27.928 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:37:28.117 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'left'}
+2023-11-24 15:37:28.488 | INFO | APPLE_EATEN | Game.py | apple was eaten, snake grew up | {'scope': 2, 'snake_length': 3}
+2023-11-24 15:37:28.488 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 18, 'Y': 21}
+2023-11-24 15:37:32.410 | INFO | PLAYING_PAUSED | Game.py | playing was paused | 
+2023-11-24 15:37:33.339 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'down'}
+2023-11-24 15:37:34.207 | INFO | PLAYING_CONTINUED | Game.py | playing was continued | 
+2023-11-24 15:37:34.891 | INFO | APPLE_EATEN | Game.py | apple was eaten, snake grew up | {'scope': 3, 'snake_length': 4}
+2023-11-24 15:37:34.891 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 4, 'Y': 35}
+2023-11-24 15:37:35.138 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:36.136 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:37:37.256 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'left'}
+2023-11-24 15:37:37.377 | INFO | APPLE_EATEN | Game.py | apple was eaten, snake grew up | {'scope': 4, 'snake_length': 5}
+2023-11-24 15:37:37.378 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 16, 'Y': 67}
+2023-11-24 15:37:37.878 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'down'}
+2023-11-24 15:37:38.250 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:38.867 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:37:39.113 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:39.549 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:37:39.736 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:41.166 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:37:41.228 | INFO | APPLE_EATEN | Game.py | apple was eaten, snake grew up | {'scope': 5, 'snake_length': 6}
+2023-11-24 15:37:41.229 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 26, 'Y': 100}
+2023-11-24 15:37:41.603 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'left'}
+2023-11-24 15:37:41.853 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'down'}
+2023-11-24 15:37:42.722 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:43.777 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:37:43.839 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:44.647 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:37:44.709 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:37:45.144 | INFO | APPLE_EATEN | Game.py | apple was eaten, snake grew up | {'scope': 6, 'snake_length': 7}
+2023-11-24 15:37:45.144 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 13, 'Y': 52}
+2023-11-24 15:37:45.517 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:37:45.764 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'left'}
+2023-11-24 15:37:49.113 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'up'}
+2023-11-24 15:37:49.669 | INFO | APPLE_EATEN | Game.py | apple was eaten, snake grew up | {'scope': 7, 'snake_length': 8}
+2023-11-24 15:37:49.670 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 10, 'Y': 46}
+2023-11-24 15:37:49.856 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'right'}
+2023-11-24 15:37:50.230 | WARNING | OPPOSITE_DIRECTION_CHANGED | Game.py | snake cannot move backwards | {'current': 'right', 'opposite': 'left'}
+2023-11-24 15:37:51.351 | WARNING | OPPOSITE_DIRECTION_CHANGED | Game.py | snake cannot move backwards | {'current': 'right', 'opposite': 'left'}
+2023-11-24 15:37:51.538 | WARNING | OPPOSITE_DIRECTION_CHANGED | Game.py | snake cannot move backwards | {'current': 'right', 'opposite': 'left'}
+2023-11-24 15:37:51.848 | WARNING | OPPOSITE_DIRECTION_CHANGED | Game.py | snake cannot move backwards | {'current': 'right', 'opposite': 'left'}
+2023-11-24 15:37:52.096 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:37:52.531 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'left'}
+2023-11-24 15:37:55.209 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'up'}
+2023-11-24 15:37:55.769 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'right'}
+2023-11-24 15:37:56.265 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:37:56.389 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'left'}
+2023-11-24 15:37:56.824 | INFO | APPLE_EATEN | Game.py | apple was eaten, snake grew up | {'scope': 8, 'snake_length': 9}
+2023-11-24 15:37:56.824 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 3, 'Y': 107}
+2023-11-24 15:37:57.693 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'up'}
+2023-11-24 15:37:58.066 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'right'}
+2023-11-24 15:37:58.813 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:37:58.938 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'right'}
+2023-11-24 15:37:58.939 | INFO | SNAKE_DIED | Game.py | snake ran into a wall | {'scope': 8, 'snake_length': 9}
+2023-11-24 15:37:58.940 | INFO | PLAYING_ENDED | Game.py | playing was ended | 
+2023-11-24 15:37:58.940 | INFO | SCORE_ADDED | Game.py | new score was added | {'rank': 1, 'score': 8}
+2023-11-24 15:37:58.940 | INFO | MENU_OPENED | Game.py | menu was opened | 
+2023-11-24 15:38:02.039 | INFO | MENU_CLOSED | Game.py | menu was closed | 
+2023-11-24 15:38:02.039 | INFO | PLAYING_STARTED | Game.py | playing was started | 
+2023-11-24 15:38:02.042 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 14, 'Y': 79}
+2023-11-24 15:38:03.095 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:38:03.220 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'right'}
+2023-11-24 15:38:03.654 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:38:03.840 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'left'}
+2023-11-24 15:38:04.274 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'up'}
+2023-11-24 15:38:04.838 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'right'}
+2023-11-24 15:38:05.584 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:38:06.084 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'left'}
+2023-11-24 15:38:06.707 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'up'}
+2023-11-24 15:38:07.081 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'up', 'current': 'right'}
+2023-11-24 15:38:07.329 | INFO | PLAYING_PAUSED | Game.py | playing was paused | 
+2023-11-24 15:38:07.947 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'down'}
+2023-11-24 15:38:08.444 | INFO | PLAYING_CONTINUED | Game.py | playing was continued | 
+2023-11-24 15:38:08.751 | INFO | PLAYING_PAUSED | Game.py | playing was paused | 
+2023-11-24 15:38:09.190 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'left'}
+2023-11-24 15:38:10.184 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'left'}
+2023-11-24 15:38:10.617 | INFO | PLAYING_CONTINUED | Game.py | playing was continued | 
+2023-11-24 15:38:10.802 | INFO | APPLE_EATEN | Game.py | apple was eaten, snake grew up | {'scope': 1, 'snake_length': 2}
+2023-11-24 15:38:10.803 | INFO | APPLE_SPAWNED | Game.py | apple was spawned | {'X': 17, 'Y': 113}
+2023-11-24 15:38:13.226 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'left', 'current': 'down'}
+2023-11-24 15:38:13.538 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'down', 'current': 'right'}
+2023-11-24 15:38:18.138 | INFO | DIRECTION_CHANGED | Game.py | snake direction was changed | {'previous': 'right', 'current': 'up'}
+2023-11-24 15:38:18.139 | INFO | SNAKE_DIED | Game.py | snake ran into a wall | {'scope': 1, 'snake_length': 2}
+2023-11-24 15:38:18.140 | INFO | PLAYING_ENDED | Game.py | playing was ended | 
+2023-11-24 15:38:18.140 | INFO | SCORE_ADDED | Game.py | new score was added | {'rank': 2, 'score': 1}
+2023-11-24 15:38:18.140 | INFO | MENU_OPENED | Game.py | menu was opened | 
+2023-11-24 15:38:20.627 | INFO | MENU_CLOSED | Game.py | menu was closed | 
+2023-11-24 15:38:20.627 | INFO | SCORE_OPENED | Game.py | score board was opened | 
+2023-11-24 15:38:27.325 | INFO | SCORE_CLOSED | Game.py | score board was closed | 
+2023-11-24 15:38:27.325 | INFO | MENU_OPENED | Game.py | menu was opened | 
+2023-11-24 15:38:31.981 | INFO | MENU_CLOSED | Game.py | menu was closed | 
+2023-11-24 15:38:31.981 | INFO | GAME_ENDED | run.py | snake game was ended | 

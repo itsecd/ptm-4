@@ -54,8 +54,9 @@ class Menu(Globals):
 
     @property
     def start(self):
-        logger.info('MENU_OPEN', description='menu was opened')
+        logger.info('MENU_OPENED', description='menu was opened')
         curses.wrapper(self.__run)
+        logger.info('MENU_CLOSED', description='menu was closed')
 
     # Tira o cursor piscando, define um par de cores e depois desenha a tela.
     def __run(self, screen):
@@ -131,8 +132,9 @@ class Play(Globals):
 
     @property
     def start(self):
-        logger.info('PLAYING_START', description='playing was started')
+        logger.info('PLAYING_STARTED', description='playing was started')
         curses.wrapper(self.__run)
+        logger.info('PLAYING_ENDED', description='playing was ended')
 
     # Configura a taxa de atualização da tela e carrega os "sprites iniciais" na tela.
     def __run(self, screen):
@@ -220,7 +222,7 @@ class Play(Globals):
             self.apple[0], self.apple[1],
             self.__apple_fill
         )
-        logger.info('APPLE_SPAWN', description='apple was spawned', params={"X": self.apple[0], "Y": self.apple[1]})
+        logger.info('APPLE_SPAWNED', description='apple was spawned', params={"X": self.apple[0], "Y": self.apple[1]})
 
     # Muda de direção, ou não, com base na tecla precionada.
     def __get_new_direction(self, screen, direction):
@@ -238,18 +240,18 @@ class Play(Globals):
             and new_direction != self.oposite[direction]
             and new_direction != "return"
         ):
-            logger.info('DIRECTION_CHANGE', description='snake direction was changed',
+            logger.info('DIRECTION_CHANGED', description='snake direction was changed',
                         params={"previous": self.__current_direction, "current": new_direction})
             self.__current_direction = new_direction
         if new_direction == self.oposite[direction]:
-            logger.warning('OPPOSITE_DIRECTION_CHANGE', description='snake cannot move backwards',
+            logger.warning('OPPOSITE_DIRECTION_CHANGED', description='snake cannot move backwards',
                            params={"current": self.__current_direction, "opposite": new_direction})
 
         # Se a tecla for "return" ele troca os valores de self.__pause...
         elif new_direction == "return":
             if self.__pause:
                 self.__pause = False
-                logger.info('PLAYING_CONTINUE', description='playing was continued')
+                logger.info('PLAYING_CONTINUED', description='playing was continued')
             else:
                 self.__pause = True
                 logger.info('PLAYING_PAUSED', description='playing was paused')
@@ -284,12 +286,12 @@ class Play(Globals):
     # Remove a cauda da cobra, tanto em memória quanto em tela, e contar um ponto.
     def __remove_the_tail(self, screen):
         if self.__snake_head == self.apple:
+            self.score[1] += 1
+            logger.info('APPLE_EATEN', description='apple was eaten, snake grew up',
+                        params={"scope": self.score[1], "snake_length": len(self.__snake_body)})
             self.__spawn_apple(screen)
 
-            self.score[1] += 1
             screen.addstr(2, 7, f" Score: {self.score[1]} ")
-            logger.info('APPLE_EATEN', description='apple was eaten, snake was grown',
-                        params={"scope": self.score[1], "snake_length": len(self.__snake_body)})
 
         else:
             screen.addstr(
@@ -333,11 +335,11 @@ class ScoreBoard(Globals):
         self.__y_value = 3
         self.__x_value = 7
 
-
     @property
     def start(self):
-        logger.info('SCORE_OPEN', description='score board was opened')
+        logger.info('SCORE_OPENED', description='score board was opened')
         curses.wrapper(self.__run)
+        logger.info('SCORE_CLOSED', description='score board was closed')
 
     def __run(self, screen):
         curses.curs_set(False)
@@ -362,31 +364,30 @@ class ScoreBoard(Globals):
             self.__key = screen.getch()
 
             if self.__key in self.keys["return"]:
-                logger.info('SCORE_CLOSED', description='score board was closed')
                 break
 
     def add_score(self, score):
         # Se a lista estiver vazia, basta anexar o único score registrado.
         if len(self.__score_list) == 0:
             self.__score_list.append(score)
-            logger.info('SCORE_ADD', description='new score was added', params={"rank": 1, "score": score})
+            logger.info('SCORE_ADDED', description='new score was added', params={"rank": 1, "score": score[1]})
             return
 
         # Procura uma posição para adicionar o novo valor.
         for key, value in enumerate(self.__score_list):
             if score[1] > value[1]:
                 self.__score_list.insert(key, score)
-                logger.info('SCORE_ADD', description='new score was added', params={"rank": key + 1, "score": score})
+                logger.info('SCORE_ADDED', description='new score was added', params={"rank": key + 1, "score": score[1]})
                 break
 
             elif score[1] == value[1]:
                 self.__score_list.insert(key + 1, score)
-                logger.info('SCORE_ADD', description='new score was added', params={"rank": key + 2, "score": score})
+                logger.info('SCORE_ADDED', description='new score was added', params={"rank": key + 2, "score": score[1]})
                 break
 
             elif key == len(self.__score_list) - 1:
                 self.__score_list.append(score)
-                logger.info('SCORE_ADD', description='new score was added',
-                            params={"rank": len(self.__score_list), "score": score})
+                logger.info('SCORE_ADDED', description='new score was added',
+                            params={"rank": len(self.__score_list), "score": score[1]})
                 break
 
