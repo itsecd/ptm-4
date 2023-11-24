@@ -9,11 +9,10 @@ log_format = "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | " \
              "<cyan>{extra[description]}</cyan> | " + \
              "<blue>{extra[params]}</blue>"
 log_config = {
-    "handlers": [{"sink": sys.stdout, "format": log_format}],
+    "handlers": [{"sink": "snake.log", "format": log_format}],
     "extra": {"script": "Game.py", "description": "", "params": ""}
 }
 logger.configure(**log_config)
-logger.add("snake.log", retention='7 days')
 
 
 def main():
@@ -40,6 +39,7 @@ def main():
             score_board.start
 
         else:
+            logger.info('GAME_END', script="run.py", description='snake game was ended')
             break
 
 

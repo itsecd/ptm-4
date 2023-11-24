@@ -54,8 +54,8 @@ class Menu(Globals):
 
     @property
     def start(self):
-        curses.wrapper(self.__run)
         logger.info('MENU_OPEN', description='menu was opened')
+        curses.wrapper(self.__run)
 
     # Tira o cursor piscando, define um par de cores e depois desenha a tela.
     def __run(self, screen):
@@ -131,8 +131,8 @@ class Play(Globals):
 
     @property
     def start(self):
-        curses.wrapper(self.__run)
         logger.info('PLAYING_START', description='playing was started')
+        curses.wrapper(self.__run)
 
     # Configura a taxa de atualização da tela e carrega os "sprites iniciais" na tela.
     def __run(self, screen):
@@ -241,6 +241,9 @@ class Play(Globals):
             logger.info('DIRECTION_CHANGE', description='snake direction was changed',
                         params={"previous": self.__current_direction, "current": new_direction})
             self.__current_direction = new_direction
+        if new_direction == self.oposite[direction]:
+            logger.warning('OPPOSITE_DIRECTION_CHANGE', description='snake cannot move backwards',
+                           params={"current": self.__current_direction, "opposite": new_direction})
 
         # Se a tecla for "return" ele troca os valores de self.__pause...
         elif new_direction == "return":
@@ -285,7 +288,8 @@ class Play(Globals):
 
             self.score[1] += 1
             screen.addstr(2, 7, f" Score: {self.score[1]} ")
-            logger.info('APPLE_EATEN', description='apple was eaten', params={"scope": self.score[1]})
+            logger.info('APPLE_EATEN', description='apple was eaten, snake was grown',
+                        params={"scope": self.score[1], "snake_length": len(self.__snake_body)})
 
         else:
             screen.addstr(
@@ -303,13 +307,15 @@ class Play(Globals):
             self.__snake_head[0] <= 2 or self.__snake_head[0] >= self.__y_len - 3
             or self.__snake_head[1] <= 5 or self.__snake_head[1] >= self.__x_len - 6
         ):
-            logger.info('SNAKE_DIED', description='snake ran into a wall', params={"scope": self.score[1]})
+            logger.info('SNAKE_DIED', description='snake ran into a wall',
+                        params={"scope": self.score[1], "snake_length": len(self.__snake_body)})
             return 1
         if (
                 # Se a cabeça da cobra bater no seu próprio corpo...
                 self.__ghost_snake_head in self.__snake_body[1:]
         ):
-            logger.info('SNAKE_DIED', description='snake ran into its body part', params={"scope": self.score[1]})
+            logger.info('SNAKE_DIED', description='snake ran into its body part',
+                        params={"scope": self.score[1], "snake_length": len(self.__snake_body)})
             return 1
 
 
@@ -330,6 +336,7 @@ class ScoreBoard(Globals):
 
     @property
     def start(self):
+        logger.info('SCORE_OPEN', description='score board was opened')
         curses.wrapper(self.__run)
 
     def __run(self, screen):
@@ -355,27 +362,31 @@ class ScoreBoard(Globals):
             self.__key = screen.getch()
 
             if self.__key in self.keys["return"]:
+                logger.info('SCORE_CLOSED', description='score board was closed')
                 break
-
 
     def add_score(self, score):
         # Se a lista estiver vazia, basta anexar o único score registrado.
         if len(self.__score_list) == 0:
             self.__score_list.append(score)
+            logger.info('SCORE_ADD', description='new score was added', params={"rank": 1, "score": score})
             return
 
         # Procura uma posição para adicionar o novo valor.
         for key, value in enumerate(self.__score_list):
             if score[1] > value[1]:
                 self.__score_list.insert(key, score)
+                logger.info('SCORE_ADD', description='new score was added', params={"rank": key + 1, "score": score})
                 break
 
             elif score[1] == value[1]:
                 self.__score_list.insert(key + 1, score)
+                logger.info('SCORE_ADD', description='new score was added', params={"rank": key + 2, "score": score})
                 break
 
             elif key == len(self.__score_list) - 1:
                 self.__score_list.append(score)
+                logger.info('SCORE_ADD', description='new score was added',
+                            params={"rank": len(self.__score_list), "score": score})
                 break
-
 
