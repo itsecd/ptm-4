@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """ A simple 20 Questions game  
 
 TODO
@@ -23,12 +21,16 @@ DONE
 import json
 import os
 import time
+from loguru import logger
+import sys
 
 happy_to_play = True
 while happy_to_play:
     #
     # Start a new game...
     #
+    logger.add(sys.stdout, format="{time} - {level} - {message}", filter="sub.module",level='INFO', diagnose=True)
+    logger.info("Start a new game")
     os.system('clear')
     print("\n\n\n\n")
     print( "This is a little game. I will guess the creature that")
@@ -40,10 +42,13 @@ while happy_to_play:
         with open('20q.txt') as data_file:
 #             q = byteify(json.load(data_file))
              q = json.load(data_file)
+             logger.info("Successful file reading")
 
         pass
     except IOError as e:
+        logger.error(f"File couldn`t open, error: {e}")
         print("No saved data 20q.txt file found, so creating a new database...\n")
+        logger.warning("Creating a new database")
         # animals names in the database are all lower case, and 
         # don't include "an" or "a" 
         q.append(["Does it quack?", "duck", "pig"])
@@ -56,8 +61,10 @@ while happy_to_play:
 
     while not_there_yet:
             questions = questions + 1
+            logger.info(f"Number of try: {questions}")
             print(q[curr][0], " - answer Y or N")
             ans = input().upper()
+            logger.info(f"User responce: {ans}")
             if ans == "Y":
                     branch=1
             else:
@@ -66,14 +73,18 @@ while happy_to_play:
             # We have either a string with the name, or an int pointing 
             # to a new question..
             if isinstance (q[curr][branch], str):
+                    logger.info("Final assumption")
                     guess = str(q[curr][branch])
                     print("I guess, a", guess, "- am I right? (Y or N)")
                     ans = input().upper()
+                    logger.info(f"User responce: {ans}")
                     if ans == "Y":
                         print("Yah! I got your animal in ", questions, " questions.\n\n\n")
+                        logger.info("Animal is guessed")
                         not_there_yet = False
                     elif ans == "N":
                         print("What is it?")
+                        logger.info("Animal isn`t guessed")
                         animal = input()
                         print(animal)
                         # trim off any "a" or "an" from the answer
@@ -96,9 +107,11 @@ while happy_to_play:
 
                         # and save the new database of questions and answers...
                         with open('20q.txt', 'w') as outfile:
+                            logger.warning("Adding new data to the database")
                             json.dump(q, outfile)
                     else:
                             not_there_yet = False
+                            logger.info(f"Invalid answer: {ans}")
                             print("Quitting...")
 
                     not_there_yet = False
@@ -106,6 +119,7 @@ while happy_to_play:
                     curr = 0
                     print("\n\n\nThanks! Now, do you want to play again? (Y or N)")
                     ans = input().upper()
+                    logger.info(f"User responce: {ans}")
                     if ans == "N":
                         happy_to_play =  False
                     else:
@@ -113,8 +127,9 @@ while happy_to_play:
                         time.sleep(2)
 
             else:
-                            # OK, deeper down the tree.... 
-                            type(q[curr][branch])
-                            curr = int(q[curr][branch])
+                # OK, deeper down the tree.... 
+                logger.info("Next assumption")
+                type(q[curr][branch])
+                curr = int(q[curr][branch])
 print("OK, bye!")
 exit
