@@ -2,7 +2,7 @@
 # By Al Sweigart al@inventwithpython.com
 # http://inventwithpython.com/pygame
 # Released under a "Simplified BSD" license
-
+import logging
 import random, pygame, sys
 from pygame.locals import *
 
@@ -12,9 +12,8 @@ WINDOWHEIGHT = 480 # size of windows' height in pixels
 REVEALSPEED = 8 # speed boxes' sliding reveals and covers
 BOXSIZE = 40 # size of box height & width in pixels
 GAPSIZE = 10 # size of gap between boxes in pixels
-BOARDWIDTH = 10 # number of columns of icons
-BOARDHEIGHT = 7 # number of rows of icons
-assert (BOARDWIDTH * BOARDHEIGHT) % 2 == 0, 'Board needs to have an even number of boxes for pairs of matches.'
+BOARDWIDTH = 3 # number of columns of icons
+BOARDHEIGHT = 2 # number of rows of icons
 XMARGIN = int((WINDOWWIDTH - (BOARDWIDTH * (BOXSIZE + GAPSIZE))) / 2)
 YMARGIN = int((WINDOWHEIGHT - (BOARDHEIGHT * (BOXSIZE + GAPSIZE))) / 2)
 
@@ -43,10 +42,28 @@ OVAL = 'oval'
 
 ALLCOLORS = (RED, GREEN, BLUE, YELLOW, ORANGE, PURPLE, CYAN)
 ALLSHAPES = (DONUT, SQUARE, DIAMOND, LINES, OVAL)
-assert len(ALLCOLORS) * len(ALLSHAPES) * 2 >= BOARDWIDTH * BOARDHEIGHT, "Board is too big for the number of shapes/colors defined."
+
+def setupLogger():
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    file_handler = logging.FileHandler('logger.log')
+    file_handler.setLevel(logging.DEBUG)
+    format = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    file_handler.setFormatter(format)
+    logger.addHandler(file_handler)
+    return logger
+
+def checkingWindowValidity(logger):
+    global BOARDWIDTH, BOARDHEIGHT, ALLCOLORS, ALLSHAPES
+    if not (BOARDWIDTH * BOARDHEIGHT) % 2 == 0:
+        logger.warning("Оdd number of cards")
+    if not len(ALLCOLORS) * len(ALLSHAPES) * 2 >= BOARDWIDTH * BOARDHEIGHT:
+        logger.warning("Board is too big")
 
 def main():
     global FPSCLOCK, DISPLAYSURF
+    logger = setupLogger()
+    checkingWindowValidity(logger)
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
     DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
@@ -55,13 +72,14 @@ def main():
     mousey = 0 # used to store y coordinate of mouse event
     pygame.display.set_caption('Memory Game')
 
-    mainBoard = getRandomizedBoard()
+    mainBoard = getRandomizedBoard(logger)
     revealedBoxes = generateRevealedBoxesData(False)
 
     firstSelection = None # stores the (x, y) of the first box clicked.
 
     DISPLAYSURF.fill(BGCOLOR)
     startGameAnimation(mainBoard)
+    logger.info("Start game")
 
     while True: # main game loop
         mouseClicked = False
@@ -100,12 +118,13 @@ def main():
                         coverBoxesAnimation(mainBoard, [(firstSelection[0], firstSelection[1]), (boxx, boxy)])
                         revealedBoxes[firstSelection[0]][firstSelection[1]] = False
                         revealedBoxes[boxx][boxy] = False
-                    elif hasWon(revealedBoxes): # check if all pairs found
+                        logger.info("Couple not found")
+                    elif hasWon(revealedBoxes, logger): # check if all pairs found
                         gameWonAnimation(mainBoard)
                         pygame.time.wait(2000)
 
                         # Reset the board
-                        mainBoard = getRandomizedBoard()
+                        mainBoard = getRandomizedBoard(logger)
                         revealedBoxes = generateRevealedBoxesData(False)
 
                         # Show the fully unrevealed board for a second.
@@ -129,7 +148,7 @@ def generateRevealedBoxesData(val):
     return revealedBoxes
 
 
-def getRandomizedBoard():
+def getRandomizedBoard(logger):
     # Get a list of every possible shape in every possible color.
     icons = []
     for color in ALLCOLORS:
@@ -149,6 +168,7 @@ def getRandomizedBoard():
             column.append(icons[0])
             del icons[0] # remove the icons as we assign them
         board.append(column)
+    logger.info('Generate randomized board')
     return board
 
 
@@ -280,11 +300,13 @@ def gameWonAnimation(board):
         pygame.time.wait(300)
 
 
-def hasWon(revealedBoxes):
+def hasWon(revealedBoxes, logger):
     # Returns True if all the boxes have been revealed, otherwise False
     for i in revealedBoxes:
         if False in i:
+            logger.info("couple found")
             return False # return False if any boxes are covered.
+    logger.info("game is won")
     return True
 
 
