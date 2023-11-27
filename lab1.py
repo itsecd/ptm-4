@@ -1,7 +1,13 @@
 import csv
+import json
+import logging
 
 import requests
 from bs4 import BeautifulSoup
+
+logging.basicConfig(filename="logs.log", level=logging.INFO,
+                    format="%(asctime)s - %(levelname)s - %(message)s")
+SETTINGS_PATH = "settings.json"
 
 
 def check_max_year(url: str) -> int:
@@ -13,18 +19,22 @@ def check_max_year(url: str) -> int:
     Returns:
         int: Maximum available year on the site
     """
-    is_year_last = False
-    year_counter = 2008
-    while not is_year_last:
-        html_text = requests.get(url, headers={"User-Agent": "agent"}).text
-        data = BeautifulSoup(html_text, "lxml")
-        if data.find("span", class_="grey error-span"):
-            is_year_last = True
-            year_counter -= 1
-        else:
-            year_counter += 1
-            url = url.replace(str(year_counter - 1), str(year_counter))
-    return year_counter
+    try:
+        is_year_last = False
+        year_counter = 2008
+        while not is_year_last:
+            html_text = requests.get(url, headers={"User-Agent": "agent"}).text
+            data = BeautifulSoup(html_text, "lxml")
+            if data.find("span", class_="grey error-span"):
+                is_year_last = True
+                year_counter -= 1
+            else:
+                year_counter += 1
+                url = url.replace(str(year_counter - 1), str(year_counter))
+        return year_counter
+    except Exception as e:
+        logging.error(f"Error in check_max_year: {e}")
+        raise
 
 
 def check_max_month(url: str) -> int:
@@ -36,18 +46,26 @@ def check_max_month(url: str) -> int:
     Returns:
         int: maximum available month on the site
     """
-    is_month_last = False
-    month_counter = 1
-    while not is_month_last:
-        html_text = requests.get(url, headers={"User-Agent": "agent"}).text
-        data = BeautifulSoup(html_text, "lxml")
-        if data.find("span", class_="grey error-span"):
-            is_month_last = True
-            month_counter -= 1
-        else:
-            month_counter += 1
-            url = url[0:39] + "/" + str(month_counter) + "/"
-    return month_counter
+    try:
+        is_month_last = False
+        month_counter = 1
+        while not is_month_last:
+            try:
+                html_text = requests.get(
+                    url, headers={"User-Agent": "agent"}).text
+            except Exception:
+                logging(f"Invalid URL '{url}': No host supplied")
+            data = BeautifulSoup(html_text, "lxml")
+            if data.find("span", class_="grey error-span"):
+                is_month_last = True
+                month_counter -= 1
+            else:
+                month_counter += 1
+                url = url[0:39] + "/" + str(month_counter) + "/"
+        return month_counter
+    except Exception as e:
+        logging.error(f"Error in check_max_month: {e}")
+        raise
 
 
 def url_month_change(url: str, month: int, change_type: int) -> str:
@@ -61,11 +79,15 @@ def url_month_change(url: str, month: int, change_type: int) -> str:
     Returns:
         str: Changed url
     """
-    if change_type == 1:
-        url = url[0:39] + "/1/"
-    elif change_type == 2:
-        url = url[0:39] + "/" + str(month) + "/"
-    return url
+    try:
+        if change_type == 1:
+            url = url[0:39] + "/1/"
+        elif change_type == 2:
+            url = url[0:39] + "/" + str(month) + "/"
+        return url
+    except Exception as e:
+        logging.error(f"Error in url_month_change: {e}")
+        raise
 
 
 def url_year_change(url: str, years: int) -> str:
@@ -78,8 +100,12 @@ def url_year_change(url: str, years: int) -> str:
     Returns:
         str: Changed url
     """
-    url = url.replace(str(years-1), str(years))
-    return url
+    try:
+        url = url.replace(str(years-1), str(years))
+        return url
+    except Exception as e:
+        logging.error(f"Error in url_year_change: {e}")
+        raise
 
 
 def data_to_list(output: list[str], elements) -> list[str]:
@@ -92,10 +118,14 @@ def data_to_list(output: list[str], elements) -> list[str]:
     Returns:
         list[str]: The updated output list with extracted data.
     """
-    x = [0, 1, 2, 5, 6, 7, 10]
-    for i in x:
-        output.append(elements[i].text)
-    return output
+    try:
+        x = [0, 1, 2, 5, 6, 7, 10]
+        for i in x:
+            output.append(elements[i].text)
+        return output
+    except Exception as e:
+        logging.error(f"Error in data_to_list: {e}")
+        raise
 
 
 def days_redact(output: list[str]) -> str:
@@ -107,10 +137,14 @@ def days_redact(output: list[str]) -> str:
     Returns:
         str: Changed number
     """
-    if int(output[0]) < 10:
-        return "0" + output[0]
-    else:
-        return output[0]
+    try:
+        if int(output[0]) < 10:
+            return "0" + output[0]
+        else:
+            return output[0]
+    except Exception as e:
+        logging.error(f"Error in days_redact: {e}")
+        raise
 
 
 def months_redact(month: int) -> str:
@@ -122,37 +156,56 @@ def months_redact(month: int) -> str:
     Returns:
         str: Changed number
     """
-    if month < 10:
-        return "0" + str(month)
-    else:
-        return str(month)
+    try:
+        if month < 10:
+            return "0" + str(month)
+        else:
+            return str(month)
+    except Exception as e:
+        logging.error(f"Error in months_redact: {e}")
+        raise
 
 
-url = "https://www.gismeteo.ru/diary/4618/2008/1/"
-year_counter = 2008
-current_year = check_max_year(url)
-for years in range(year_counter, current_year + 1):
-    url = url_year_change(url, years)
-    max_month = 12
-    if years == current_year:
-        max_month = check_max_month(url)
-    for months in range(1, max_month + 1):
-        is_month_last = False
-        if months == max_month:
-            url = url_month_change(url, months, 2)
-            is_month_last = True
-        elif months < max_month:
-            url = url_month_change(url, months, 2)
-        html_text = requests.get(url, headers={"User-Agent": "Ivan"}).text
-        soup = BeautifulSoup(html_text, "lxml")
-        lines = soup.find_all("tr", align="center")
-        for i in range(len(lines)):
-            elements = lines[i].find_all("td")
-            output = []
-            output = data_to_list(output, elements)
-            with open("result.csv", "a", encoding="utf-8") as csvfile:
-                writer = csv.writer(csvfile, lineterminator="\n")
-                writer.writerow((str(years) + "-" + months_redact(months) + "-" + days_redact(
-                    output), output[1], output[2], output[3], output[4], output[5], output[6]))
-        if is_month_last:
-            url = url_month_change(url, months, 1)
+def read_settings_file(settings_path: str) -> tuple:
+    try:
+        with open(settings_path, "r") as file:
+            settings = json.load(file)
+            return settings.get("url"), settings.get("year_counter")
+    except Exception:
+        logging.error("Error reading file")
+
+
+if __name__ == "__main__":
+    url, year_counter = read_settings_file(SETTINGS_PATH)
+    current_year = check_max_year(url)
+    for years in range(year_counter, current_year + 1):
+        url = url_year_change(url, years)
+        max_month = 12
+        if years == current_year:
+            max_month = check_max_month(url)
+        for months in range(1, max_month + 1):
+            logging.info(f"Processing {years}-{months}")
+            is_month_last = False
+            if months == max_month:
+                url = url_month_change(url, months, 2)
+                is_month_last = True
+            elif months < max_month:
+                url = url_month_change(url, months, 2)
+            html_text = requests.get(
+                url, headers={"User-Agent": "Ivan"}).text
+            soup = BeautifulSoup(html_text, "lxml")
+            lines = soup.find_all("tr", align="center")
+            for i in range(len(lines)):
+                elements = lines[i].find_all("td")
+                output = []
+                output = data_to_list(output, elements)
+                with open("result.csv", "a", encoding="utf-8") as csvfile:
+                    writer = csv.writer(csvfile, lineterminator="\n")
+                    try:
+                        writer.writerow((str(years) + "-" + months_redact(months) + "-" + days_redact(
+                            output), output[1], output[2], output[3], output[4], output[5], output[6]))
+                    except Exception:
+                        logging.error(
+                            f"Error writing {years}-{ months_redact(months)}-{days_redact(output)}")
+            if is_month_last:
+                url = url_month_change(url, months, 1)
