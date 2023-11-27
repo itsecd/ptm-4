@@ -1,27 +1,50 @@
-# Технологии и методы программирования
-[Таблица с успеваемостью](https://docs.google.com/spreadsheets/d/1_UR7YXMhR4u9ysyfWyKSb8l4D-3DE_kWhoXdivvOudk/edit?usp=sharing)
-## Лабораторная 4 "Логирование"
-В рамках данной лабораторной работы требуется продемонстрировать способность к настройке логирования приложения.
-## Задание на лабораторную работу
-1. Сделать [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) данного репозитория.
-2. Подобрать код проекта, в котором вы будете настраивать логирование. Он может быть как вашим собственным, так и опесорсным.
-3. Настроить логирование в проекте, опираясь на [лекционный материал](https://github.com/xtrueman/prog_instruments/blob/main/presentations/Logging.pptx).
-4. Открыть [пул-риквест](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) в иcходный репозиторий и ждать ревью.
-## Условия сдачи
-* Изначальный код должен либо совсем не иметь логирования, либо иметь его в крайне примитивном виде.
-* Сам же код не должен быть крайне примитивным - он должен иметь несколько различных потенциальных точек для логирования.
-* В результате работы должно логироваться не менее **5** событий / точек логирования.
-* Изначальный код  приложения должен быть не менее **100** строк.
-* Для выполнения лабораторной разрешается использовать любые известные вам библиотеки ([logging](https://docs.python.org/3/library/logging.html), [loguru](https://pypi.org/project/loguru/), [structlog](https://pypi.org/project/structlog/) и т.д.).
-* Логирование можно реализовывать в любом виде - в консоль, в файл(ы), в бд, в лог-сервис и т.д.
-* В описании пул-риквеста есть описание редактируемого кода.
-## Ремарки:
-Работать с git вы можете так, как вам удобно:
-* через интерфейс [командной строки](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git),
-* через [плагин](https://www.jetbrains.com/help/pycharm/set-up-a-git-repository.html#fetch) в IDE,
-* через десктопный клиент, типа [такого](https://desktop.github.com/).
+# wordle-cli
 
-Если вы столкнулись с непреодолимыми трудностями в ходе выполнения лабораторной работы, вы можете задать вопрос в:
-* телеграм-чате предмета,
-* телеграм-чате вашего курса,
-* канале в дискорде.
+Command-line clone of Josh Wardle's [Wordle](https://www.powerlanguage.co.uk/wordle/), inspired by [Paul Battley's Ruby version](https://github.com/threedaymonk/wordle). Features:
+
+- play against random solutions, or against the daily "official" Wordle solution
+- uses official (NYT) dictionaries of solutions and valid guesses
+- spoiler-free emoji summaries for sharing
+- optional hints mode (`--hints`) to show number of possible words remaining
+
+![Screenshot of a wordle-cli game](/assets/screenshot.png?raw=true "Screenshot of a wordle-cli game")
+
+## Download and run
+
+Requires **Python 3.6** or later, and a **modern terminal app**.
+
+To download the code and run it:
+
+```bash
+git clone https://github.com/klipspringr/wordle-cli.git && cd wordle-cli
+python3 play.py
+```
+
+Alternatively, if you don't have git: click `Code > Download ZIP` on GitHub, extract the ZIP, open a terminal, `cd` to the extracted folder and run `python3 play.py`.
+
+A **terminal with support for colours and emoji** is required. On Windows and WSL, [Windows Terminal](https://aka.ms/terminal) is the best choice. PowerShell and the Windows command prompt are only supported if running in Windows Terminal.
+
+## Options
+
+Usage: `python3 play.py [-h|--help] [--today|DAY|SOLUTION] [--hints]`
+
+|Option                     |Behaviour                                                  |
+|---------------------------|-----------------------------------------------------------|
+|_none_                     |Use a random solution from the official Wordle dictionary  |
+|`--today`                  |**\***  Use today's official Wordle solution               |
+|`DAY` (number)             |**\***  Use the official solution from this DAY            |
+|`SOLUTION` (string)        |**\***  Use a given SOLUTION (must be 5-letter word)       |
+|`--hints`                  |After each guess, report number of possible words remaining|
+|`-h` , `--help`            |Print this help text and quit                              |
+
+_Note: options marked **\*** are mutually-exclusive._
+
+So, to play against random solutions, run `python3 play.py`; to play today's official solution, run `python3 play.py --today`; or to play against the solution from game day 211 (16 January 2022), run `python3 play 211`. 
+
+Hints mode (`--hints`) looks like this:
+
+![Screenshot of a wordle-cli game with hints](/assets/screenshot_hints.png?raw=true "Screenshot of a wordle-cli game with hints")
+
+## Configuration
+
+To change the terminal colours, sharing emoji and other variables, save the file `config.ini.defaults` as `config.ini` and uncomment and edit the relevant lines. Colours are specified using ECMA-48 Select Graphic Rendition codes ([cheat sheet](https://i.stack.imgur.com/6otvY.png)).
