@@ -23,7 +23,11 @@ def check_max_year(url: str) -> int:
         is_year_last = False
         year_counter = 2008
         while not is_year_last:
-            html_text = requests.get(url, headers={"User-Agent": "agent"}).text
+            try:
+                html_text = requests.get(
+                    url, headers={"User-Agent": "agent"}).text
+            except Exception as e:
+                logging.error(f"Invalid URL '{url}': No host supplied {e}")
             data = BeautifulSoup(html_text, "lxml")
             if data.find("span", class_="grey error-span"):
                 is_year_last = True
@@ -53,8 +57,8 @@ def check_max_month(url: str) -> int:
             try:
                 html_text = requests.get(
                     url, headers={"User-Agent": "agent"}).text
-            except Exception:
-                logging(f"Invalid URL '{url}': No host supplied")
+            except Exception as e:
+                logging.error(f"Invalid URL '{url}': No host supplied {e}")
             data = BeautifulSoup(html_text, "lxml")
             if data.find("span", class_="grey error-span"):
                 is_month_last = True
@@ -171,8 +175,8 @@ def read_settings_file(settings_path: str) -> tuple:
         with open(settings_path, "r") as file:
             settings = json.load(file)
             return settings.get("url"), settings.get("year_counter")
-    except Exception:
-        logging.error("Error reading file")
+    except Exception as e:
+        logging.error(f"Error reading file {e}")
 
 
 if __name__ == "__main__":
@@ -207,5 +211,7 @@ if __name__ == "__main__":
                     except Exception:
                         logging.error(
                             f"Error writing {years}-{ months_redact(months)}-{days_redact(output)}")
+                    logging.info(
+                        f"Writing {years}-{ months_redact(months)}-{days_redact(output)} was successful")
             if is_month_last:
                 url = url_month_change(url, months, 1)
