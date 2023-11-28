@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import random
+import logging
 import sys
 from datetime import datetime
 
 import wordle
 from cli import CLIPlayer
 
-def print_help_exit():
+def print_help_exit():   
     print("Usage: python3 play.py [-h|--help] [--today|DAY|SOLUTION] [--hints]")
     print()
     print("Option\t\t\tBehaviour (* = mutually-exclusive)")
@@ -19,7 +20,9 @@ def print_help_exit():
     print("-h, --help\t\tPrint this help text and quit")
     exit()
 
-if __name__=="__main__":
+info_logger, warning_logger = wordle.log_settings()
+
+if __name__=="__main__":    
     game = wordle.Game()
     player = CLIPlayer()
     
@@ -55,15 +58,20 @@ if __name__=="__main__":
         try:
             game.play(player, random.choice(game.VALID_SOLUTIONS) if fixed_solution == None else fixed_solution, hints=hints)
         except (KeyboardInterrupt, EOFError):
+            
+            warning_logger.warning(KeyboardInterrupt)
             print()
             player.quit()
         
-        if fixed_solution != None:
+        if fixed_solution != None:   
+            info_logger.info('Game over')         
             exit()
             
         try:
             player.again()
             print()
         except (KeyboardInterrupt, EOFError):
+            warning_logger.warning(KeyboardInterrupt)
+            info_logger.info('Game over')
             print()
             exit()

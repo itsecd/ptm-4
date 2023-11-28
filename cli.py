@@ -12,8 +12,9 @@ try:
 except ImportError:
     pass
 
-from wordle import Game, LetterStates
+from wordle import *
 
+info_logger, warning_logger = log_settings()
 
 class CLIConfig:
     RESET = "\x1b[0m"
@@ -49,6 +50,9 @@ class CLIConfig:
         c = CLIConfig()
         parser = ConfigParser(comment_prefixes=("#"))
         if len(parser.read(os.path.join(os.path.dirname(__file__), config_file))) == 0:
+            
+            info_logger.info(f'great access to {config_file} file')
+            
             return c
         for attr in dir(c):
             if attr.startswith("__") or attr == "RESET" or not attr.isupper():
@@ -59,6 +63,9 @@ class CLIConfig:
                         getattr(c, attr)[key] = ("\x1b[{v}m" if attr == "STATE_COLOURS" else "{v}").format(v=parser.get(attr, str(key)))
             elif parser.has_option("COLOURS", attr):
                 setattr(c, attr, "\x1b[{v}m".format(v=parser.get("COLOURS", attr)))
+        
+        info_logger.info(f'great access to {config_file} file')
+        
         return c
 
 class CLIPlayer:
@@ -75,6 +82,7 @@ class CLIPlayer:
         except Exception as e:
             self._C = CLIConfig()
             self.warn(f"Exception parsing config file, using defaults instead ({ e })")
+            
 
     def start(self):
         self._lines_since_keyboard = -1
@@ -101,6 +109,7 @@ class CLIPlayer:
 
     def warn(self, warning):
         self.out(f"{ self._C.WARN }{ warning }")
+        warning_logger.warning(f"Exception parsing config file, using defaults instead ({warning})")
 
     def handle_win(self, round):
         self.out(f"{ self._C.WIN }{ self._C.WIN_MESSAGES[round] }! Got it in { round }/{ Game.ROUNDS } rounds")
@@ -114,14 +123,16 @@ class CLIPlayer:
         else:
             self.out(f"📣 Shareable summary:")
             self.out(share_text + "\n")
+        info_logger.info(f'Player was win {round} round')
 
     def handle_loss(self, solution):
         self.out(f"{ self._C.LOSE }🤦 LOSE! The solution was { solution }")
+        info_logger.info(f'Player was lose, solution = {solution}')
 
     def quit(self):
         self.out(f"{ self._C.LOSE }QUIT!")
 
-    def again(self) -> str:
+    def again(self) -> str:        
         return input(f"Play again { self._C.DIM }[Enter]{ self._C.RESET } or exit { self._C.DIM }[Ctrl-C]{ self._C.RESET }? ")
 
     def out(self, string=""):

@@ -1,6 +1,25 @@
+import logging
 import os
 from enum import Enum
 from typing import List
+
+def log_settings():
+    info_logger = logging.getLogger('info_logger')
+    info_logger.setLevel(logging.INFO)
+    info_handler = logging.FileHandler('info_logger.log', mode='w')
+    formater = logging.Formatter('%(asctime)s | %(levelname)s | %(module)s | %(funcName)s | %(message)s')
+    info_handler.setFormatter(formater)
+    info_logger.addHandler(info_handler) 
+    
+    warning_logger = logging.getLogger('warning_logger')
+    warning_logger.setLevel(logging.WARN)
+    warning_handler = logging.FileHandler('warning_logger.log', mode='w')
+    warning_handler.setFormatter(formater)
+    warning_logger.addHandler(warning_handler) 
+    
+    return info_logger, warning_logger
+
+info_logger, warning_logger = log_settings()
 
 class LetterStates(Enum):
     NOTGUESSEDYET = 0
@@ -12,20 +31,27 @@ class Game:
     ROUNDS = 6
     LENGTH = 5
     WIN_STATES = [LetterStates.CORRECTPOSITION for _ in range(LENGTH)]
-
+    
     def __init__(self, path_solutions="data/solutions.txt", path_guesses="data/guesses.txt"):
-        with open(os.path.join(os.path.dirname(__file__), path_solutions), "r") as f:
-            self.VALID_SOLUTIONS = tuple(l.upper() for l in f.read().splitlines() if len(l) == self.LENGTH)
-
-        with open(os.path.join(os.path.dirname(__file__), path_guesses), "r") as f:
-            self.VALID_GUESSES = tuple(l.upper() for l in f.read().splitlines() if len(l) == self.LENGTH)
-
+        try:
+            with open(os.path.join(os.path.dirname(__file__), path_solutions), "r") as f:
+                self.VALID_SOLUTIONS = tuple(l.upper() for l in f.read().splitlines() if len(l) == self.LENGTH)
+        except FileNotFoundError:
+            warning_logger.warn(FileNotFoundError)
+            
+        try: 
+            with open(os.path.join(os.path.dirname(__file__), path_guesses), "r") as f:
+                self.VALID_GUESSES = tuple(l.upper() for l in f.read().splitlines() if len(l) == self.LENGTH)
+        except FileNotFoundError:
+            warning_logger.warn(FileNotFoundError)
+            
         # official list of guesses does not include solutions, so add them, ignoring duplicates (albeit no duplicates in official lists)
         self.VALID_GUESSES = tuple(set(self.VALID_SOLUTIONS + self.VALID_GUESSES))
 
         self.POSSIBLE_WORDS = list(self.VALID_GUESSES)
   
     def play(self, player, solution, hints=False):
+        info_logger.info('Game start')
         player.start()
         round = 1
         while round <= self.ROUNDS:

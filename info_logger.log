@@ -1,0 +1,4 @@
+2023-11-28 15:22:35,184 | INFO | cli | from_ini | great access to config.ini file
+2023-11-28 15:22:35,184 | INFO | wordle | play | Game start
+2023-11-28 15:23:21,067 | INFO | cli | handle_loss | Player was lose, solution = BRASH
+2023-11-28 15:23:30,750 | INFO | play | <module> | Game over
