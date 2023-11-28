@@ -1,10 +1,12 @@
 import datetime
 import calendar
 import typing
+from loguru import logger
 from dataclasses import dataclass
 
 from telebot import TeleBot
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+
 
 
 @dataclass
@@ -74,77 +76,79 @@ class Calendar:
         :param month: Month to use in the calendar if you are not using the current month.
         :return: Returns an InlineKeyboardMarkup object with a calendar.
         """
+        try:
+            now_day = datetime.datetime.now()
 
-        now_day = datetime.datetime.now()
+            if year is None:
+                year = now_day.year
+            if month is None:
+                month = now_day.month
 
-        if year is None:
-            year = now_day.year
-        if month is None:
-            month = now_day.month
+            calendar_callback = CallbackData(name, "action", "year", "month", "day")
+            data_ignore = calendar_callback.new("IGNORE", year, month, "!")
+            data_months = calendar_callback.new("MONTHS", year, month, "!")
 
-        calendar_callback = CallbackData(name, "action", "year", "month", "day")
-        data_ignore = calendar_callback.new("IGNORE", year, month, "!")
-        data_months = calendar_callback.new("MONTHS", year, month, "!")
+            keyboard = InlineKeyboardMarkup(row_width=7)
 
-        keyboard = InlineKeyboardMarkup(row_width=7)
-
-        keyboard.add(
-            InlineKeyboardButton(
-                self.__lang.months[month - 1] + " " + str(year),
-                callback_data=data_months,
+            keyboard.add(
+                InlineKeyboardButton(
+                    self.__lang.months[month - 1] + " " + str(year),
+                    callback_data=data_months,
+                )
             )
-        )
 
-        keyboard.add(
-            *[
-                InlineKeyboardButton(day, callback_data=data_ignore)
-                for day in self.__lang.days
-            ]
-        )
+            keyboard.add(
+                *[
+                    InlineKeyboardButton(day, callback_data=data_ignore)
+                    for day in self.__lang.days
+                ]
+            )
 
-        for week in calendar.monthcalendar(year, month):
-            row = list()
-            for day in week:
-                if day == 0:
-                    row.append(InlineKeyboardButton(" ", callback_data=data_ignore))
-                elif (
-                    f"{now_day.day}.{now_day.month}.{now_day.year}"
-                    == f"{day}.{month}.{year}"
-                ):
-                    row.append(
-                        InlineKeyboardButton(
-                            f"({day})",
-                            callback_data=calendar_callback.new(
-                                "DAY", year, month, day
-                            ),
+            for week in calendar.monthcalendar(year, month):
+                row = list()
+                for day in week:
+                    if day == 0:
+                        row.append(InlineKeyboardButton(" ", callback_data=data_ignore))
+                    elif (
+                        f"{now_day.day}.{now_day.month}.{now_day.year}"
+                        == f"{day}.{month}.{year}"
+                    ):
+                        row.append(
+                            InlineKeyboardButton(
+                                f"({day})",
+                                callback_data=calendar_callback.new(
+                                    "DAY", year, month, day
+                                ),
+                            )
                         )
-                    )
-                else:
-                    row.append(
-                        InlineKeyboardButton(
-                            str(day),
-                            callback_data=calendar_callback.new(
-                                "DAY", year, month, day
-                            ),
+                    else:
+                        row.append(
+                            InlineKeyboardButton(
+                                str(day),
+                                callback_data=calendar_callback.new(
+                                    "DAY", year, month, day
+                                ),
+                            )
                         )
-                    )
-            keyboard.add(*row)
+                keyboard.add(*row)
 
-        keyboard.add(
-            InlineKeyboardButton(
-                "<",
-                callback_data=calendar_callback.new("PREVIOUS-MONTH", year, month, "!"),
-            ),
-            InlineKeyboardButton(
-                "Cancel",
-                callback_data=calendar_callback.new("CANCEL", year, month, "!"),
-            ),
-            InlineKeyboardButton(
-                ">", callback_data=calendar_callback.new("NEXT-MONTH", year, month, "!")
-            ),
-        )
-
-        return keyboard
+            keyboard.add(
+                InlineKeyboardButton(
+                    "<",
+                    callback_data=calendar_callback.new("PREVIOUS-MONTH", year, month, "!"),
+                ),
+                InlineKeyboardButton(
+                    "Cancel",
+                    callback_data=calendar_callback.new("CANCEL", year, month, "!"),
+                ),
+                InlineKeyboardButton(
+                    ">", callback_data=calendar_callback.new("NEXT-MONTH", year, month, "!")
+                ),
+            )
+            logger.info(f"Calendar created")
+            return keyboard
+        except Exception as e:
+            logger.error(f"Error in creating the calendar: {e}")
 
     def create_months_calendar(
         self, name: str = "calendar", year: int = None
@@ -156,31 +160,33 @@ class Calendar:
         :param year:
         :return:
         """
+        try:
+            if year is None:
+                year = datetime.datetime.now().year
 
-        if year is None:
-            year = datetime.datetime.now().year
+            calendar_callback = CallbackData(name, "action", "year", "month", "day")
 
-        calendar_callback = CallbackData(name, "action", "year", "month", "day")
+            keyboard = InlineKeyboardMarkup()
 
-        keyboard = InlineKeyboardMarkup()
-
-        for i, month in enumerate(
-            zip(self.__lang.months[0::2], self.__lang.months[1::2])
-        ):
-            keyboard.add(
-                InlineKeyboardButton(
-                    month[0],
-                    callback_data=calendar_callback.new("MONTH", year, 2 * i + 1, "!"),
-                ),
-                InlineKeyboardButton(
-                    month[1],
-                    callback_data=calendar_callback.new(
-                        "MONTH", year, (i + 1) * 2, "!"
+            for i, month in enumerate(
+                zip(self.__lang.months[0::2], self.__lang.months[1::2])
+            ):
+                keyboard.add(
+                    InlineKeyboardButton(
+                        month[0],
+                        callback_data=calendar_callback.new("MONTH", year, 2 * i + 1, "!"),
                     ),
-                ),
-            )
-
-        return keyboard
+                    InlineKeyboardButton(
+                        month[1],
+                        callback_data=calendar_callback.new(
+                            "MONTH", year, (i + 1) * 2, "!"
+                        ),
+                    ),
+                )
+            logger.info("calendar month created")
+            return keyboard
+        except Exception as e:
+            logger.error(f"Error in create month calendar: {e}")
 
     def calendar_query_handler(
         self,
@@ -278,15 +284,15 @@ class CallbackData:
 
     def __init__(self, prefix, *parts, sep=":"):
         if not isinstance(prefix, str):
-            raise TypeError(
+            logger.error(
                 f"Prefix must be instance of str not {type(prefix).__name__}"
             )
         if not prefix:
-            raise ValueError("Prefix can't be empty")
+            logger.error("Prefix can't be empty")
         if sep in prefix:
-            raise ValueError(f"Separator {sep!r} can't be used in prefix")
+            logger.error(f"Separator {sep!r} can't be used in prefix")
         if not parts:
-            raise TypeError("Parts were not passed!")
+            logger.error("Parts were not passed!")
 
         self.prefix = prefix
         self.sep = sep
@@ -312,26 +318,26 @@ class CallbackData:
                 if args:
                     value = args.pop(0)
                 else:
-                    raise ValueError(f"Value for {part!r} was not passed!")
+                    logger.error(f"Value for {part!r} was not passed!")
 
             if value is not None and not isinstance(value, str):
                 value = str(value)
 
             if not value:
-                raise ValueError(f"Value for part {part!r} can't be empty!'")
+                logger.error(f"Value for part {part!r} can't be empty!'")
             if self.sep in value:
-                raise ValueError(
+                logger.error(
                     f"Symbol {self.sep!r} is defined as the separator and can't be used in parts' values"
                 )
 
             data.append(value)
 
         if args or kwargs:
-            raise TypeError("Too many arguments were passed!")
+            logger.error("Too many arguments were passed!")
 
         callback_data = self.sep.join(data)
         if len(callback_data) > 64:
-            raise ValueError("Resulted callback data is too long!")
+            logger.error("Resulted callback data is too long!")
 
         return callback_data
 
@@ -346,9 +352,9 @@ class CallbackData:
         prefix, *parts = callback_data.split(self.sep)
 
         if prefix != self.prefix:
-            raise ValueError("Passed callback data can't be parsed with that prefix.")
+            logger.error("Passed callback data can't be parsed with that prefix.")
         elif len(parts) != len(self._part_names):
-            raise ValueError("Invalid parts count!")
+            logger.error("Invalid parts count!")
 
         result = {"@": prefix}
         result.update(zip(self._part_names, parts))
