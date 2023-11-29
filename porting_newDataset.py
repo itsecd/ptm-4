@@ -13,9 +13,13 @@ def make_csv(name_csv: str) -> None:
     Args:
         name_csv (str): _название файла, который нужно создать_
     """
-    with open(f"{name_csv}.csv", "w+", encoding="UTF-8", newline="") as file:
-        csv_file = csv.writer(file, delimiter=";")
-        csv_file.writerow(["Absolute path", "Relative path", "Class"])
+    try:
+        with open(f"{name_csv}.csv", "w+", encoding="UTF-8", newline="") as file:
+            csv_file = csv.writer(file, delimiter=";")
+            csv_file.writerow(["Absolute path", "Relative path", "Class"])
+        logging.debug(f"Файл {name_csv}.csv успешно создан")
+    except:
+        logging.error(f"При создании файла {name_csv}.csv произошла ошибка")
 
 
 def porting(name_abstract: str, new_csv: str) -> None:
