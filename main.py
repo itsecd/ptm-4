@@ -8,6 +8,12 @@ import make_firstCSV
 import porting_newDataset
 import random_name
 
+import logging
+
+
+logging.basicConfig(level="DEBUG")
+logger = logging.getLogger()
+
 
 class Ui_Image(object):
     def setupUi(self, Image):
@@ -52,7 +58,11 @@ class Ui_Image(object):
         self.NAME = QtWidgets.QLabel(self.frame)
         self.NAME.setGeometry(QtCore.QRect(690, 10, 381, 51))
         font = QtGui.QFont()
-        font.setFamily("ROG Fonts")
+        try:
+            font.setFamily("ROG Fonts")
+            logging.error("Повезло повезло у пользователя есть шрифт ROG Fonts")
+        except:
+            logging.error("Ха-ха у пользователя нет шрифта ROG Fonts")
         font.setPointSize(10)
         self.NAME.setFont(font)
         self.NAME.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
@@ -129,43 +139,65 @@ class Ui_MainWindow(object):
         self.NAME.setStyleSheet("color:#f5f0e1")
         self.NAME.setAlignment(QtCore.Qt.AlignCenter)
         self.NAME.setObjectName("NAME")
-        self.logo = QtWidgets.QLabel(self.frame)
-        self.logo.setGeometry(QtCore.QRect(630, 100, 111, 141))
-        self.logo.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
-        self.logo.setText("")
-        self.logo.setPixmap(QtGui.QPixmap(
-            f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
-        self.logo.setObjectName("logo")
-        self.logo_2 = QtWidgets.QLabel(self.frame)
-        self.logo_2.setGeometry(QtCore.QRect(730, 120, 101, 101))
-        self.logo_2.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
-        self.logo_2.setText("")
-        self.logo_2.setPixmap(QtGui.QPixmap(
-            f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
-        self.logo_2.setObjectName("logo_2")
-        self.logo_3 = QtWidgets.QLabel(self.frame)
-        self.logo_3.setGeometry(QtCore.QRect(830, 120, 101, 101))
-        self.logo_3.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
-        self.logo_3.setText("")
-        self.logo_3.setPixmap(QtGui.QPixmap(
-            f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
-        self.logo_3.setObjectName("logo_3")
-        self.logo_5 = QtWidgets.QLabel(self.frame)
-        self.logo_5.setGeometry(QtCore.QRect(930, 120, 101, 101))
-        self.logo_5.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
-        self.logo_5.setText("")
-        self.logo_5.setPixmap(QtGui.QPixmap(
-            f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
-        self.logo_5.setObjectName("logo_5")
-        self.logo_4 = QtWidgets.QLabel(self.frame)
-        self.logo_4.setGeometry(QtCore.QRect(1030, 120, 101, 101))
-        self.logo_4.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
-        self.logo_4.setText("")
-        self.logo_4.setPixmap(QtGui.QPixmap(
-            f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
-        self.logo_4.setObjectName("logo_4")
-        self.fullWay = QtWidgets.QLineEdit(self.centralwidget)
-        self.fullWay.setGeometry(QtCore.QRect(50, 220, 380, 60))
+        try:
+            self.logo = QtWidgets.QLabel(self.frame)
+            self.logo.setGeometry(QtCore.QRect(630, 100, 111, 141))
+            self.logo.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+            self.logo.setText("")
+        
+            self.logo.setPixmap(QtGui.QPixmap(
+                f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
+            self.logo.setObjectName("logo")
+            logging.debug("Фотка для logo успешно установлена")
+        except:
+            logging.warning("Нет logo")
+        try:
+            self.logo_2 = QtWidgets.QLabel(self.frame)
+            self.logo_2.setGeometry(QtCore.QRect(730, 120, 101, 101))
+            self.logo_2.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+            self.logo_2.setText("")
+            self.logo_2.setPixmap(QtGui.QPixmap(
+                f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
+            self.logo_2.setObjectName("logo_2")
+            logging.debug("Фотка для logo_2 успешно установлена")
+        except:
+            logging.warning("Нет logo_2")
+        try:
+            self.logo_3 = QtWidgets.QLabel(self.frame)
+            self.logo_3.setGeometry(QtCore.QRect(830, 120, 101, 101))
+            self.logo_3.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+            self.logo_3.setText("")
+            self.logo_3.setPixmap(QtGui.QPixmap(
+                f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
+            self.logo_3.setObjectName("logo_3")
+            logging.debug("Фотка для logo_3 успешно установлена")
+        except:
+            logging.warning("Нет logo_3")
+        try:
+            self.logo_5 = QtWidgets.QLabel(self.frame)
+            self.logo_5.setGeometry(QtCore.QRect(930, 120, 101, 101))
+            self.logo_5.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+            self.logo_5.setText("")
+            self.logo_5.setPixmap(QtGui.QPixmap(
+                f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
+            self.logo_5.setObjectName("logo_5")
+            logging.debug("Фотка для logo_5 успешно установлена")
+        except:
+            logging.warning("Нет logo_5")
+        try:
+            self.logo_4 = QtWidgets.QLabel(self.frame)
+            self.logo_4.setGeometry(QtCore.QRect(1030, 120, 101, 101))
+            self.logo_4.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
+            self.logo_4.setText("")
+            self.logo_4.setPixmap(QtGui.QPixmap(
+                f"{os.getcwd()}/img/imgonline-com-ua-Resize-eaZg8IxsenvxUV.png"))
+            self.logo_4.setObjectName("logo_4")
+            logging.debug("Фотка для logo_4 успешно установлена")
+        except:
+            logging.warning("Нет logo_4")
+
+            self.fullWay = QtWidgets.QLineEdit(self.centralwidget)
+            self.fullWay.setGeometry(QtCore.QRect(50, 220, 380, 60))
         font = QtGui.QFont()
         font.setFamily("Algerian")
         font.setPointSize(14)
@@ -311,12 +343,17 @@ class IteratorM:
         self.file_name = file_name
         self.class_name = class_name
         self.rows = []
-        with open(f"{file_name}.csv") as file:
-            reader = csv.reader(file, delimiter=";")
-            for row in reader:
-                if row[2] == class_name:
-                    self.rows.append(row[0] + ";" + row[2])
-                    self.limit += 1
+        try:
+            with open(f"{file_name}.csv") as file:
+                reader = csv.reader(file, delimiter=";")
+                for row in reader:
+                    if row[2] == class_name:
+                        self.rows.append(row[0] + ";" + row[2])
+                        self.limit += 1
+            logging.debug(f"Итератор по файлу {file_name}.сsv Успешно создан")
+        except:
+            logging.error(f"Произошла ошибка при итерировании по файлу {file_name}.сsv")
+            
 
     def __iter__(self):
         return self
@@ -326,7 +363,7 @@ class IteratorM:
             self.counter += 1
             return (self.rows[self.counter])[:-6]
         else:
-            print("None")
+            logging.warning("Итератор подошел к концу")
             raise StopIteration
 
 
@@ -345,9 +382,10 @@ def push_takepath():
         msg.setIcon(QMessageBox.Warning)
         msg.exec_()
         check_way = False
+        logging.warning(f"Пользователь ввел не путь буз файлов путь {ui.fullWay.text()} не принят")
     else:
         check_way = True
-        print(full_way)
+        logging.debug(f"Путь {ui.fullWay.text()} верный и принят")
 
 
 def make_iter():
@@ -374,12 +412,14 @@ def script_1():
         check_file = True
         if (ro == False):
             make_iter()
+        logging.debug(f"Первый пункт отработал как надо")
     else:
         msg = QMessageBox()
         msg.setWindowTitle("Ошибка!!!")
         msg.setText("Установлен неверный путь!!!\nВведите путь еще раз!!!")
         msg.setIcon(QMessageBox.Warning)
         msg.exec_()
+        logging.warning(f"Установлен неверный путь! Первый пункт не выполнен")
 
 
 def script_2():
@@ -390,12 +430,14 @@ def script_2():
         class_csv = "dataset_class"
         make_firstCSV.make_csv(class_csv)
         porting_newDataset.porting(first_csv, class_csv)
+        logging.debug("Второй Пункт Успешно выполнен")
     else:
         msg = QMessageBox()
         msg.setWindowTitle("Ошибка!!!")
         msg.setText("Пожалуйста создайте первый CSV файл, чтобы продолжить")
         msg.setIcon(QMessageBox.Warning)
         msg.exec_()
+        logging.warning(f"Не найден csv файл! Второй пункт не выполнен")
 
 
 def script_3():
@@ -405,16 +447,18 @@ def script_3():
         random_csv = "dataset_random"
         make_firstCSV.make_csv(random_csv)
         random_name.random_name(first_csv, random_csv)
+        logging.debug(f"3 пункт отработал как надо")
     else:
         msg = QMessageBox()
         msg.setWindowTitle("Ошибка!!!")
         msg.setText("Установлен неверный путь!!!\nВведите путь еще раз!!!")
         msg.setIcon(QMessageBox.Warning)
         msg.exec_()
+        logging.warning(f"Установлен неверный путь! 3 пункт не выполнен")
 
 
 def open_window_two():
-
+    logging.debug("Открыто второе окно для просмотра собак и кошек")
     if (check_file):
         Image = QtWidgets.QMainWindow()
         Image.setWindowFlags(QtCore.Qt.FramelessWindowHint)
@@ -427,15 +471,17 @@ def open_window_two():
         def button_dog():
             a = next(li_dog)
             ui.Dogimg.setPixmap(QtGui.QPixmap(a))
-            print(a)
+            logging.debug(f"изобращение {a} выведено на экран")
 
         def button_cat():
             b = next(li_cat)
             ui.Catimg.setPixmap(QtGui.QPixmap(b))
             print(b)
+            logging.debug(f"изобращение {b} выведено на экран")
 
         def returnHub():
             Image.close()
+            logging.debug("Окно с собачками и кошаками закрыли ((((")
             Application.show()
 
         ui.go_back.clicked.connect(returnHub)
@@ -448,6 +494,7 @@ def open_window_two():
             "Вы еще не создали первый CSV файл\nПожалуйста, нажмите на кнопку 'Create the first csv file' и повторите попытку ")
         msg.setIcon(QMessageBox.Warning)
         msg.exec_()
+        logging.warning("Пользователь не может проникнуть в окно с собакенами и котами так как у него нет csv файла")
 
 
 if __name__ == "__main__":
@@ -463,6 +510,7 @@ if __name__ == "__main__":
         first_csv = "Dataset_firstCSV"
         make_iter()
         ro = True
+        logging.debug("первый Датасет уже присутствует")
     app = QtWidgets.QApplication(sys.argv)
     Application = QtWidgets.QMainWindow()
     Application.setWindowFlags(QtCore.Qt.FramelessWindowHint)
@@ -470,8 +518,12 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(Application)
     Application .show()
-    app.setWindowIcon(
-        QIcon('C:/Users/79093/Desktop/Application progra/laba3/GUI_lab/img/icon.ico'))
+    try:
+        app.setWindowIcon(
+            QIcon('C:/Users/79093/Desktop/Application progra/laba3/GUI_lab/img/icon.ico'))
+        logging.debug("Икону на месте")
+    except:
+        logging.error("Икону потеряли")
     ui.EXIT.clicked.connect(push_exit)
     ui.take.clicked.connect(push_takepath)
     ui.CreateFirstCSV.clicked.connect(script_1)
