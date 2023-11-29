@@ -3,9 +3,22 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
+import logging # импортируем модуль для логирования
+
+# настраиваем параметры логирования
+logging.basicConfig(filename="experiment.log", level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # загружаем данные из файла
 data = pd.read_csv("experiment_data.csv")
+
+# логируем количество и качество данных
+logging.info(f"Data shape: {data.shape}") # логируем размерность данных
+logging.info(f"Data columns: {data.columns}") # логируем названия колонок
+logging.info(f"Data types: {data.dtypes}") # логируем типы данных
+logging.info(f"Data summary: {data.describe()}") # логируем основные статистики
+logging.info(f"Missing values: {data.isnull().sum()}") # логируем количество пропущенных значений
+logging.info(f"Outliers: {data[(np.abs(stats.zscore(data["value"])) > 3)]}") # логируем выбросы по колонке value
+logging.info(f"Duplicate rows: {data.duplicated().sum()}") # логируем количество дубликатов
 
 # разбиваем данные на две группы: контрольную и экспериментальную
 control = data[data["group"] == "control"]
