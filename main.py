@@ -94,7 +94,7 @@ if control_shapiro[1] >= 0.05 and experiment_shapiro[1] >= 0.05:
     logging.info(f"t-test performed in {ttest_time:.2f} seconds") # логируем время t-теста
 else:
     # используем U-тест Манна-Уитни
-     start_time = time.time() # засекаем время начала U-теста
+    start_time = time.time() # засекаем время начала U-теста
     try: # пытаемся провести U-тест
         utest = stats.mannwhitneyu(control["value"], experiment["value"])
         print(f"p-value for U-test: {utest[1]}")
