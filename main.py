@@ -9,7 +9,12 @@ import logging # импортируем модуль для логировани
 logging.basicConfig(filename="experiment.log", level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # загружаем данные из файла
-data = pd.read_csv("experiment_data.csv")
+try: # пытаемся загрузить данные из файла
+    data = pd.read_csv("experiment_data.csv")
+except Exception as e: # если возникает исключение, то ловим его и логируем
+    logging.error(f"Failed to load data from file: {e}") # логируем ошибку
+    raise # пробрасываем исключение дальше
+
 
 # логируем количество и качество данных
 logging.info(f"Data shape: {data.shape}") # логируем размерность данных
@@ -64,24 +69,33 @@ else:
 # если хотя бы одна группа не нормально распределена, то используем U-тест Манна-Уитни
 if control_shapiro[1] >= 0.05 and experiment_shapiro[1] >= 0.05:
     # используем t-тест
-    ttest = stats.ttest_ind(control["value"], experiment["value"])
-    print(f"p-value for t-test: {ttest[1]}")
-    # если p-value меньше 0.05, то отвергаем нулевую гипотезу о равенстве средних
-    if ttest[1] < 0.05:
-        print("There is a significant difference between the means of the two groups")
-    else:
-        print("There is no significant difference between the means of the two groups")
-    # логируем результаты t-теста
-    logging.info(f"t-test for the difference of means: statistic = {ttest[0]}, p-value = {ttest[1]}, degrees of freedom = {len(control) + len(experiment) - 2}") # логируем статистику, p-value и степени свободы для t-теста
+    try: # пытаемся провести t-тест
+        ttest = stats.ttest_ind(control["value"], experiment["value"])
+        print(f"p-value for t-test: {ttest[1]}")
+   
+        if ttest[1] < 0.05:
+            print("There is a significant difference between the means of the two groups")
+        else:
+            print("There is no significant difference between the means of the two groups")
+    
+        # логируем результаты t-теста
+        logging.info(f"t-test for the difference of means: statistic = {ttest[0]}, p-value = {ttest[1]}, degrees of freedom = {len(control) + len(experiment) - 2}") # логируем статистику, p-value и степени свободы для t-теста
+    except Exception as e: # если возникает исключение, то ловим его и логируем
+        logging.error(f"Failed to perform t-test: {e}") # логируем ошибку
+        raise # пробрасываем исключение дальше
 else:
     # используем U-тест Манна-Уитни
-    utest = stats.mannwhitneyu(control["value"], experiment["value"])
-    print(f"p-value for U-test: {utest[1]}")
-    # если p-value меньше 0.05, то отвергаем нулевую гипотезу о равенстве медиан
-    if utest[1] < 0.05:
-        print("There is a significant difference between the medians of the two groups")
-    else:
-        print("There is no significant difference between the medians of the two groups")
-  
-    # логируем результаты U-теста
-    logging.info(f"U-test for the difference of medians: statistic = {utest[0]}, p-value = {utest[1]}") # логируем статистику и p-value для U-теста
+    try: # пытаемся провести U-тест
+        utest = stats.mannwhitneyu(control["value"], experiment["value"])
+        print(f"p-value for U-test: {utest[1]}")
+   
+        if utest[1] < 0.05:
+            print("There is a significant difference between the medians of the two groups")
+        else:
+            print("There is no significant difference between the medians of the two groups")
+    
+        # логируем результаты U-теста
+        logging.info(f"U-test for the difference of medians: statistic = {utest[0]}, p-value = {utest[1]}") # логируем статистику и p-value для U-теста
+    except Exception as e: # если возникает исключение, то ловим его и логируем
+        logging.error(f"Failed to perform U-test: {e}") # логируем ошибку
+        raise # пробрасываем исключение дальше
