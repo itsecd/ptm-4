@@ -4,16 +4,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 import logging # импортируем модуль для логирования
+import time # импортируем модуль для измерения времени
 
 # настраиваем параметры логирования
 logging.basicConfig(filename="experiment.log", level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # загружаем данные из файла
+start_time = time.time() # засекаем время начала загрузки данных
 try: # пытаемся загрузить данные из файла
     data = pd.read_csv("experiment_data.csv")
 except Exception as e: # если возникает исключение, то ловим его и логируем
     logging.error(f"Failed to load data from file: {e}") # логируем ошибку
     raise # пробрасываем исключение дальше
+end_time = time.time() # засекаем время окончания загрузки данных
+load_time = end_time - start_time # вычисляем время загрузки данных
+logging.info(f"Data loaded in {load_time:.2f} seconds") # логируем время загрузки данных
 
 
 # логируем количество и качество данных
@@ -69,6 +74,7 @@ else:
 # если хотя бы одна группа не нормально распределена, то используем U-тест Манна-Уитни
 if control_shapiro[1] >= 0.05 and experiment_shapiro[1] >= 0.05:
     # используем t-тест
+    start_time = time.time() # засекаем время начала t-теста
     try: # пытаемся провести t-тест
         ttest = stats.ttest_ind(control["value"], experiment["value"])
         print(f"p-value for t-test: {ttest[1]}")
@@ -83,8 +89,12 @@ if control_shapiro[1] >= 0.05 and experiment_shapiro[1] >= 0.05:
     except Exception as e: # если возникает исключение, то ловим его и логируем
         logging.error(f"Failed to perform t-test: {e}") # логируем ошибку
         raise # пробрасываем исключение дальше
+    end_time = time.time() # засекаем время окончания t-теста
+    ttest_time = end_time - start_time # вычисляем время t-теста
+    logging.info(f"t-test performed in {ttest_time:.2f} seconds") # логируем время t-теста
 else:
     # используем U-тест Манна-Уитни
+     start_time = time.time() # засекаем время начала U-теста
     try: # пытаемся провести U-тест
         utest = stats.mannwhitneyu(control["value"], experiment["value"])
         print(f"p-value for U-test: {utest[1]}")
@@ -99,3 +109,6 @@ else:
     except Exception as e: # если возникает исключение, то ловим его и логируем
         logging.error(f"Failed to perform U-test: {e}") # логируем ошибку
         raise # пробрасываем исключение дальше
+    end_time = time.time() # засекаем время окончания U-теста
+    utest_time = end_time - start_time # вычисляем время U-теста
+    logging.info(f"U-test performed in {utest_time:.2f} seconds") # логируем время U-теста
