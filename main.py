@@ -1,4 +1,4 @@
-
+# импортируем необходимые библиотеки
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -20,7 +20,6 @@ end_time = time.time() # засекаем время окончания загр
 load_time = end_time - start_time # вычисляем время загрузки данных
 logging.info(f"Data loaded in {load_time:.2f} seconds") # логируем время загрузки данных
 
-
 # логируем количество и качество данных
 logging.info(f"Data shape: {data.shape}") # логируем размерность данных
 logging.info(f"Data columns: {data.columns}") # логируем названия колонок
@@ -30,15 +29,15 @@ logging.info(f"Missing values: {data.isnull().sum()}") # логируем кол
 logging.info(f"Outliers: {data[(np.abs(stats.zscore(data["value"])) > 3)]}") # логируем выбросы по колонке value
 logging.info(f"Duplicate rows: {data.duplicated().sum()}") # логируем количество дубликатов
 
-
+# разделяем данные на контрольную и экспериментальную группы
 control = data[data["group"] == "control"]
 experiment = data[data["group"] == "experiment"]
 
-# смотрим на основные статистики по каждой группе
+# выводим описательные статистики для каждой группы
 control.describe()
 experiment.describe()
 
-# строим гистограммы распределения значений по каждой группе
+# строим гистограммы для каждой группы
 plt.hist(control["value"], bins=20, alpha=0.5, label="control")
 plt.hist(experiment["value"], bins=20, alpha=0.5, label="experiment")
 plt.legend()
@@ -48,7 +47,7 @@ plt.show()
 plt.savefig("histogram.png") # сохраняем гистограмму в формате png
 logging.info(f"Histogram saved as histogram.png") # логируем имя файла гистограммы
 
-# проверяем нормальность распределений с помощью теста Шапиро-Уилка
+# проводим тест Шапиро-Уилка для проверки нормальности распределений
 control_shapiro = stats.shapiro(control["value"])
 experiment_shapiro = stats.shapiro(experiment["value"])
 print(f"p-value for control group: {control_shapiro[1]}")
@@ -86,9 +85,9 @@ if control_shapiro[1] >= 0.05 and experiment_shapiro[1] >= 0.05:
     
         # логируем результаты t-теста
         logging.info(f"t-test for the difference of means: statistic = {ttest[0]}, p-value = {ttest[1]}, degrees of freedom = {len(control) + len(experiment) - 2}") # логируем статистику, p-value и степени свободы для t-теста
-    except Exception as e: # если возникает исключение, то ловим его и логируем
-        logging.error(f"Failed to perform t-test: {e}") # логируем ошибку
-        raise # пробрасываем исключение дальше
+    except Exception as e: 
+        logging.error(f"Failed to perform t-test: {e}") 
+        raise 
     end_time = time.time() # засекаем время окончания t-теста
     ttest_time = end_time - start_time # вычисляем время t-теста
     logging.info(f"t-test performed in {ttest_time:.2f} seconds") # логируем время t-теста
@@ -104,8 +103,7 @@ else:
         else:
             print("There is no significant difference between the medians of the two groups")
     
-        # логируем результаты U-теста
-        logging.info(f"U-test for the difference of medians: statistic = {utest[0]}, p-value = {utest[1]}") # логируем статистику и p-value для U-теста
+        logging.info(f"U-test for the difference of medians: statistic = {utest[0]}, p-value = {utest[1]}")p-value = {utest[1]}") # логируем статистику и p-value для U-теста
     except Exception as e: # если возникает исключение, то ловим его и логируем
         logging.error(f"Failed to perform U-test: {e}") # логируем ошибку
         raise # пробрасываем исключение дальше
