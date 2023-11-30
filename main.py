@@ -38,13 +38,13 @@ def find_images(count_imgs: int, path: str, name: str) -> None:
             html_page = requests.get(url, headers=_headers)
             soup = BeautifulSoup(html_page.text, "html.parser")
         except Exception as err:
-            logging.ERROR(f"Невалидный URL: {err}")
+            logging.error(f"Невалидный URL: {err}")
         src_list = []
         for link in soup.find_all("img", class_="serp-item__thumb justifier__thumb"):
             src_list.append(link.get("src"))
-        logging.INFO("Получены адреса картинок для загрузки.")
+        logging.info("Получены адреса картинок для загрузки.")
         count = get_images(count_imgs, path, src_list)
-        logging.INFO(f"Загружено {count} картинок...")
+        logging.info(f"Загружено {count} картинок...")
         if count == count_imgs:
             return
 
@@ -77,7 +77,7 @@ def get_images(count_imgs: int, path: str, src_list: list) -> int:
                     return count
                 return count
             except Exception as err:
-                logging.ERROR(f"Ошибка при скачивании картинки: {err}")
+                logging.error(f"Ошибка при скачивании картинки: {err}")
 
 
 def img_compare(img1: str, img2: str) -> tuple or None:
@@ -97,7 +97,7 @@ def img_compare(img1: str, img2: str) -> tuple or None:
         result = ImageChops.difference(image_1, image_2).getbbox()
         return result
     except Exception as err:
-        logging.ERROR(f"Не удалось сравнить картинки: {err}")
+        logging.error(f"Не удалось сравнить картинки: {err}")
 
 
 def check_images(path: str, count: int) -> int:
@@ -121,7 +121,7 @@ def check_images(path: str, count: int) -> int:
                 continue
             if img_compare(fname1, fname2) == None:
                 os.remove(fname2)
-                logging.INFO(f"Найдены идентичные картинки: {fname1} and {fname2}")
+                logging.info(f"Найдены идентичные картинки: {fname1} and {fname2}")
                 c -= 1
     return count - c
 
