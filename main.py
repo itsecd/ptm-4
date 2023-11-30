@@ -40,6 +40,10 @@ experiment_shapiro = stats.shapiro(experiment["value"])
 print(f"p-value for control group: {control_shapiro[1]}")
 print(f"p-value for experiment group: {experiment_shapiro[1]}")
 
+# логируем результаты теста Шапиро-Уилка
+logging.info(f"Shapiro-Wilk test for control group: statistic = {control_shapiro[0]}, p-value = {control_shapiro[1]}") # логируем статистику и p-value для контрольной группы
+logging.info(f"Shapiro-Wilk test for experiment group: statistic = {experiment_shapiro[0]}, p-value = {experiment_shapiro[1]}") # логируем статистику и p-value для экспериментальной группы
+
 # если p-value меньше 0.05, то отвергаем нулевую гипотезу о нормальности распределения
 if control_shapiro[1] < 0.05:
     print("Control group is not normally distributed")
@@ -72,3 +76,6 @@ else:
         print("There is a significant difference between the medians of the two groups")
     else:
         print("There is no significant difference between the medians of the two groups")
+  
+    # логируем результаты U-теста
+    logging.info(f"U-test for the difference of medians: statistic = {utest[0]}, p-value = {utest[1]}") # логируем статистику и p-value для U-теста
