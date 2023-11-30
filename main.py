@@ -34,6 +34,10 @@ plt.hist(experiment["value"], bins=20, alpha=0.5, label="experiment")
 plt.legend()
 plt.show()
 
+# логируем графики, которые строятся в коде
+plt.savefig("histogram.png") # сохраняем гистограмму в формате png
+logging.info(f"Histogram saved as histogram.png") # логируем имя файла гистограммы
+
 # проверяем нормальность распределений с помощью теста Шапиро-Уилка
 control_shapiro = stats.shapiro(control["value"])
 experiment_shapiro = stats.shapiro(experiment["value"])
