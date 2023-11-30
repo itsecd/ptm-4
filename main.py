@@ -1,4 +1,4 @@
-# импортируем необходимые библиотеки
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -20,7 +20,7 @@ logging.info(f"Missing values: {data.isnull().sum()}") # логируем кол
 logging.info(f"Outliers: {data[(np.abs(stats.zscore(data["value"])) > 3)]}") # логируем выбросы по колонке value
 logging.info(f"Duplicate rows: {data.duplicated().sum()}") # логируем количество дубликатов
 
-# разбиваем данные на две группы: контрольную и экспериментальную
+
 control = data[data["group"] == "control"]
 experiment = data[data["group"] == "experiment"]
 
