@@ -67,6 +67,8 @@ if control_shapiro[1] >= 0.05 and experiment_shapiro[1] >= 0.05:
         print("There is a significant difference between the means of the two groups")
     else:
         print("There is no significant difference between the means of the two groups")
+    # логируем результаты t-теста
+    logging.info(f"t-test for the difference of means: statistic = {ttest[0]}, p-value = {ttest[1]}, degrees of freedom = {len(control) + len(experiment) - 2}") # логируем статистику, p-value и степени свободы для t-теста
 else:
     # используем U-тест Манна-Уитни
     utest = stats.mannwhitneyu(control["value"], experiment["value"])
