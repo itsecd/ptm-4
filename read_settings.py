@@ -1,5 +1,5 @@
 import json
-import logging
+import my_logger
 
 
 def read_json(variant: str) -> dict:
@@ -17,5 +17,6 @@ def read_json(variant: str) -> dict:
         for i in range(len(data[variant]["bins"])):
             result["bins"].append(data[variant]["bins"][i])
         result["hash_format"] = data[variant]["hash_format"]
-    print(result)
+    logger = my_logger.My_log(__file__).get_logger()
+    logger.debug("The settings have been uploaded successfully")
     return result

@@ -1,6 +1,5 @@
 import hashlib
 import multiprocessing as mp
-import logging
 
 def check_hash(lst: list) -> str:
     """Сравниваем хэши, в случае успеха возвращаем номер карты, иначе False"""
@@ -56,3 +55,4 @@ def num_selection(data: dict, core) -> str:
                 p.terminate()
                 print(full_card_num)
                 return full_card_num
+

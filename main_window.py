@@ -1,15 +1,17 @@
 import sys
-import alg_luhn
-import graph
-import gen_num
-import read_settings
-import logging
-
 from time import time
+import logging, logging.config
+import my_logger
+
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QFont, QRegExpValidator
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QProgressBar
+
+import alg_luhn
+import gen_num
+import graph
+import read_settings
 
 
 class Window(QMainWindow):
@@ -25,8 +27,12 @@ class Window(QMainWindow):
             self.end = time()
             self.times.append(self.end - self.start)
             print(self.end - self.start)
+            second = self.end - self.start
+            if int(second) > 80: # такая проверка для вида работы логера, цифра условная, условие выполняется на 1 варианте
+                logger.warning("The calculation is long. Check the input data")
             self.pbar.setValue(12 * i)
         self.pbar.setValue(100)
+        logger.debug("The hash calculation for option %s has begun", str(self.variant_label.text()))
         self.main_function()
 
     def main_function(self):
@@ -50,9 +56,12 @@ class Window(QMainWindow):
         ввода передает данные в функцию progress, для дальнейших вычислений."""
         if self.variant_label.text() != '':
             if int(self.variant_label.text()) > 20:
+                logger.warning("The user entered a non-existent option. Repeat the request")
                 QMessageBox.about(self, "Ошибка", "Нет такого варианта")
+
                 self.variant_label.clear()
             else:
+
                 self.button_start.hide()
                 self.first_text.setText("Подождите, идет загрузка!\n")
                 self.first_text.adjustSize()
@@ -61,10 +70,10 @@ class Window(QMainWindow):
                 self.progress(self.variant_label.text())
         else:
             QMessageBox.about(self, "Ошибка", "Пустое поле недопустимо")
+            logger.warning("The user did not select an option. Repeat the request")
 
     def button_restart_click(self):
         """Возвращает стартовый экран"""
-        print("restart")
         self.first_text.setText("Введите номер варианта")
         self.first_text.adjustSize()
         self.button_restart.hide()
@@ -73,6 +82,7 @@ class Window(QMainWindow):
         self.variant_label.clear()
         self.variant_label.show()
         self.button_start.show()
+
 
     def button_show_graph_click(self):
         """Вызываем функцию создания графика"""
@@ -149,7 +159,7 @@ class Window(QMainWindow):
         self.set_value()
         self.set_position()
         self.set_size()
-
+        logger.debug("The program was built successfully")
 
 def application() -> None:
     """"Start aplication mainwindow"""
@@ -165,7 +175,17 @@ def application() -> None:
 
 if __name__ == "__main__":
     """Начало начал, запускаем основную функцию application()"""
-    logging.basicConfig(filename="example.log", level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
-    logging.warning("vse powlp po...")
+    # logger = logging.getLogger(__file__)
+    # logger.setLevel(logging.DEBUG)
+    # formatter = logging.Formatter('[%(asctime)s] [%(name)s] [%(levelname)s] > %(message)s')
+    # console_handler = logging.StreamHandler()
+    # file_handler = logging.FileHandler("example.log")
+    # console_handler.setLevel(logging.DEBUG)
+    # file_handler.setLevel(logging.WARNING)
+    # console_handler.setFormatter(formatter)
+    # file_handler.setFormatter(formatter)
+    # logger.addHandler(console_handler)
+    # logger.addHandler(file_handler)
+    logger = my_logger.My_log(__file__).get_logger()
     application()
 
