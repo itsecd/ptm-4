@@ -52,11 +52,10 @@ def find_dispersion(normal_sample: np.ndarray, gamma: float) -> tuple:
     :param gamma: доверительная вероятность
     :return: Кортеж из левой и правой границы доверительного интервала
     """
-    a1 = gamma/2 + 0.5
-    a2 = gamma/2 + 0.5
+    alpha = gamma/2 + 0.5
     s = st.pvariance(normal_sample)
-    chil = sts.chi2.ppf(a1, len(normal_sample) - 1)
-    chir = sts.chi2.ppf(1 - a2, len(normal_sample) - 1)
+    chil = sts.chi2.ppf(alpha, len(normal_sample) - 1)
+    chir = sts.chi2.ppf(1 - alpha, len(normal_sample) - 1)
     sg_l = (len(normal_sample) - 1) * s / chil
     sg_r = (len(normal_sample) - 1) * s / chir
     return sg_l, sg_r
@@ -77,15 +76,12 @@ def plot_dependence_l_of_gamma_ex(number_of_points: int, sample_size: int, save_
     gm = np.linspace(0, 1, number_of_points)
     sample = np.random.normal(loc=A, scale=np.sqrt(SIGMA2), size=sample_size)
     len_ar = np.array([])
-    gm_new = np.array([])
     for i in gm:
         l, r = find_expectation_inter_no_dis(sample, i)
         length = r - l
-        if length >= 0:
-            len_ar = np.append(len_ar, length)
-            gm_new = np.append(gm_new, i)
+        len_ar = np.append(len_ar, length)
     fig = plt.figure()
-    plt.plot(gm_new, len_ar)
+    plt.plot(gm, len_ar)
     plt.ylabel("L")
     plt.xlabel("gamma")
     plt.title(f'Зависимость L от gamma при n={len(sample)}')
