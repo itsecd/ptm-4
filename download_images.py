@@ -3,6 +3,7 @@ import time
 import requests
 from bs4 import BeautifulSoup
 import create_dataframe
+import create_csv
 import logging
 
 headers = {
@@ -15,8 +16,6 @@ def Search_Images(Limit_of_find: int) -> None:
     num_page = 0
     i = 0
     os.system('cls')
-    logging.basicConfig(filename='loginfo.log', level=logging.DEBUG,
-                        format='%(asctime)s %(levelname)s %(message)s')
     logging.info("Start search")
     while True:
         first_url = f"https://yandex.ru/images/search?p={num_page}&text=zebra&uinfo=sw-1536-sh-864-ww-760-wh-754-pd-1.25-wp-16x9_1920x1080&lr=51&rpt=image"
@@ -97,6 +96,7 @@ def Save_Images_With_Bay_Horse(list_of_src: str, Limit_of_find: int, i: int) -> 
 
 def Finish() -> None:
     logging.info("Finish download images")
+    create_csv.create_annotation("dataset")
     create_dataframe.start_create()
 
 
@@ -105,9 +105,13 @@ def main() -> None:
         os.mkdir("dataset")
         os.mkdir("dataset/zebra")
         os.mkdir("dataset/bay_horse")
+        logging.info(
+            "Create dirrections /dataset /dataset/zebra /dataset/bay_horse")
     Limit_of_find = 1050
     Search_Images(Limit_of_find)
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='loginfo.log', level=logging.DEBUG,
+                        format='%(asctime)s %(levelname)s %(message)s')
     main()

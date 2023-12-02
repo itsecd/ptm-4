@@ -7,6 +7,7 @@ import random
 import numpy as np
 from matplotlib import pyplot as plt
 import multiprocessing
+import logging
 
 
 def show_hist(color_and_name_color: list) -> None:
@@ -95,6 +96,9 @@ def start_create() -> None:
     '''
     Основная функция создания всего dataframe, а также выполнение сортировки и вывода гистограмм
     '''
+    logging.basicConfig(filename='loginfo.log', level=logging.DEBUG,
+                        format='%(asctime)s %(levelname)s %(message)s')
+    logging.info("Start create dataframes")
     list_abs_way = read_csv("dataset.csv", 1)
     list_name_class = read_csv("dataset.csv", 2)
     list_bin = ["Num_point"]
