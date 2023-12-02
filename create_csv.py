@@ -43,7 +43,3 @@ def create_annotation(folderpath: str) -> None:
     except FileExistsError:
         logging.error("ERROR! Func create_annotation can't open folder/file")
     logging.info("Finish create csv file")
-
-
-if __name__ == "__main__":
-    create_annotation("dataset/download_data")

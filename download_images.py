@@ -42,8 +42,16 @@ def Search_Images(Limit_of_find: int) -> None:
         logging.info(f"Find {len(first_list_of_src)} zebra img")
         logging.info(f"Find {len(second_list_of_src)} bay horse img")
 
-        Save_Images_With_Zebra(first_list_of_src, i)
-        i = Save_Images_With_Bay_Horse(second_list_of_src, Limit_of_find, i)
+        try:
+            Save_Images_With_Zebra(first_list_of_src, i)
+        except AttributeError:
+            logging.error("AttributeError in Save_Images_With_Zebra")
+
+        try:
+            i = Save_Images_With_Bay_Horse(
+                second_list_of_src, Limit_of_find, i)
+        except AttributeError:
+            logging.error("AttributeError in Save_Images_With_Bay_Horse")
 
 
 def Save_Images_With_Zebra(list_of_src: str, i: int) -> None:

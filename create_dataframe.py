@@ -30,6 +30,7 @@ def show_hist(color_and_name_color: list) -> None:
     plt.xlabel("Intensity")
     plt.ylabel("Number of pixels")
     plt.show()
+    logging.info(f"Show {color_and_name_color} histogram")
 
 
 def create_histogram(input_df: pd.DataFrame, name_class: str) -> None:
@@ -51,6 +52,7 @@ def create_histogram(input_df: pd.DataFrame, name_class: str) -> None:
         plt.plot(histr, color=col)
         plt.xlim([0, 256])
     plt.show()
+    logging.info(f"Histogram {name_class} create")
     return result
 
 
@@ -99,8 +101,24 @@ def start_create() -> None:
     logging.basicConfig(filename='loginfo.log', level=logging.DEBUG,
                         format='%(asctime)s %(levelname)s %(message)s')
     logging.info("Start create dataframes")
-    list_abs_way = read_csv("dataset.csv", 1)
-    list_name_class = read_csv("dataset.csv", 2)
+
+    CSVFILENAME = "dataset.csv"
+
+    pd.set_option('display.max_rows', 20)
+    pd.set_option('display.max_columns', None)
+
+    try:
+        list_abs_way = read_csv(CSVFILENAME, 1)
+        logging.info(f"Read {len(list_abs_way)} abs paths from {CSVFILENAME}")
+    except FileExistsError:
+        logging.error(f"ERROR! Func read_csv can't find {CSVFILENAME}")
+    try:
+        list_name_class = read_csv(CSVFILENAME, 2)
+        logging.info(
+            f"Read {len(list_name_class)} classes names from {CSVFILENAME}")
+    except FileExistsError:
+        logging.error(f"ERROR! Func read_csv can't find {CSVFILENAME}")
+
     list_bin = ["Num_point"]
     list_image_width = ["Image_width"]
     list_image_hight = ["Image_hight"]
@@ -138,6 +156,7 @@ def start_create() -> None:
             list_image_pix[0]: pd.array(list_image_pix[1:])
         }
     )
+    logging.info("Dataframe successfully create")
     print(df)
     print("\n\n\n\n\n")
     start = False
@@ -162,19 +181,18 @@ def start_create() -> None:
     print(first_sort_df["Image_width"].describe())
     print(first_sort_df["Image_hight"].describe())
     print(first_sort_df["Number_of_chanel"].describe())
-    list_of_color = create_histogram(df, input_nc)
-
-    list_arg = [
-        (list_of_color[0], 'r'),
-        (list_of_color[1], 'g'),
-        (list_of_color[2], 'b')
-    ]
-
-    with multiprocessing.Pool(multiprocessing.cpu_count()) as p:
-        p.map(show_hist, list_arg)
+    try:
+        list_of_color = create_histogram(df, input_nc)
+        list_arg = [
+            (list_of_color[0], 'r'),
+            (list_of_color[1], 'g'),
+            (list_of_color[2], 'b')
+        ]
+        with multiprocessing.Pool(multiprocessing.cpu_count()) as p:
+            p.map(show_hist, list_arg)
+    except:
+        logging.error("ERROR! Some problem with create_historgram")
 
 
 if __name__ == "__main__":
-    pd.set_option('display.max_rows', 20)
-    pd.set_option('display.max_columns', None)
     start_create()
