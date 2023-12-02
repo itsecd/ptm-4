@@ -2,6 +2,8 @@ import os
 import time
 import requests
 from bs4 import BeautifulSoup
+import create_dataframe
+import logging
 
 headers = {
     "Accept": "*/*",
@@ -13,9 +15,9 @@ def Search_Images(Limit_of_find: int) -> None:
     num_page = 0
     i = 0
     os.system('cls')
-    print("=" * 100)
-    print("\nStart searching images with zebra and bay horse\n")
-    print("=" * 100)
+    logging.basicConfig(filename='loginfo.log', level=logging.DEBUG,
+                        format='%(asctime)s %(levelname)s %(message)s')
+    logging.info("Start search")
     while True:
         first_url = f"https://yandex.ru/images/search?p={num_page}&text=zebra&uinfo=sw-1536-sh-864-ww-760-wh-754-pd-1.25-wp-16x9_1920x1080&lr=51&rpt=image"
         second_url = f"https://yandex.ru/images/search?p={num_page}&from=tabbar&text=bay%20horse&lr=51&rpt=image&uinfo=sw-1920-sh-1080-ww-1220-wh-970-pd-1-wp-16x9_1920x1080"
@@ -24,11 +26,8 @@ def Search_Images(Limit_of_find: int) -> None:
         first_response = requests.get(first_url, headers=headers)
         first_soup = BeautifulSoup(first_response.content, 'html.parser')
 
-        for tos in range(1, 61, 1):
+        for i in range(60):
             time.sleep(1)
-            os.system('cls')
-            print('=' * tos)
-            print("\n\nLoading", tos)
 
         second_response = requests.get(second_url, headers=headers)
         second_soup = BeautifulSoup(second_response.content, 'html.parser')
@@ -41,13 +40,15 @@ def Search_Images(Limit_of_find: int) -> None:
         for link in second_soup.find_all("img"):
             second_list_of_src.append(link.get("src"))
 
+        logging.info(f"Find {len(first_list_of_src)} zebra img")
+        logging.info(f"Find {len(second_list_of_src)} bay horse img")
+
         Save_Images_With_Zebra(first_list_of_src, i)
         i = Save_Images_With_Bay_Horse(second_list_of_src, Limit_of_find, i)
 
 
 def Save_Images_With_Zebra(list_of_src: str, i: int) -> None:
-    os.system('cls')
-    print("\tSave zebra")
+    logging.info("Start save zebra img")
     index = i
     for url in list_of_src:
         if url.find("n=13") != -1:
@@ -61,17 +62,16 @@ def Save_Images_With_Zebra(list_of_src: str, i: int) -> None:
                 img_option.write(img.content)
                 img_option.close()
                 index += 1
-                print("Save ", str(index).zfill(4))
             except:
-                print("Error after ", index)
+                logging.error(
+                    f"Error on Save_Images_With_Zebra after {i} image")
             link_option = open("dataset/zebra/zebra_link.txt", "a")
             link_option.write(url + "\n")
             link_option.close()
 
 
 def Save_Images_With_Bay_Horse(list_of_src: str, Limit_of_find: int, i: int) -> int:
-    os.system('cls')
-    print("\tSave bay horse")
+    logging.info("Start save bay horse img")
     for url in list_of_src:
         if url.find("n=13") != -1:
             try:
@@ -84,9 +84,9 @@ def Save_Images_With_Bay_Horse(list_of_src: str, Limit_of_find: int, i: int) -> 
                 img_option.write(img.content)
                 img_option.close()
                 i += 1
-                print("Save ", str(i).zfill(4))
             except:
-                print("Error after ", i)
+                logging.error(
+                    f"Error on Save_Images_With_Bay_Horse after {i} image")
             link_option = open("dataset/bay_horse/bay_horse_link.txt", "a")
             link_option.write(url + "\n")
             link_option.close()
@@ -96,8 +96,8 @@ def Save_Images_With_Bay_Horse(list_of_src: str, Limit_of_find: int, i: int) -> 
 
 
 def Finish() -> None:
-    print("\nProgram has finished!\n")
-    exit(0)
+    logging.info("Finish download images")
+    create_dataframe.start_create()
 
 
 def main() -> None:
