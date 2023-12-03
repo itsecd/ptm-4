@@ -1,0 +1,26 @@
+2023-12-03 14:29:53,292 - INFO - Products read from CSV file products.csv
+2023-12-03 14:29:53,292 - INFO - The product Milk exists
+2023-12-03 14:29:53,292 - INFO - The product Milk has not been added because it is already there
+2023-12-03 14:29:53,292 - INFO - The product Apple does not exist
+2023-12-03 14:29:53,292 - INFO - The product Apple has been added
+2023-12-03 14:29:53,292 - INFO - The product Shit does not exist
+2023-12-03 14:29:53,292 - INFO - The product Shit has been added
+2023-12-03 14:29:53,292 - INFO - The product Water does not exist
+2023-12-03 14:29:53,292 - INFO - The product Water has been added
+2023-12-03 14:29:53,353 - INFO - The product Watermelon does not exist
+2023-12-03 14:29:53,353 - INFO - The product Watermelon has been added
+2023-12-03 14:29:53,353 - INFO - The product Melon does not exist
+2023-12-03 14:29:53,353 - INFO - The product Melon has been added
+2023-12-03 14:29:53,353 - INFO - The product Milk exists
+2023-12-03 14:29:53,353 - INFO - The product Milk has not been added because it is already there
+2023-12-03 14:29:53,353 - INFO - The product nuts does not exist
+2023-12-03 14:29:53,353 - INFO - The product nuts has been added
+2023-12-03 14:29:53,353 - INFO - The price of the product has been changed: 30
+2023-12-03 14:29:53,353 - INFO - Printing products
+2023-12-03 14:29:53,353 - INFO - Printed all products
+2023-12-03 14:29:53,353 - INFO - Products sorted by price in ascending order
+2023-12-03 14:29:53,353 - INFO - Products sorted by price in descending order
+2023-12-03 14:29:53,353 - INFO - Products sorted by quantity in ascending order
+2023-12-03 14:29:53,353 - INFO - Products sorted by quantity in descending order
+2023-12-03 14:29:53,353 - INFO - Products are written to a CSV file updated_products.csv
+2023-12-03 14:29:53,353 - INFO - Cleared all products
