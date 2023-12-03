@@ -1,44 +1,12 @@
-# импортируем необходимые библиотеки
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
 import scipy.stats as st
-# импортируем библиотеки логгирования
 import logging
 import pkg_resources
-# импортируем модуль datetime
 import datetime
-
-
-# Настройка логгирования
-# создаем объект логгера с именем data_logger
-data_logger = logging.getLogger('data_logger')
-# устанавливаем уровень логирования
-data_logger.setLevel(logging.INFO)
-# создаем объект обработчика, который будет выводить логи в консоль
-stream_handler = logging.StreamHandler()
-# создаем объект форматтера, который будет определять формат логов
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# связываем обработчик с форматтером
-stream_handler.setFormatter(formatter)
-# добавляем обработчик к логгеру
-data_logger.addHandler(stream_handler)
-
-# создаем объект логгера с именем time_logger
-time_logger = logging.getLogger('time_logger')
-# устанавливаем уровень логирования
-time_logger.setLevel(logging.INFO)
-# создаем объект обработчика, который будет выводить логи в консоль
-stream_handler = logging.StreamHandler()
-# создаем объект форматтера, который будет определять формат логов
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# связываем обработчик с форматтером
-stream_handler.setFormatter(formatter)
-# добавляем обработчик к логгеру
-time_logger.addHandler(stream_handler)
-
 
 
 # Функция для логгирования версий библиотек
@@ -169,10 +137,36 @@ def show_hist(y, x1, x3):
     plt.show()
 
 def main():
+    # Настройка логгирования
+    # создаем объект логгера с именем data_logger
+    data_logger = logging.getLogger('data_logger')
+    # устанавливаем уровень логирования
+    data_logger.setLevel(logging.INFO)
+    # создаем объект обработчика, который будет выводить логи в консоль
+    stream_handler = logging.StreamHandler()
+    # создаем объект форматтера, который будет определять формат логов
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # связываем обработчик с форматтером
+    stream_handler.setFormatter(formatter)
+    # добавляем обработчик к логгеру
+    data_logger.addHandler(stream_handler)
+
+    # создаем объект логгера с именем time_logger
+    time_logger = logging.getLogger('time_logger')
+    # устанавливаем уровень логирования
+    time_logger.setLevel(logging.INFO)
+    # создаем объект обработчика, который будет выводить логи в консоль
+    stream_handler = logging.StreamHandler()
+    # создаем объект форматтера, который будет определять формат логов
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # связываем обработчик с форматтером
+    stream_handler.setFormatter(formatter)
+    # добавляем обработчик к логгеру
+    time_logger.addHandler(stream_handler)
+
     # получаем текущее время в начале выполнения кода
     start_time = datetime.datetime.now()
     time_logger.info(f"Code execution started at {start_time}")
-
 
     # загружаем данные из файла datastats.csv
     data = pd.read_csv('datastats.csv')
