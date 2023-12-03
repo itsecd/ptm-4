@@ -102,7 +102,7 @@ def two_sided_critical_region(alpha: float, dist: float)->list:
     return [(-np.inf, -z_alpha_2), (z_alpha_2, np.inf)]
 
 
-def show_hist(y: list, x1: list, x: list3)->None:
+def show_hist(y: list, x1: list, x: list)->None:
     '''
     Функция для построения гистограммы распределения y
     '''
@@ -255,6 +255,14 @@ def main()->None:
     # вычисляем и логируем время выполнения кода
     exec_time = end_time - start_time
     time_logger.info(f"Code execution took {exec_time}")
+    print(f"Code execution took {exec_time}")
+
+
+if __name__ == "__main__":
+    # логируем версии библиотек
+    log_library_versions()
+    # запускаем главную функцию
+    main()
 
 
 

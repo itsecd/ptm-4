@@ -1,0 +1,17 @@
+Date,Region,Product,Sales,Profit,UnitsSold
+2023-01-01,East,Product_A,1000,200,50
+2023-01-01,West,Product_A,800,150,40
+2023-01-01,North,Product_A,750,100,30
+2023-01-01,South,Product_A,900,180,45
+2023-02-01,East,Product_A,1100,220,55
+2023-02-01,West,Product_A,850,160,42
+2023-02-01,North,Product_A,800,120,35
+2023-02-01,South,Product_A,950,190,47
+2023-01-01,East,Product_B,1200,240,60
+2023-01-01,West,Product_B,950,180,48
+2023-01-01,North,Product_B,900,140,42
+2023-01-01,South,Product_B,1100,220,55
+2023-02-01,East,Product_B,1300,260,65
+2023-02-01,West,Product_B,1000,190,50
+2023-02-01,North,Product_B,950,150,45
+2023-02-01,South,Product_B,1200,240,60
