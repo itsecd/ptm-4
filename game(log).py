@@ -6,8 +6,6 @@ from time import sleep
 from emoji import emojize
 from simple_colors import *
 
-logging.basicConfig(level=logging.INFO)
-
 
 def intro(): 
     """ 
@@ -15,11 +13,11 @@ def intro():
     """ 
     columns = shutil.get_terminal_size().columns 
  
-    logging.info("SNAKE () WATER () GUN ()".center(columns)) 
- 
-    sleep(1.5)  
- 
-    logging.info("GAME DEVELOPED BY -  AKSHAT DODHIYA ".center(columns))  
+    print(magenta("SNAKE (🐍) WATER (💧) GUN (🔫)".center(columns))) 
+
+    sleep(1.5) 
+
+    print(cyan("GAME DEVELOPED BY - 👑 AKSHAT DODHIYA 👑".center(columns))) 
  
     sleep(2) 
     logger.info("the beginning of the game: success")
@@ -39,8 +37,10 @@ def choices():
     options = ["Snake", "Water", "Gun"]  
     computer_choice = random.choice(options)  
 
-    logging.info("Choose:\t\tS for 🐍\t\tW for 💧\t\tG for 🔫")  
-    user_choice = input().lower()  
+    print("Choose:\t\tS for", emojize(":snake:"),
+          "\t\tW for", emojize(":droplet:"),
+          "\t\tG for", emojize(":pistol:"))  # Printing options for user to select
+    user_choice = input().lower()  # storing input of the user in lower case 
 
 
 def results():
@@ -149,22 +149,22 @@ def replay_game():
 
 while 1:  
     computer_points, user_points, flag, chance = 0, 0, 0, 0  
-    computer_choice, user_choice, replay = "", "", "" 
+    computer_choice, user_choice, replay = "", "", ""  
 
     try:
-        logging.info(f"User input for number of chances: {n}")
+        n = int(input("HOW MANY CHANCES DO YOU WANT TO PLAY ?\n"))
         if n < 1:
-            logging.error("Please enter only natural number", "bold")
+            print(red('Please enter only natural number', 'bold'))
             continue
 
     except Exception as e:
-        logging.error("Please enter only natural number", "bold")
+        print(red('Please enter only natural number', 'bold'))
         continue
 
-    while chance < n:  
-        choices()  
-        results()
-        if flag == 0:  
+    while chance < n: 
+        choices() 
+        results() 
+        if flag == 0: 
             chance += 1
 
     print("\n\t\t\tYOUR SCORE :", user_points)
