@@ -3,7 +3,6 @@ import multiprocessing as mp
 import my_logger
 def check_hash(lst: list) -> str:
     """Сравниваем хэши, в случае успеха возвращаем номер карты, иначе False"""
-    logger = my_logger.My_log(__file__).get_logger()
     hash = lst[3]
     full_card_num = f"{lst[0]}{lst[1]:06d}{lst[2]}"
     match lst[4]:
