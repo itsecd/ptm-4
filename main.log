@@ -1,0 +1,19 @@
+main 2023-12-03 18:15:31,441 INFO User guess: force
+main 2023-12-03 18:15:31,442 INFO Word check result: [{'letter': 'f', 'index': 0, 'color': 'grey84'}, {'letter': 'o', 'index': 1, 'color': 'grey84'}, {'letter': 'r', 'index': 2, 'color': 'orange1'}, {'letter': 'c', 'index': 3, 'color': 'grey84'}, {'letter': 'e', 'index': 4, 'color': 'orange1'}]
+main 2023-12-03 18:15:31,470 INFO Terminal cleared successfully
+main 2023-12-03 18:15:37,937 INFO User guess: apple
+main 2023-12-03 18:15:37,937 INFO Word check result: [{'letter': 'a', 'index': 0, 'color': 'grey84'}, {'letter': 'p', 'index': 1, 'color': 'grey84'}, {'letter': 'p', 'index': 2, 'color': 'grey84'}, {'letter': 'l', 'index': 3, 'color': 'orange1'}, {'letter': 'e', 'index': 4, 'color': 'orange1'}]
+main 2023-12-03 18:15:37,956 INFO Terminal cleared successfully
+main 2023-12-03 18:15:55,056 INFO User guess: niger
+main 2023-12-03 18:15:55,060 INFO Word check result: [{'letter': 'n', 'index': 0, 'color': 'grey84'}, {'letter': 'i', 'index': 1, 'color': 'grey84'}, {'letter': 'g', 'index': 2, 'color': 'grey84'}, {'letter': 'e', 'index': 3, 'color': 'spring_green2'}, {'letter': 'r', 'index': 4, 'color': 'spring_green2'}]
+main 2023-12-03 18:15:55,086 INFO Terminal cleared successfully
+main 2023-12-03 18:17:09,417 INFO User guess: zoner
+main 2023-12-03 18:17:09,419 INFO Word check result: [{'letter': 'z', 'index': 0, 'color': 'grey84'}, {'letter': 'o', 'index': 1, 'color': 'grey84'}, {'letter': 'n', 'index': 2, 'color': 'grey84'}, {'letter': 'e', 'index': 3, 'color': 'spring_green2'}, {'letter': 'r', 'index': 4, 'color': 'spring_green2'}]
+main 2023-12-03 18:17:09,443 INFO Terminal cleared successfully
+main 2023-12-03 18:17:42,504 INFO User guess: niger
+main 2023-12-03 18:17:42,507 INFO Word check result: [{'letter': 'n', 'index': 0, 'color': 'grey84'}, {'letter': 'i', 'index': 1, 'color': 'grey84'}, {'letter': 'g', 'index': 2, 'color': 'grey84'}, {'letter': 'e', 'index': 3, 'color': 'spring_green2'}, {'letter': 'r', 'index': 4, 'color': 'spring_green2'}]
+main 2023-12-03 18:17:42,530 INFO Terminal cleared successfully
+main 2023-12-03 18:17:44,045 INFO User guess: niger
+main 2023-12-03 18:17:44,048 INFO Word check result: [{'letter': 'n', 'index': 0, 'color': 'grey84'}, {'letter': 'i', 'index': 1, 'color': 'grey84'}, {'letter': 'g', 'index': 2, 'color': 'grey84'}, {'letter': 'e', 'index': 3, 'color': 'spring_green2'}, {'letter': 'r', 'index': 4, 'color': 'spring_green2'}]
+main 2023-12-03 18:17:44,073 INFO Terminal cleared successfully
+main 2023-12-03 18:17:44,112 INFO User failed to guess the word. Correct word: LEVER
