@@ -82,11 +82,14 @@ class Window(QMainWindow):
         self.variant_label.clear()
         self.variant_label.show()
         self.button_start.show()
+        logger.debug("Return to the home page, completed")
 
 
     def button_show_graph_click(self):
         """Вызываем функцию создания графика"""
         graph.show_plt(self.cores, self.times)
+        logger.debug("The graph is shown successfully")
+
 
     def check_by_alg_moon_click(self):
         """Вызываем алгоритм луна"""

@@ -2,3 +2,6 @@
 [2023-12-03 10:34:30,228] [C:\Users\Солнышко\PycharmProjects\ptm-4\main_window.py] [WARNING] > The user entered a non-existent option. Repeat the request
 [2023-12-03 10:36:32,119] [C:\Users\Солнышко\PycharmProjects\ptm-4\main_window.py] [WARNING] > The user did not select an option. Repeat the request
 [2023-12-03 10:37:08,912] [C:\Users\Солнышко\PycharmProjects\ptm-4\alg_luhn.py] [WARNING] > The sequence failed the luhn check. Check it out
+[2023-12-03 16:53:53,805] [C:\Users\Солнышко\PycharmProjects\ptm-4\main_window.py] [WARNING] > The user did not select an option. Repeat the request
+[2023-12-03 16:53:58,322] [C:\Users\Солнышко\PycharmProjects\ptm-4\main_window.py] [WARNING] > The user entered a non-existent option. Repeat the request
+[2023-12-03 16:55:18,627] [C:\Users\Солнышко\PycharmProjects\ptm-4\alg_luhn.py] [WARNING] > The sequence failed the luhn check. Check it out
