@@ -6,7 +6,7 @@ import scipy.stats as sts
 import matplotlib.pyplot as plt
 
 logging.basicConfig(filename="logs.log", level=logging.INFO,
-                    format=u'%(levelname)s  %(filename)s %(asctime)s %(message)s')
+                    format=u'%(levelname)s  %(filename)s %(asctime)s function %(funcName)s: %(message)s')
 GAMMA = 0.95
 A = 2
 SIGMA2 = 7
@@ -28,7 +28,7 @@ def find_expectation_inter(normal_sample: np.ndarray, gamma: float, sigma: float
     delta = t * sigma / np.sqrt(len(normal_sample))
     x_l = normal_sample.mean() - delta
     x_r = normal_sample.mean() + delta
-    logging.info(f'Expectation inter [{x_l}, {x_r}] with known dispersion was successfully found for gamma = {gamma}')
+    logging.info(f'Expectation inter [{x_l}, {x_r}]  was found for gamma = {gamma}')
     return x_l, x_r
 
 
@@ -45,7 +45,7 @@ def find_expectation_inter_no_dis(normal_sample: np.ndarray, gamma: float) -> tu
     delta = t * s / np.sqrt(len(normal_sample))
     x_l = normal_sample.mean() - delta
     x_r = normal_sample.mean() + delta
-    logging.info(f'Expectation inter [{x_l}, {x_r}] with known dispersion was successfully found for gamma = {gamma}')
+    logging.info(f'Expectation inter(unknown dispersion) [{x_l}, {x_r}] was found for gamma = {gamma}')
     return x_l, x_r
 
 
@@ -81,7 +81,7 @@ def plot_dependence_l_of_gamma_ex(number_of_points: int, sample_size: int, save_
     :return:
     """
     if sample_size <= 0 or number_of_points <= 0:
-        logging.error(f'One or both sample_size and numer_of_points argument is incorrect, should be > 0')
+        logging.error(f'Sample_size({sample_size}) and number_of points({number_of_points}) arguments should be > 0')
         return None
     gm = np.linspace(0, 1, number_of_points)
     sample = np.random.normal(loc=A, scale=np.sqrt(SIGMA2), size=sample_size)
@@ -102,7 +102,7 @@ def plot_dependence_l_of_gamma_ex(number_of_points: int, sample_size: int, save_
         logging.error(f'save path: {save_path} does not exist')
         return None
     if not fig_name.endswith(".png") or not fig_name.endswith(".jpg"):
-        logging.error(f'Name for plot {fig_name} has incorrect extention')
+        logging.error(f'Name for plot {fig_name} has incorrect extension')
         return None
     else:
         full_path = os.path.join(save_path, fig_name)
@@ -121,7 +121,7 @@ def plot_dependence_l_of_gamma_dis(number_of_points: int, sample_size: int, save
     :return:
     """
     if sample_size <= 0 or number_of_points <= 0:
-        logging.error(f'One or both sample_size and numer_of_points argument is incorrect, should be > 0')
+        logging.error(f'Sample_size({sample_size}) and number_of points({number_of_points}) arguments should be > 0')
         return None
     gm = np.linspace(0, 0.99, number_of_points)
     sample = np.random.normal(loc=A, scale=np.sqrt(SIGMA2), size=sample_size)
@@ -163,11 +163,11 @@ def plot_dependence_l_of_n_ex(gamma: float, min_size: int, max_size: int,
     :return:
     """
     if min_size <= 0 or max_size <= min_size:
-        logging.error(f'One or both of arguments for minimum sample size ({min_size}) or maximum sample size '
-                      f'({max_size}) is incorrect, should be > 0, max size should be > min size')
+        logging.error(f'Both max_size({max_size}) and min_size({min_size})'
+                      f' arguments should be > 0 and max_size > min_size')
         return None
     if number_of_points <= 0:
-        logging.error(f'number of points argument({number_of_points}) is incorrect, should be > 0')
+        logging.error(f'Number of points argument({number_of_points}) is incorrect, should be > 0')
         return None
     n_ar = np.linspace(min_size, max_size, number_of_points, dtype=int)
     len_ar = np.array([])
@@ -209,11 +209,11 @@ def plot_dependence_l_of_n_dis(gamma: float, min_size: int, max_size: int,
     :return:
     """
     if min_size <= 0 or max_size <= min_size:
-        logging.error(f'One or both of arguments for minimum sample size ({min_size}) or maximum sample size '
-                      f'({max_size}) is incorrect, should be > 0, max size should be > min size')
+        logging.error(f'Both max_size({max_size}) and min_size({min_size})'
+                      f' arguments should be > 0 and max_size > min_size')
         return None
     if number_of_points <= 0:
-        logging.error(f'number of points argument({number_of_points}) is incorrect, should be > 0')
+        logging.error(f'Number of points argument({number_of_points}) is incorrect, should be > 0')
         return None
     n_ar = np.linspace(min_size, max_size, number_of_points, dtype=int)
     len_ar = np.array([])
@@ -239,7 +239,7 @@ def plot_dependence_l_of_n_dis(gamma: float, min_size: int, max_size: int,
     else:
         full_path = os.path.join(save_path, fig_name)
         fig.savefig(full_path)
-        logging.info(f'Dependence L of sample size for dispersion plot was successfully saved in {full_path}')
+        logging.info(f'Plot was successfully saved in {full_path}')
 
 
 def find_emp_gamma(m: int) -> float:
