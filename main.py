@@ -5,9 +5,51 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
 import scipy.stats as st
+# импортируем библиотеки логгирования
+import logging
+import pkg_resources
+
+# Настройка логгирования
+logging.basicConfig(filename='my_log.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Функция для логгирования версий библиотек
+def log_library_versions():
+    libraries = ['pandas', 'numpy', 'matplotlib', 'seaborn', 'statsmodels', 'scipy']
+    for lib in libraries:
+        try:
+            version = pkg_resources.get_distribution(lib).version
+            logging.info(f'{lib} version: {version}')
+        except pkg_resources.DistributionNotFound:
+            logging.warning(f'{lib} is not installed')
+
+# Логгируем версии библиотек
+log_library_versions()
 
 # загружаем данные из файла datastats.csv
 data = pd.read_csv('datastats.csv')
+logging.info("Данные из файла datastats.csv успешно загружены.")
+
+# создаем объект логгера с именем data_logger
+data_logger = logging.getLogger('data_logger')
+# устанавливаем уровень логирования
+data_logger.setLevel(logging.INFO)
+# создаем объект обработчика, который будет выводить логи в консоль
+stream_handler = logging.StreamHandler()
+# создаем объект форматтера, который будет определять формат логов
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# связываем обработчик с форматтером
+stream_handler.setFormatter(formatter)
+# добавляем обработчик к логгеру
+data_logger.addHandler(stream_handler)
+# логируем количество строк и столбцов в данных
+data_logger.info(f"Data has {data.shape[0]} rows and {data.shape[1]} columns")
+# логируем количество пропущенных значений в данных
+data_logger.info(f"Data has {data.isna().sum().sum()} missing values")
+# логируем количество дубликатов в данных
+data_logger.info(f"Data has {data.duplicated().sum()} duplicated rows")
+# логируем количество выбросов в данных, используя правило трех сигм
+outliers = data[(data - data.mean()).abs() > 3 * data.std()].count().sum()
+data_logger.info(f"Data has {outliers} outliers using the 3-sigma rule")
 
 # генерируем данные из гамма-распределения
 np.random.seed(42)
@@ -19,16 +61,17 @@ x1 = np.random.normal(0, 1, n) # независимая переменная 1
 x2 = np.random.uniform(0, 1, n) # независимая переменная 2
 x3 = np.random.binomial(1, 0.5, n) # независимая переменная 3
 df = pd.DataFrame({'y': y, 'x1': x1, 'x2': x2, 'x3': x3}) # создаем датафрейм
+logging.info("Данные успешно сгенерированы и добавлены в датафрейм.")
 
-# выводим информацию о данных
-print(df.info())
+# Выводим информацию о данных
+logging.info(df.info())
 
-# выводим описательную статистику
-print(df.describe())
+# Выводим описательную статистику
+logging.info(df.describe())
 
-# строим матрицу корреляций
+# Строим матрицу корреляций
 corr_matrix = df.corr()
-print(corr_matrix)
+logging.info("Матрица корреляций:\n" + str(corr_matrix))
 
 # выбираем зависимую и независимые переменные
 y = df['y']
@@ -41,8 +84,8 @@ X = sm.add_constant(X)
 model = sm.GLM(y, X, family=sm.families.Gamma(link=sm.families.links.log))
 results = model.fit()
 
-# выводим результаты регрессии
-print(results.summary())
+# Выводим результаты регрессии
+logging.info(results.summary())
 
 
 # добавляем функцию для расчета ковариационного момента
@@ -57,6 +100,7 @@ def cov(x, y):
     # делим сумму на n - 1
     cov_xy = sum_xy / (len(x) - 1)
     # возвращаем ковариационный момент
+    logging.info("Функция cov() успешна выполнена")
     return cov_xy
 
 # добавляем функцию для расчета математического ожидания
@@ -66,6 +110,7 @@ def mean(x):
     # делим сумму на количество элементов
     mean_x = sum_x / len(x)
     # возвращаем математическое ожидание
+    logging.info("Функция mean() успешна выполнена")
     return mean_x
 
 # добавляем функцию для вычисления совместной плотности распределения двух нормально-распределенных величин
@@ -77,6 +122,7 @@ def joint_pdf(x, y, mu_x, mu_y, sigma_x, sigma_y, rho):
     # вычисляем аргумент экспоненты
     z = - 1 / (2 * (1 - rho**2)) * ((x - mu_x) / sigma_x)**2 - 2 * rho * (x - mu_x) / sigma_x * (y - mu_y) / sigma_y + ((y - mu_y) / sigma_y)**2
     # возвращаем совместную плотность распределения
+    logging.info("Функция joint_pdf() успешна выполнена")
     return c * np.exp(z)
 
 # добавляем функцию для вычисления коэффициента корреляции Пирсона
@@ -90,6 +136,7 @@ def pearson_r(x, y):
     num = np.sum((x - x_mean) * (y - y_mean))
     den = np.sqrt(np.sum((x - x_mean)**2) * np.sum((y - y_mean)**2))
     # возвращаем коэффициент корреляции Пирсона
+    logging.info("Функция pearson_r() успешна выполнена")
     return num / den
 
 # добавляем функцию для нахождения двусторонней критической области
@@ -101,11 +148,12 @@ def two_sided_critical_region(alpha, dist):
     # вычисляем критическое значение z_alpha/2
     z_alpha_2 = dist.ppf(1 - alpha / 2)
     # возвращаем двустороннюю критическую область в виде списка интервалов
+    logging.info("Функция two_sided_critical_region() успешна выполнена")
     return [(-np.inf, -z_alpha_2), (z_alpha_2, np.inf)]
 
 # проводим t-тест для проверки гипотезы о равенстве средних y в зависимости от x3
 t, p = st.ttest_ind(y[x3 == 0], y[x3 == 1])
-print(f"t-statistic = {t:.3f}, p-value = {p:.3f}")
+logging.info(f"t-statistic = {t:.3f}, p-value = {p:.3f}")
 
 # строим гистограмму распределения y
 plt.hist(y, bins=10)
