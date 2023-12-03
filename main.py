@@ -8,9 +8,38 @@ import scipy.stats as st
 # импортируем библиотеки логгирования
 import logging
 import pkg_resources
+# импортируем модуль datetime
+import datetime
+
 
 # Настройка логгирования
-logging.basicConfig(filename='my_log.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# создаем объект логгера с именем data_logger
+data_logger = logging.getLogger('data_logger')
+# устанавливаем уровень логирования
+data_logger.setLevel(logging.INFO)
+# создаем объект обработчика, который будет выводить логи в консоль
+stream_handler = logging.StreamHandler()
+# создаем объект форматтера, который будет определять формат логов
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# связываем обработчик с форматтером
+stream_handler.setFormatter(formatter)
+# добавляем обработчик к логгеру
+data_logger.addHandler(stream_handler)
+
+# создаем объект логгера с именем time_logger
+time_logger = logging.getLogger('time_logger')
+# устанавливаем уровень логирования
+time_logger.setLevel(logging.INFO)
+# создаем объект обработчика, который будет выводить логи в консоль
+stream_handler = logging.StreamHandler()
+# создаем объект форматтера, который будет определять формат логов
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# связываем обработчик с форматтером
+stream_handler.setFormatter(formatter)
+# добавляем обработчик к логгеру
+time_logger.addHandler(stream_handler)
+
+
 
 # Функция для логгирования версий библиотек
 def log_library_versions():
@@ -24,68 +53,6 @@ def log_library_versions():
 
 # Логгируем версии библиотек
 log_library_versions()
-
-# загружаем данные из файла datastats.csv
-data = pd.read_csv('datastats.csv')
-logging.info("Данные из файла datastats.csv успешно загружены.")
-
-# создаем объект логгера с именем data_logger
-data_logger = logging.getLogger('data_logger')
-# устанавливаем уровень логирования
-data_logger.setLevel(logging.INFO)
-# создаем объект обработчика, который будет выводить логи в консоль
-stream_handler = logging.StreamHandler()
-# создаем объект форматтера, который будет определять формат логов
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# связываем обработчик с форматтером
-stream_handler.setFormatter(formatter)
-# добавляем обработчик к логгеру
-data_logger.addHandler(stream_handler)
-# логируем количество строк и столбцов в данных
-data_logger.info(f"Data has {data.shape[0]} rows and {data.shape[1]} columns")
-# логируем количество пропущенных значений в данных
-data_logger.info(f"Data has {data.isna().sum().sum()} missing values")
-# логируем количество дубликатов в данных
-data_logger.info(f"Data has {data.duplicated().sum()} duplicated rows")
-# логируем количество выбросов в данных, используя правило трех сигм
-outliers = data[(data - data.mean()).abs() > 3 * data.std()].count().sum()
-data_logger.info(f"Data has {outliers} outliers using the 3-sigma rule")
-
-# генерируем данные из гамма-распределения
-np.random.seed(42)
-n = 100 # размер выборки
-k = 2 # параметр формы
-theta = 3 # параметр масштаба
-y = np.random.gamma(k, theta, n) # зависимая переменная
-x1 = np.random.normal(0, 1, n) # независимая переменная 1
-x2 = np.random.uniform(0, 1, n) # независимая переменная 2
-x3 = np.random.binomial(1, 0.5, n) # независимая переменная 3
-df = pd.DataFrame({'y': y, 'x1': x1, 'x2': x2, 'x3': x3}) # создаем датафрейм
-logging.info("Данные успешно сгенерированы и добавлены в датафрейм.")
-
-# Выводим информацию о данных
-logging.info(df.info())
-
-# Выводим описательную статистику
-logging.info(df.describe())
-
-# Строим матрицу корреляций
-corr_matrix = df.corr()
-logging.info("Матрица корреляций:\n" + str(corr_matrix))
-
-# выбираем зависимую и независимые переменные
-y = df['y']
-X = df[['x1', 'x2', 'x3']]
-
-# добавляем константу к независимым переменным
-X = sm.add_constant(X)
-
-# строим гамма-регрессию с логарифмической связью
-model = sm.GLM(y, X, family=sm.families.Gamma(link=sm.families.links.log))
-results = model.fit()
-
-# Выводим результаты регрессии
-logging.info(results.summary())
 
 
 # добавляем функцию для расчета ковариационного момента
@@ -151,54 +118,129 @@ def two_sided_critical_region(alpha, dist):
     logging.info("Функция two_sided_critical_region() успешна выполнена")
     return [(-np.inf, -z_alpha_2), (z_alpha_2, np.inf)]
 
-# проводим t-тест для проверки гипотезы о равенстве средних y в зависимости от x3
-t, p = st.ttest_ind(y[x3 == 0], y[x3 == 1])
-logging.info(f"t-statistic = {t:.3f}, p-value = {p:.3f}")
 
-# строим гистограмму распределения y
-plt.hist(y, bins=10)
-plt.xlabel('y')
-plt.ylabel('Frequency')
-plt.title('Histogram of y')
-plt.show()
+def show_hist(y, x1, x3):
+    # строим гистограмму распределения y
+    plt.hist(y, bins=10)
+    plt.xlabel('y')
+    plt.ylabel('Frequency')
+    plt.title('Histogram of y')
+    plt.show()
 
-# строим диаграмму рассеяния y и x1
-plt.scatter(y, x1)
-plt.xlabel('y')
-plt.ylabel('x1')
-plt.title('Scatter plot of y and x1')
-plt.show()
+    # строим диаграмму рассеяния y и x1
+    plt.scatter(y, x1)
+    plt.xlabel('y')
+    plt.ylabel('x1')
+    plt.title('Scatter plot of y and x1')
+    plt.show()
 
-# строим ящик с усами для y в зависимости от x3
-sns.boxplot(x=x3, y=y)
-plt.xlabel('x3')
-plt.ylabel('y')
-plt.title('Box plot of y by x3')
-plt.show()
+    # строим ящик с усами для y в зависимости от x3
+    sns.boxplot(x=x3, y=y)
+    plt.xlabel('x3')
+    plt.ylabel('y')
+    plt.title('Box plot of y by x3')
+    plt.show()
 
-# строим гистограмму распределения y
-plt.hist(y, bins=10)
-plt.xlabel('y')
-plt.ylabel('Frequency')
-plt.title('Histogram of y')
-# сохраняем гистограмму в файл histogram.png
-plt.savefig('histogram.png')
-plt.show()
+    # строим гистограмму распределения y
+    plt.hist(y, bins=10)
+    plt.xlabel('y')
+    plt.ylabel('Frequency')
+    plt.title('Histogram of y')
+    # сохраняем гистограмму в файл histogram.png
+    plt.savefig('histogram.png')
+    plt.show()
 
-# строим диаграмму рассеяния y и x1
-plt.scatter(y, x1)
-plt.xlabel('y')
-plt.ylabel('x1')
-plt.title('Scatter plot of y and x1')
-# сохраняем диаграмму в файл scatter.png
-plt.savefig('scatter.png')
-plt.show()
+    # строим диаграмму рассеяния y и x1
+    plt.scatter(y, x1)
+    plt.xlabel('y')
+    plt.ylabel('x1')
+    plt.title('Scatter plot of y and x1')
+    # сохраняем диаграмму в файл scatter.png
+    plt.savefig('scatter.png')
+    plt.show()
 
-# строим ящик с усами для y в зависимости от x3
-sns.boxplot(x=x3, y=y)
-plt.xlabel('x3')
-plt.ylabel('y')
-plt.title('Box plot of y by x3')
-# сохраняем ящик с усами в файл boxplot.png
-plt.savefig('boxplot.png')
-plt.show()
+    # строим ящик с усами для y в зависимости от x3
+    sns.boxplot(x=x3, y=y)
+    plt.xlabel('x3')
+    plt.ylabel('y')
+    plt.title('Box plot of y by x3')
+    # сохраняем ящик с усами в файл boxplot.png
+    plt.savefig('boxplot.png')
+    plt.show()
+
+def main():
+    # получаем текущее время в начале выполнения кода
+    start_time = datetime.datetime.now()
+    time_logger.info(f"Code execution started at {start_time}")
+
+
+    # загружаем данные из файла datastats.csv
+    data = pd.read_csv('datastats.csv')
+    logging.info("Данные из файла datastats.csv успешно загружены.")
+    # логируем количество строк и столбцов в данных
+    data_logger.info(f"Data has {data.shape[0]} rows and {data.shape[1]} columns")
+    # логируем количество пропущенных значений в данных
+    data_logger.info(f"Data has {data.isna().sum().sum()} missing values")
+    # логируем количество дубликатов в данных
+    data_logger.info(f"Data has {data.duplicated().sum()} duplicated rows")
+    # логируем количество выбросов в данных, используя правило трех сигм
+    outliers = data[(data - data.mean()).abs() > 3 * data.std()].count().sum()
+    data_logger.info(f"Data has {outliers} outliers using the 3-sigma rule")
+
+    # генерируем данные из гамма-распределения
+    np.random.seed(42)
+    n = 100 # размер выборки
+    k = 2 # параметр формы
+    theta = 3 # параметр масштаба
+    y = np.random.gamma(k, theta, n) # зависимая переменная
+    x1 = np.random.normal(0, 1, n) # независимая переменная 1
+    x2 = np.random.uniform(0, 1, n) # независимая переменная 2
+    x3 = np.random.binomial(1, 0.5, n) # независимая переменная 3
+    df = pd.DataFrame({'y': y, 'x1': x1, 'x2': x2, 'x3': x3}) # создаем датафрейм
+    logging.info("Данные успешно сгенерированы и добавлены в датафрейм.")
+
+    # Выводим информацию о данных
+    logging.info(df.info())
+
+    # Выводим описательную статистику
+    logging.info(df.describe())
+
+    # Строим матрицу корреляций
+    corr_matrix = df.corr()
+    logging.info("Матрица корреляций:\n" + str(corr_matrix))
+
+    # выбираем зависимую и независимые переменные
+    y = df['y']
+    X = df[['x1', 'x2', 'x3']]
+
+    # добавляем константу к независимым переменным
+    X = sm.add_constant(X)
+
+    # строим гамма-регрессию с логарифмической связью
+    model = sm.GLM(y, X, family=sm.families.Gamma(link=sm.families.links.log))
+    results = model.fit()
+
+    # Выводим результаты регрессии
+    logging.info(results.summary())
+
+    # проводим t-тест для проверки гипотезы о равенстве средних y в зависимости от x3
+    try:
+        t, p = st.ttest_ind(y[x3 == 0], y[x3 == 1])
+        print(f"t-statistic = {t:.3f}, p-value = {p:.3f}")
+    except Exception as e:
+        # логируем ошибку и ее причину
+        data_logger.error(f"An error occurred while performing t-test: {e}")
+        # выводим сообщение об ошибке в консоль
+        print(f"An error occurred while performing t-test: {e}")
+
+    # получаем текущее время в конце выполнения кода
+    end_time = datetime.datetime.now()
+    # логируем время окончания выполнения кода
+    time_logger.info(f"Code execution finished at {end_time}")
+    # вычисляем и логируем время выполнения кода
+    exec_time = end_time - start_time
+    time_logger.info(f"Code execution took {exec_time}")
+
+
+
+
