@@ -52,7 +52,7 @@ def get_y_w(folder_name: str, date: datetime.date) -> list[str] or None:
         list or None: list or None: returns list if data for the date was found, or returns None on failure
     """
     if os.path.exists(folder_name):
-        logging.info(f"Folder {folder_name} exists.")
+        logging.info(f"In function get_y_w folder {folder_name} exists.")
         index = -1
         for root, dirs, files in os.walk(folder_name):
             for file in files:
@@ -61,14 +61,14 @@ def get_y_w(folder_name: str, date: datetime.date) -> list[str] or None:
                     for i in range(len(dates)):
                         if dates[i][0] == str(date):
                             index = i
-                            logging.info(f"Date {date} found in {file} at index {index}.")
+                            logging.info(f"In function get_y_w date {date} found in {file} at index {index}.")
                             break
                     if index >= 0:
                         return dates[i][1:]
         if index == -1:
             logging.info(f"Data for {date} not found in any files.")
             return None
-    logging.error(f"Folder {folder_name} is missing.")
+    logging.error(f"In function get_y_w folder {folder_name} is missing.")
     raise FileNotFoundError
     
 
@@ -83,7 +83,7 @@ def get_data(file_name: str, date: datetime.date) -> list[str] or None:
         list or None: list or None: returns list if data for the date was found, or returns None on failure
     """
     if os.path.exists(file_name):
-        logging.info(f"File {file_name} exists.")
+        logging.info(f"In get_data file {file_name} exists.")
         with open(file_name, "r", encoding="utf-8") as csvfile:
             reader_object = list(csv.reader(csvfile, delimiter=","))
             for i in range(len(reader_object)):
@@ -91,7 +91,7 @@ def get_data(file_name: str, date: datetime.date) -> list[str] or None:
                     logging.info(f"Date {date} found at index {i} in {file_name}.")
                     return reader_object[i][1:]
     else:
-        logging.error(f"File {file_name} is missing.")
+        logging.error(f"In function get_data file {file_name} is missing.")
         raise FileNotFoundError
 
 
