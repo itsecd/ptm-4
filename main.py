@@ -10,7 +10,10 @@ import datetime
 
 
 # Функция для логгирования версий библиотек
-def log_library_versions():
+def log_library_versions()->None:
+    '''
+    Функция для логгирования версий библиотек
+    '''
     libraries = ['pandas', 'numpy', 'matplotlib', 'seaborn', 'statsmodels', 'scipy']
     for lib in libraries:
         try:
@@ -19,12 +22,12 @@ def log_library_versions():
         except pkg_resources.DistributionNotFound:
             logging.warning(f'{lib} is not installed')
 
-# Логгируем версии библиотек
-log_library_versions()
-
 
 # добавляем функцию для расчета ковариационного момента
-def cov(x, y):
+def cov(x: list, y: list)->float:
+    '''
+    Функция для расчета ковариационного момента
+    '''
     # проверяем, что x и y имеют одинаковую длину
     assert len(x) == len(y), "x and y must have the same length"
     # вычисляем средние значения x и y
@@ -39,7 +42,10 @@ def cov(x, y):
     return cov_xy
 
 # добавляем функцию для расчета математического ожидания
-def mean(x):
+def mean(x: list)->float:
+    '''
+    Функция для расчета математического ожидания
+    '''
     # вычисляем сумму всех элементов x
     sum_x = np.sum(x)
     # делим сумму на количество элементов
@@ -49,7 +55,10 @@ def mean(x):
     return mean_x
 
 # добавляем функцию для вычисления совместной плотности распределения двух нормально-распределенных величин
-def joint_pdf(x, y, mu_x, mu_y, sigma_x, sigma_y, rho):
+def joint_pdf(x: list, y: list, mu_x: int, mu_y: int, sigma_x: float, sigma_y: float, rho: int)->float:
+    '''
+    Функция для вычисления совместной плотности распределения двух нормально-распределенных величин
+    '''
     # проверяем, что x и y имеют одинаковую длину
     assert len(x) == len(y), "x and y must have the same length"
     # вычисляем константу перед экспонентой
@@ -61,7 +70,10 @@ def joint_pdf(x, y, mu_x, mu_y, sigma_x, sigma_y, rho):
     return c * np.exp(z)
 
 # добавляем функцию для вычисления коэффициента корреляции Пирсона
-def pearson_r(x, y):
+def pearson_r(x: list, y: list )->float:
+    '''
+    Функция для вычисления коэффициента корреляции Пирсона
+    '''
     # проверяем, что x и y имеют одинаковую длину
     assert len(x) == len(y), "x and y must have the same length"
     # вычисляем средние значения x и y
@@ -75,7 +87,10 @@ def pearson_r(x, y):
     return num / den
 
 # добавляем функцию для нахождения двусторонней критической области
-def two_sided_critical_region(alpha, dist):
+def two_sided_critical_region(alpha: float, dist: float)->list:
+    '''
+    Функция для нахождения двусторонней критической области
+    '''
     # проверяем, что alpha лежит в интервале (0, 1)
     assert 0 < alpha < 1, "alpha must be between 0 and 1"
     # проверяем, что dist является объектом scipy.stats.rv_continuous
@@ -87,7 +102,10 @@ def two_sided_critical_region(alpha, dist):
     return [(-np.inf, -z_alpha_2), (z_alpha_2, np.inf)]
 
 
-def show_hist(y, x1, x3):
+def show_hist(y: list, x1: list, x: list3)->None:
+    '''
+    Функция для построения гистограммы распределения y
+    '''
     # строим гистограмму распределения y
     plt.hist(y, bins=10)
     plt.xlabel('y')
@@ -136,7 +154,10 @@ def show_hist(y, x1, x3):
     plt.savefig('boxplot.png')
     plt.show()
 
-def main():
+def main()->None:
+    '''
+    Главная функция
+    '''
     # Настройка логгирования
     # создаем объект логгера с именем data_logger
     data_logger = logging.getLogger('data_logger')
