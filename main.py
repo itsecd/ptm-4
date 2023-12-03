@@ -1,5 +1,6 @@
 import pygame
 import random
+import logging
 
 # Настройки окна игры
 WIDTH = 800
@@ -22,6 +23,10 @@ pygame.init()
 # Установка размеров и заголовка окна
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Змейка")
+
+# Инициализация логгера
+logging.basicConfig(filename='game.log', level=logging.INFO, format='%(asctime)s %(message)s')
+logging.basicConfig(filename='moves.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 clock = pygame.time.Clock()
 
@@ -56,6 +61,7 @@ class Snake:
             self.direction = new_direction
         elif new_direction == 'right' and self.direction != 'left':
             self.direction = new_direction
+        logging.info(f"Snake moved {new_direction}")
 
     def draw(self):
         for segment in self.segments:
@@ -78,9 +84,12 @@ class Food:
         pygame.draw.rect(screen, RED, (self.position[0], self.position[1], SNAKE_SIZE, SNAKE_SIZE))
 
 
+logging.info("Game started")
 # Создание объектов змейки и еды
 snake = Snake()
+logging.info("Snake is created")
 food = Food()
+logging.info("Food is created")
 
 # Главный цикл игры
 running = True
@@ -103,16 +112,19 @@ while running:
 
     # Проверка столкновения с едой
     if snake.segments[0] == food.position:
+        logging.info(f"Snake ate an apple. Length = {len(snake.segments)+1}")
         snake.segments.append(snake.segments[-1])
         food.position = food.generate_position()
 
     # Проверка столкновения со стенами
     if (snake.segments[0][0] < 0 or snake.segments[0][0] >= WIDTH
             or snake.segments[0][1] < 0 or snake.segments[0][1] >= HEIGHT):
+        logging.info('Crushed into a wall')
         running = False
 
     # Проверка столкновения с собой
     if snake.segments[0] in snake.segments[2:]:
+        logging.info('Crushed into itself')
         running = False
 
     # Обновление змейки и еды
@@ -129,3 +141,4 @@ while running:
 
 # Завершение Pygame
 pygame.quit()
+logging.info("Game over\n\n")
