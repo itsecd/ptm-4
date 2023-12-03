@@ -1,0 +1,30 @@
+2023-12-04 01:26:33,863 Game started
+2023-12-04 01:26:33,863 Snake is created
+2023-12-04 01:26:33,863 Food is created
+2023-12-04 01:26:35,776 Snake moved up
+2023-12-04 01:26:35,877 Snake ate an apple. Length = 2
+2023-12-04 01:26:36,279 Snake moved left
+2023-12-04 01:26:39,497 Snake moved up
+2023-12-04 01:26:40,204 Snake moved right
+2023-12-04 01:26:40,204 Snake ate an apple. Length = 3
+2023-12-04 01:26:43,116 Snake moved down
+2023-12-04 01:26:43,419 Snake ate an apple. Length = 4
+2023-12-04 01:26:45,126 Snake moved left
+2023-12-04 01:26:45,227 Snake ate an apple. Length = 5
+2023-12-04 01:26:47,341 Snake moved up
+2023-12-04 01:26:49,647 Snake moved right
+2023-12-04 01:26:49,647 Snake ate an apple. Length = 6
+2023-12-04 01:26:50,552 Snake moved down
+2023-12-04 01:26:50,854 Snake moved left
+2023-12-04 01:26:53,161 Snake moved up
+2023-12-04 01:26:53,161 Crushed into a wall
+2023-12-04 01:26:53,236 Game over
+
+
+2023-12-04 01:27:02,239 Game started
+2023-12-04 01:27:02,239 Snake is created
+2023-12-04 01:27:02,240 Food is created
+2023-12-04 01:27:04,449 Crushed into a wall
+2023-12-04 01:27:04,514 Game over
+
+
