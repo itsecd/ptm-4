@@ -1,8 +1,9 @@
-import logging
+import my_logger
 
 
 def alg_luhn(number: str) -> bool:
     """Алгоритм луна"""
+    logger = my_logger.My_log(__file__).get_logger()
     summa = 0
     for index in range(len(number)):
         if index % 2 != 1:
@@ -14,8 +15,8 @@ def alg_luhn(number: str) -> bool:
         else:
             summa += int(number[index])
     if summa % 10 == 0:
-        print("Последовательность верна")
+        logger.info("The lunch algorithm was successful. The card number is correct")
         return True
     else:
-        print("Последовательность не верна")
+        logger.warning("The sequence failed the luhn check. Check it out")
         return False
