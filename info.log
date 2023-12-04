@@ -1,0 +1,77 @@
+03-12-2023 05:37:19 : INFO : log : <module> : 44 : (Process Details : (8092, MainProcess), Thread Details : (16952, MainThread))
+Log : 14
+03-12-2023 05:37:32 : WARNING : log : <module> : 44 : (Process Details : (14952, MainProcess), Thread Details : (1292, MainThread))
+Log : 14
+03-12-2023 05:38:00 : ERROR : log : <module> : 44 : (Process Details : (18212, MainProcess), Thread Details : (16100, MainThread))
+Log : 14
+03-12-2023 05:38:53 : ERROR : log : <module> : 43 : 
+Log : 14
+03-12-2023 05:39:16 : ERROR  : <module> : 43 : 
+Log : 14
+03-12-2023 05:39:41 : ERROR : log : 43 : 
+Log : 14
+03-12-2023 05:40:27 : ERROR | log: line: 43 : 
+Log : 14
+03-12-2023 05:41:04 | ERROR | file name log: line: 43 : 
+Log : 14
+03-12-2023 05:41:38 | ERROR | file name: log | line: 43 | 
+Log : 14
+03-12-2023 05:41:59 | ERROR | file name: log | line: 43 | 
+message : 14
+03-12-2023 05:42:05 | ERROR | file name: log | line: 43 | message : 14
+03-12-2023 05:44:09 | ERROR | file name: main | line: 424 | message : 124
+03-12-2023 05:52:50 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:52:51 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:52:51 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:13 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:13 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:15 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:17 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:19 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:20 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:22 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:23 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:23 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:24 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:24 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:25 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:53:25 | WARNING | file name: main | line: 409 | message : test
+03-12-2023 05:54:53 | WARNING | file name: main | line: 409 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 05:54:56 | WARNING | file name: main | line: 409 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 05:57:41 | WARNING | file name: main | line: 409 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 06:00:07 | WARNING | file name: main | line: 412 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:25:49 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:25:51 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:26:18 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:26:21 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:26:25 | ERROR | file name: main | line: 104 | message : file C:\PTM_labs\ptm-4\sym_key.txt not found
+03-12-2023 08:27:03 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:27:22 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:30:17 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:30:48 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:32:00 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:32:27 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:36:33 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:36:53 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:37:42 | WARNING | file name: main | line: 433 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:37:51 | INFO | file name: main | line: 85 | message : Key generation was successful
+03-12-2023 08:42:37 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:42:49 | INFO | file name: main | line: 86 | message : Key generation was successful
+03-12-2023 08:44:09 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:45:08 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:45:28 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:48:11 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:48:23 | INFO | file name: main | line: 86 | message : Key generation was successful
+03-12-2023 08:50:28 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:50:39 | INFO | file name: main | line: 86 | message : Key generation was successful
+03-12-2023 08:51:21 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:51:45 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:54:26 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:54:35 | INFO | file name: main | line: 86 | message : Key generation was successful
+03-12-2023 08:54:42 | INFO | file name: main | line: 143 | message : Data encryption was successful
+03-12-2023 08:56:04 | INFO | file name: main | line: 197 | message : data decryption was successful
+03-12-2023 08:56:40 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:56:54 | INFO | file name: main | line: 143 | message : Data encryption was successful
+03-12-2023 08:57:25 | INFO | file name: main | line: 143 | message : Data encryption was successful
+03-12-2023 08:58:28 | WARNING | file name: main | line: 444 | message : An incorrect value has been entered. Repeat the request
+03-12-2023 08:58:49 | INFO | file name: main | line: 143 | message : Data encryption was successful

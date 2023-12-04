@@ -1,0 +1,19 @@
+03-12-2023 05:38:00 : ERROR : log : <module> : 44 : (Process Details : (18212, MainProcess), Thread Details : (16100, MainThread))
+Log : 14
+03-12-2023 05:38:53 : ERROR : log : <module> : 43 : 
+Log : 14
+03-12-2023 05:39:16 : ERROR  : <module> : 43 : 
+Log : 14
+03-12-2023 05:39:41 : ERROR : log : 43 : 
+Log : 14
+03-12-2023 05:40:27 : ERROR | log: line: 43 : 
+Log : 14
+03-12-2023 05:41:04 | ERROR | file name log: line: 43 : 
+Log : 14
+03-12-2023 05:41:38 | ERROR | file name: log | line: 43 | 
+Log : 14
+03-12-2023 05:41:59 | ERROR | file name: log | line: 43 | 
+message : 14
+03-12-2023 05:42:05 | ERROR | file name: log | line: 43 | message : 14
+03-12-2023 05:44:09 | ERROR | file name: main | line: 424 | message : 124
+03-12-2023 08:26:25 | ERROR | file name: main | line: 104 | message : file C:\PTM_labs\ptm-4\sym_key.txt not found

@@ -38,6 +38,10 @@ class Window(QMainWindow):
         public_key_path - path to  public key
         secret_key_path - path to  secret key
         """
+
+        if len(symmetric_key_path) < 3 or len(public_key_path) < 3 or len(
+                secret_key_path) < 3:  # Путь меньше быть просто не может
+            logger.error("Incorrect path")
         symmetric_key = os.urandom(int(int(self.bit) / 8))
         keys = rsa.generate_private_key(
             public_exponent=65537,
@@ -53,6 +57,7 @@ class Window(QMainWindow):
                     format=serialization.PublicFormat.SubjectPublicKeyInfo,
                 )
             )
+        logger.debug("the public key is written in %s", public_pem)
         private_pem = secret_key_path + '\\private_key.pem'
         with open(
                 private_pem,
@@ -65,17 +70,20 @@ class Window(QMainWindow):
                     encryption_algorithm=serialization.NoEncryption()
                 )
             )
+        logger.debug("the private key is written in %s", private_pem)
         encrypted_symmetric_key = public_key.encrypt(
             symmetric_key,
             padding.OAEP(
                 mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                algorithms=hashes.SHA256(),
+                algorithm=hashes.SHA256(),
                 label=None
             )
         )
         symmetric_file = symmetric_key_path + '\\sym_key.txt'
         with open(symmetric_file, 'wb') as key_file:
             key_file.write(encrypted_symmetric_key)
+        logger.debug("the symmetric key is written in %s", symmetric_file)
+        logger.info("Key generation was successful")
 
     def encrypt_data(
             self,
@@ -91,12 +99,23 @@ class Window(QMainWindow):
         symmetric_key_path - path to symmetric key
         encrypted_file_path - path to  encrypted file
         """
+        if len(symmetric_key_path) < 3 or len(initial_file_path) < 3 or len(
+                secret_key_path) < 3 or len(encrypted_file_path) < 3:  # Путь меньше быть просто не может
+            logger.error("Incorrect path")
         symmetric_file = symmetric_key_path + '\\sym_key.txt'
-        with open(symmetric_file, mode='rb') as key_file:
-            encrypted_symmetric_key = key_file.read()
+        if os.path.exists(symmetric_file):
+            with open(symmetric_file, mode='rb') as key_file:
+                encrypted_symmetric_key = key_file.read()
+        else:
+            logger.error("file %s not found", symmetric_file)
+
         private_pem = secret_key_path + '\\private_key.pem'
-        with open(private_pem, 'rb') as pem_in:
-            private_bytes = pem_in.read()
+        if os.path.exists(private_pem):
+            with open(private_pem, 'rb') as pem_in:
+                private_bytes = pem_in.read()
+        else:
+            logger.error("file %s not found", private_pem)
+
         private_key = load_pem_private_key(private_bytes, password=None)
         d_symmetric_key = private_key.decrypt(
             encrypted_symmetric_key,
@@ -105,10 +124,13 @@ class Window(QMainWindow):
                 algorithm=hashes.SHA256(), label=None)
         )
         initial_file = initial_file_path + '\\text.txt'
-        with open(initial_file, 'r') as _file:
-            initial_content = _file.read()
+        if os.path.exists(initial_file):
+            with open(initial_file, 'r') as _file:
+                initial_content = _file.read()
+        else:
+            logger.error("file %s not found", initial_file)
         padder = padding2.ANSIX923(256).padder()
-        text = bytes(initial_content, 'UTF-8')
+        text = bytes(initial_content, 'cp1251')
         padded_text = padder.update(text) + padder.finalize()
         iv = os.urandom(int(int(self.bit) / 8))
         cipher = Cipher(algorithms.AES(d_symmetric_key), modes.CBC(iv))
@@ -118,6 +140,7 @@ class Window(QMainWindow):
         encrypted_file = encrypted_file_path + '\\secret_text.yaml'
         with open(encrypted_file, 'w') as _file:
             yaml.dump(dict_t, _file)
+        logger.info("Data encryption was successful")
 
     def decrypting_data(
             self,
@@ -134,11 +157,19 @@ class Window(QMainWindow):
         decrypted_file_path - path to  decrypt file 
         """
         symmetric_file = symmetric_key_path + '\\sym_key.txt'
-        with open(symmetric_file, mode='rb') as key_file:
-            encrypted_symmetric_key = key_file.read()
+        if os.path.exists(symmetric_file):
+            with open(symmetric_file, mode='rb') as key_file:
+                encrypted_symmetric_key = key_file.read()
+        else:
+            logger.error("file %s not found", symmetric_file)
+
         private_pem = secret_key_path + '\\private_key.pem'
-        with open(private_pem, 'rb') as pem_in:
-            private_bytes = pem_in.read()
+        if os.path.exists(private_pem):
+            with open(private_pem, 'rb') as pem_in:
+                private_bytes = pem_in.read()
+        else:
+            logger.error("file %s not found", private_pem)
+
         private_key = load_pem_private_key(private_bytes, password=None)
         dsymmetric_key = private_key.decrypt(
             encrypted_symmetric_key,
@@ -148,8 +179,11 @@ class Window(QMainWindow):
                 label=None)
         )
         encrypted_file = encrypted_file_path + '\\secret_text.yaml'
-        with open(encrypted_file) as _file:
-            content_encrypted = yaml.safe_load(_file)
+        if os.path.exists(encrypted_file):
+            with open(encrypted_file) as _file:
+                content_encrypted = yaml.safe_load(_file)
+        else:
+            logger.error("file %not found", encrypted_file)
         text_enc = content_encrypted["text"]
         iv_enc = content_encrypted["iv"]
         cipher = Cipher(algorithms.AES(dsymmetric_key), modes.CBC(iv_enc))
@@ -160,6 +194,7 @@ class Window(QMainWindow):
         decrypted_file = decrypted_file_path + '\\finish_text.txt'
         with open(decrypted_file, 'w') as _file:
             _file.write(str(unpadded_dc_text))
+        logger.info("data decryption was successful")
 
     def button_first_field_click(self):
         """ The action when you click button near first field"""
@@ -398,13 +433,17 @@ class Window(QMainWindow):
         self.button_encryption.clicked.connect(self.button_encryption_click)
         self.button_decryption.clicked.connect(self.button_decryption_click)
         self.bit = '0'
+        logger.debug("The constructor worked fine")
         while self.bit != "128" and self.bit != "192" and self.bit != "256":
             text, ok = QInputDialog.getText(
                 self, "Input Dialog", "Enter 128 or 192 or 256 bit:"
             )
             if ok:
                 self.bit = str(text)
+                if self.bit != "128" or self.bit != "192" or self.bit != "256":
+                    logger.warning("An incorrect value has been entered. Repeat the request")
                 print(self.bit)
+        logger.debug("The key size is set correctly")
 
 
 def application() -> None:
