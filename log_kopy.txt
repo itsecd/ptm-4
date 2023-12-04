@@ -1,0 +1,11 @@
+2023-12-04 16:36:18,662 - INFO - User Person1 registered.
+2023-12-04 16:36:21,291 - INFO - User 444 entered the building at 2023-12-04 16:36:21.291869.
+2023-12-04 16:36:22,395 - INFO - Attendance info for user 444:
+2023-12-04 16:36:22,396 - INFO -   Entry: 2023-12-04 16:36:21, Exit: N/A
+2023-12-04 16:36:22,396 - INFO -   Total Duration: 0:00:00
+2023-12-04 16:36:22,396 - INFO -   Visit Frequency: 1
+
+2023-12-04 16:36:23,109 - INFO - Overall Statistics:
+2023-12-04 16:36:23,110 - INFO -   Total Visits: 1
+2023-12-04 16:36:23,110 - INFO -   Total Duration: 0:00:00
+2023-12-04 16:36:32,352 - INFO - Warning: User 53453 is inside for less than 1 day, 13:02:00.
