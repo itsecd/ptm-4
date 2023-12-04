@@ -1,6 +1,7 @@
 import sys
 import os
 import yaml
+import log
 
 from PyQt5.QtGui import QFont
 from PyQt5 import QtWidgets
@@ -419,5 +420,5 @@ def application() -> None:
 
 
 if __name__ == "__main__":
-    print(__file__)
+    logger = log.get_logger()
     application()
