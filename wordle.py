@@ -64,7 +64,7 @@ class Wordle:
         for idx, ltr in enumerate(user_guess):
             temp = {'letter': ltr, 'index': idx}
             if ltr == system_word[idx]:
-                print(idx, ltr, "matches")
+                logger2.info("Letter at index %d (%s) matches", idx, ltr)
                 correct_count[ltr] -= 1
                 temp['color'] = 'spring_green2'
                 user_guess_validated.append(temp)
@@ -83,11 +83,15 @@ class Wordle:
                 if correct_count[ltr] != 0:
                     # If it's already found to be an exact match, ignore it else, change it to orange1
                     if user_guess_validated[idx]['color'] != "spring_green2":
+                        logger2.info(
+                            "Changing color of letter %s at index %d to orange1", ltr, idx)
                         user_guess_validated[idx]['color'] = 'orange1'
                         # Once Changed reduce the count
                         correct_count[ltr] -= 1
                     # If the count is negative, automatically assume the letter is not present.
                     elif correct_count[ltr] < 1:
+                        logger2.info(
+                            "Letter %s at index %d is not present, changing color to grey84", ltr, idx)
                         user_guess_validated[idx]['color'] = 'grey84'
 
         # Check if the word is correct directly

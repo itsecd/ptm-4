@@ -1,14 +1,18 @@
-wordle 2023-12-03 18:15:13,952 INFO Selected word: lever
-wordle 2023-12-03 18:15:13,953 INFO Wordle initialized with chosen word: lever
-wordle 2023-12-03 18:15:19,787 WARNING Invalid guess: aboba
-wordle 2023-12-03 18:15:27,496 WARNING Invalid guess: quess
-wordle 2023-12-03 18:15:31,442 INFO User's guess did not match the chosen word.
-wordle 2023-12-03 18:15:37,937 INFO User's guess did not match the chosen word.
-wordle 2023-12-03 18:15:55,060 INFO User's guess did not match the chosen word.
-wordle 2023-12-03 18:16:56,823 WARNING Invalid guess: kiler
-wordle 2023-12-03 18:17:05,719 WARNING Invalid guess: coler
-wordle 2023-12-03 18:17:09,419 INFO User's guess did not match the chosen word.
-wordle 2023-12-03 18:17:14,638 WARNING Invalid guess: diler
-wordle 2023-12-03 18:17:28,976 WARNING Invalid guess: biger
-wordle 2023-12-03 18:17:42,507 INFO User's guess did not match the chosen word.
-wordle 2023-12-03 18:17:44,048 INFO User's guess did not match the chosen word.
+wordle 2023-12-04 21:15:42,043 INFO Selected word: ovary
+wordle 2023-12-04 21:15:42,043 INFO Wordle initialized with chosen word: ovary
+wordle 2023-12-04 21:15:55,175 INFO Changing color of letter a at index 0 to orange1
+wordle 2023-12-04 21:15:55,175 INFO User's guess did not match the chosen word.
+wordle 2023-12-04 21:16:00,667 INFO User's guess did not match the chosen word.
+wordle 2023-12-04 21:16:05,091 INFO Changing color of letter o at index 1 to orange1
+wordle 2023-12-04 21:16:05,092 INFO Changing color of letter r at index 4 to orange1
+wordle 2023-12-04 21:16:05,092 INFO User's guess did not match the chosen word.
+wordle 2023-12-04 21:16:10,378 WARNING Invalid guess: corne
+wordle 2023-12-04 21:16:22,060 WARNING Invalid guess: gusrd
+wordle 2023-12-04 21:16:33,483 WARNING Invalid guess: nomer
+wordle 2023-12-04 21:16:41,862 INFO Changing color of letter a at index 0 to orange1
+wordle 2023-12-04 21:16:41,862 INFO User's guess did not match the chosen word.
+wordle 2023-12-04 21:16:48,112 WARNING Invalid guess: bolde
+wordle 2023-12-04 21:16:54,848 INFO Changing color of letter a at index 0 to orange1
+wordle 2023-12-04 21:16:54,848 INFO User's guess did not match the chosen word.
+wordle 2023-12-04 21:16:57,179 INFO Changing color of letter a at index 0 to orange1
+wordle 2023-12-04 21:16:57,179 INFO User's guess did not match the chosen word.
