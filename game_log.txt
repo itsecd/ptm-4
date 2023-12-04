@@ -1,22 +1,16 @@
-2023-12-04 16:21:31,502 - ERROR: Invalid value (chances) from player invalid literal for int() with base 10: 'r'
-2023-12-04 16:21:32,784 - INFO: Game was started
-2023-12-04 16:21:33,539 - INFO: User choosed s succesfull
-2023-12-04 16:21:33,540 - INFO: Player has drawn s - Snake,Player`s point 0, Computer`s points 0
-2023-12-04 16:21:34,235 - INFO: User choosed ư succesfull
-2023-12-04 16:21:34,901 - INFO: User choosed g succesfull
-2023-12-04 16:21:34,902 - INFO: Player has won g - Snake,Player`s point 1, Computer`s points 0
-2023-12-04 16:21:37,970 - INFO: User choosed w succesfull
-2023-12-04 16:21:37,970 - INFO: Player have lost w - Snake,Player`s point 1, Computer`s points 1
-2023-12-04 16:21:37,971 - INFO: Final, player was drawn, player: 1 - Com: 1
-2023-12-04 16:21:40,359 - INFO: Player want to replay
-2023-12-04 16:21:40,359 - INFO: Game was restarted
-2023-12-04 16:21:43,094 - INFO: Game was started
-2023-12-04 16:21:45,073 - INFO: User choosed w succesfull
-2023-12-04 16:21:45,073 - INFO: Player have lost w - Snake,Player`s point 0, Computer`s points 1
-2023-12-04 16:21:45,988 - INFO: User choosed w succesfull
-2023-12-04 16:21:45,988 - INFO: Player have lost w - Snake,Player`s point 0, Computer`s points 2
-2023-12-04 16:21:46,638 - INFO: User choosed w succesfull
-2023-12-04 16:21:46,638 - INFO: Player have lost w - Snake,Player`s point 0, Computer`s points 3
-2023-12-04 16:21:46,638 - INFO: Final, player was lost, player: 0 - Com: 3
-2023-12-04 16:21:49,919 - ERROR: Invalid choice (want to replay) from player
-2023-12-04 16:21:51,540 - INFO: Player did`nt want to replay, game was exited
+2023-12-05 00:53:52,334 - INFO: Game was started, with 4 chances
+2023-12-05 00:53:54,985 - ERROR: Invalid choice from player e
+2023-12-05 00:53:57,447 - INFO: Player has drawn s - Snake,Player`s point 0, Computer`s points 0
+2023-12-05 00:53:59,412 - INFO: Player have lost w - Snake,Player`s point 0, Computer`s points 1
+2023-12-05 00:54:00,978 - INFO: Player have lost w - Snake,Player`s point 0, Computer`s points 2
+2023-12-05 00:54:01,626 - INFO: Player have lost w - Snake,Player`s point 0, Computer`s points 3
+2023-12-05 00:54:01,627 - INFO: Final, player was lost, player: 0 - Com: 3
+2023-12-05 00:54:04,307 - INFO: Player want to replay
+2023-12-05 00:54:04,307 - INFO: Game was restarted
+2023-12-05 00:54:08,425 - INFO: Game was started, with 3 chances
+2023-12-05 00:54:11,121 - INFO: Player has lost g - Water,Player`s point 0, Computer`s points 1
+2023-12-05 00:54:11,993 - INFO: Player has won g - Snake,Player`s point 1, Computer`s points 1
+2023-12-05 00:54:13,018 - INFO: Player has draw g - Gun,Player`s point 1, Computer`s points 1
+2023-12-05 00:54:13,018 - INFO: Final, player was drawn, player: 1 - Com: 1
+2023-12-05 00:54:17,647 - INFO: Invalid choice (want to replay) from player
+2023-12-05 00:54:19,923 - INFO: Player didn`t want to replay, game was exited

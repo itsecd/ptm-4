@@ -39,16 +39,12 @@ def choices():
     """
     global computer_choice, user_choice  # Declaring variables as global to use in function
     options = ["Snake", "Water", "Gun"]  # List of options for computer to choose randomly
-    try:
-        computer_choice = random.choice(options)  # function to store random choice from list 'options'
+    computer_choice = random.choice(options)  # function to store random choice from list 'options'
 
-        print("Choose:\t\tS for", emojize(":snake:"),
-              "\t\tW for", emojize(":droplet:"),
-              "\t\tG for", emojize(":pistol:"))  # Printing options for user to select
-        user_choice = input().lower()  # storing input of the user in lower case
-        logging.info(f"User choosed {user_choice} succesfull")
-    except Exception as err:
-        logging.error(f"An info message in the choices function: {err}")
+    print("Choose:\t\tS for", emojize(":snake:"),
+          "\t\tW for", emojize(":droplet:"),
+          "\t\tG for", emojize(":pistol:"))  # Printing options for user to select
+    user_choice = input().lower()  # storing input of the user in lower case
 
 
 def results():
@@ -76,8 +72,7 @@ def results():
         else:
             print("!!कृपया सही विकल्प चुनें!!")  # Error message in 'HINDI' for invalid choice
             flag = 1  # Changing flag value to iterate the loop again in same chance
-            logging.error(f"Invalid choice from player {user_choice}",
-                          f"Player`s point {user_points}, Computer`s points {computer_points}")
+            logging.error(f"Invalid choice from player {user_choice}")
 
     elif computer_choice == "Water":
         if user_choice == "s" or user_choice == "snake":
@@ -97,8 +92,7 @@ def results():
         else:
             print("!!कृपया सही विकल्प चुनें!!")  # Error message in 'HINDI' for invalid choice
             flag = 1  # Changing flag value to iterate the loop again in same chance
-            logging.error(f"Invalid choice from player {user_choice}",
-                          f"Player`s point {user_points}, Computer`s points {computer_points}")
+            logging.error(f"Invalid choice from player {user_choice}")
     elif computer_choice == "Gun":
         if user_choice == "s" or user_choice == "snake":
             print(red("NOOO...!!"), emojize(":crying_face:"), red("\nYOUR SNAKE WAS SHOT BY THE GUN :("))
@@ -117,8 +111,7 @@ def results():
         else:
             print("!!कृपया सही विकल्प चुनें!!")  # Error message in 'HINDI' for invalid choice
             flag = 1  # Changing flag value to iterate the loop again in same chance
-            logging.error(f"Invalid choice from player {user_choice}",
-                          f"Player`s point {user_points}, Computer`s points {computer_points}")
+            logging.error(f"Invalid choice from player {user_choice}")
 
 
 def replay_game():
@@ -140,7 +133,7 @@ def replay_game():
             break  # breaking infinite loop after getting valid input
         else:
             print(red("Please enter a valid input only"))
-            logging.error("Invalid choice (want to replay) from player")
+            logging.info("Invalid choice (want to replay) from player")
             continue  # executing the loop again due to invalid input given by the user
 
 
@@ -154,7 +147,7 @@ while 1:  # Infinite loop to play the game as many times as the user wants
             print(red('Please enter only natural number', 'bold'))
             logging.error("Invalid value (chances) from player")
             continue
-        logging.info("Game was started")
+        logging.info(f"Game was started, with {n} chances")
 
     except Exception as err:
         print(red('Please enter only natural number', 'bold'))
@@ -186,7 +179,6 @@ while 1:  # Infinite loop to play the game as many times as the user wants
 
     if replay == "n" or replay == "no":
         print(red("\n\t\t\tSAD TO SEE YOU GO !!", 'bold'), emojize(":disappointed_face:"))  # Printing exit statement
-
         exit()  # exiting the game
 
     if replay == "y" or replay == "yes":
