@@ -26,7 +26,6 @@ pygame.display.set_caption("Змейка")
 
 # Инициализация логгера
 logging.basicConfig(filename='game.log', level=logging.INFO, format='%(asctime)s %(message)s')
-logging.basicConfig(filename='moves.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 clock = pygame.time.Clock()
 
