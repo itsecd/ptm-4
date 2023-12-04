@@ -2,6 +2,11 @@ import csv
 import os
 import pathlib
 from random import Random, random
+from datetime  import datetime as dt
+import logging
+
+
+logging.basicConfig(level="DEBUG")
 
 
 class Comment:
@@ -17,7 +22,12 @@ def create_repo() -> None:
     """
     os.mkdir("dataset_copy")
     for i in range(1, 6):
-        os.mkdir("dataset_copy/"+str(i))
+        try:
+            os.mkdir("dataset_copy/"+str(i))
+            logging.debug(f"Репозитория для {i} оценки создан")
+        except:
+            logging.error(f"При создании папки dataset/copy/{i} произошла ошибка. {dt.now()}")
+    logging.info(f"Все репозитории для оценок созданы успешно")
 
 
 def save_comments(data: Comment, foldername: str) -> None:
@@ -35,12 +45,15 @@ def save_comments(data: Comment, foldername: str) -> None:
 
         while digit in used_digits:
             digit = random.randint(1, 10000)
-
-        file = open(foldername+f'/{digit:04}'+'.txt', "w", encoding="utf-8")
-        file.write(data[i].name)
-        file.write('\n')
-        file.write(data[i].comment)
-        file.close
+        try:
+            file = open(foldername+f'/{digit:04}'+'.txt', "w", encoding="utf-8")
+            file.write(data[i].name)
+            file.write('\n')
+            file.write(data[i].comment)
+            file.close
+            logging.debug(f"Сохранение данных в файл {foldername}/{digit:04}.txt в функции save_comment прошло УСПЕШНО. {dt.now()}")
+        except:
+            logging.error(f"Ошибка при сохранении данных в файл {foldername}/{digit:04}.txt в функции save_comment. {dt.now()}")
 
         used_digits.append(digit)
 
@@ -51,20 +64,24 @@ def write_dataset(dataset: str) -> None:
     Args:
         dataset (str): New dataset's path
     """
-    one_data = [el for el in dataset if el.mark < 2.0]
-    save_comments(one_data, "dataset_copy/1")
+    try:
+        one_data = [el for el in dataset if el.mark < 2.0]
+        save_comments(one_data, "dataset_copy/1")
 
-    two_data = [el for el in dataset if el.mark < 3.0 and el.mark >= 2.0]
-    save_comments(two_data, "dataset_copy/2")
+        two_data = [el for el in dataset if el.mark < 3.0 and el.mark >= 2.0]
+        save_comments(two_data, "dataset_copy/2")
 
-    three_data = [el for el in dataset if el.mark < 4.0 and el.mark >= 3.0]
-    save_comments(three_data, "dataset_copy/3")
+        three_data = [el for el in dataset if el.mark < 4.0 and el.mark >= 3.0]
+        save_comments(three_data, "dataset_copy/3")
 
-    four_data = [el for el in dataset if el.mark < 5.0 and el.mark >= 4.0]
-    save_comments(four_data, "dataset_copy/4")
+        four_data = [el for el in dataset if el.mark < 5.0 and el.mark >= 4.0]
+        save_comments(four_data, "dataset_copy/4")
 
-    five_data = [el for el in dataset if el.mark == 5.0]
-    save_comments(five_data, "dataset_copy/5")
+        five_data = [el for el in dataset if el.mark == 5.0]
+        save_comments(five_data, "dataset_copy/5")
+        logging.info(f"Запись всех файлов прошла успешно в функции write_dataset. {dt.now()}")
+    except:
+        logging.info("Ошибка произошла в см на логи выше")
 
 
 def create_copy(path: str) -> None:
@@ -151,7 +168,7 @@ def get_paths_to_files(path_to_dataset: str) -> str:
 
         currentDirectory = pathlib.Path('./dataset_copy'+f'/{folder_num}')
         for currentFile in currentDirectory.iterdir():
-            print(currentFile)
+            logging.info(f"В функции get_paths_to_files {currentFile} {dt.now()}")
             paths_to_files.append(currentFile)
 
     return paths_to_files
