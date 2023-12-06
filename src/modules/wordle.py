@@ -7,7 +7,8 @@ from .words import words
 
 class Wordle:
 
-    def __init__(self):
+    def __init__(self, logger):
+        self.logger = logger
         self.words:list = words.get('five_letter')
         self.valid_words:list = words.get("valid_word")
         self.chosen_word:str = self._select_word()
@@ -19,9 +20,11 @@ class Wordle:
         self.user_guess = Prompt.ask(f"\n\n[gray]Guess your word ({remaining} guess left) [/gray]").strip()
         if len(self.user_guess) != self.max_words:
             print('\n [red]--- Wait a minute.... That ain\'t a five letter word !!!! --- \n')
+            self.logger.info("Incorrect word entry")
             self.get_user_guess(remaining=remaining)
         elif self.user_guess not in self.words and self.user_guess not in self.valid_words:
             print('\n [red]--- Oops! Not a valid word!!!! --- \n')  
+            self.logger.info("Incorrect word entry")
             self.get_user_guess(remaining=remaining)
         
     def _select_word(self):
@@ -77,6 +80,8 @@ class Wordle:
 
         ## Check if the word is correct directly
         if self.is_correct_guess():
+            self.logger.info("Word is guessed!")
             return True, user_guess_validated
 
+        self.logger.info("Word is unguessed")
         return False, user_guess_validated
