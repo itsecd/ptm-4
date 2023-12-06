@@ -1,0 +1,14 @@
+2023-12-06 16:04:37,069  INFO  Start game
+2023-12-06 16:04:44,439  INFO  Word is unguessed
+2023-12-06 16:05:03,873  INFO  Word is unguessed
+2023-12-06 16:05:16,805  INFO  Word is guessed!
+2023-12-06 16:05:16,875  INFO  Game is won!
+2023-12-06 16:05:38,292  INFO  Start game
+2023-12-06 16:05:41,547  INFO  Word is unguessed
+2023-12-06 16:05:46,741  INFO  Word is unguessed
+2023-12-06 16:05:49,805  INFO  Word is unguessed
+2023-12-06 16:05:56,968  INFO  Word is unguessed
+2023-12-06 16:06:05,043  INFO  Incorrect word entry
+2023-12-06 16:06:09,830  INFO  Word is unguessed
+2023-12-06 16:06:13,558  INFO  Word is unguessed
+2023-12-06 16:06:13,617  INFO  Game is lost
