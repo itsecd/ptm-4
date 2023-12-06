@@ -1,0 +1,28 @@
+2023-12-06 18:04:43,947 - INFO: File <SchoolManagement.db> was reset successfully
+2023-12-06 18:05:59,297 - INFO: The data <Августа> has been added successfully
+2023-12-06 18:05:59,302 - INFO: The data (1, 'Августа', 'Августа@mail.ru', '415648', 'Male', '2023-12-06', 'RU57890') was recorded successfully
+2023-12-06 18:06:41,851 - INFO: The data has not been filled in completely
+2023-12-06 18:06:45,510 - INFO: The data <Аглаида> has been added successfully
+2023-12-06 18:06:45,510 - INFO: The data name_strvar was reset successfully
+2023-12-06 18:06:45,510 - INFO: The data email_strvar was reset successfully
+2023-12-06 18:06:45,510 - INFO: The data contact_strvar was reset successfully
+2023-12-06 18:06:45,511 - INFO: The data gender_strvar was reset successfully
+2023-12-06 18:06:45,511 - INFO: The data stream_strvar was reset successfully
+2023-12-06 18:06:45,511 - INFO: The data (1, 'Августа', 'Августа@mail.ru', '415648', 'Male', '2023-12-06', 'RU57890') was recorded successfully
+2023-12-06 18:07:22,709 - INFO: The data <Алима > has been added successfully
+2023-12-06 18:07:22,710 - INFO: The data (3, 'Алима ', 'Алима @mail.ru', '878465', 'Male', '2020-03-05', 'RE32532') was recorded successfully
+2023-12-06 18:07:59,020 - INFO: The data <Дана> has been added successfully
+2023-12-06 18:07:59,022 - INFO: The data (4, 'Дана ', 'Дана@mail.ru', '448000', 'Male', '2014-12-04', 'QE383223') was recorded successfully
+2023-12-06 18:08:03,684 - INFO: The data <()> is not select to remove
+2023-12-06 18:08:11,271 - INFO: The data <()> is not select to view
+2023-12-06 18:09:19,954 - INFO: File <SchoolManagement.db> was reset successfully
+2023-12-06 18:09:20,080 - INFO: The data (4, 'Дана ', 'Дана@mail.ru', '448000', 'Male', '2014-12-04', 'QE383223') was recorded successfully
+2023-12-06 18:10:00,669 - INFO: The data <Лариса > has been added successfully
+2023-12-06 18:10:00,670 - INFO: The data name_strvar was reset successfully
+2023-12-06 18:10:47,882 - INFO: File <SchoolManagement.db> was created successfully
+2023-12-06 18:11:18,564 - INFO: The data <Ирен > has been added successfully
+2023-12-06 18:11:23,270 - INFO: The data name_strvar was reset successfully
+2023-12-06 18:11:23,270 - INFO: The data email_strvar was reset successfully
+2023-12-06 18:11:25,030 - INFO: The data gender_strvar was reset successfully
+2023-12-06 18:11:25,030 - INFO: The data stream_strvar was reset successfully
+
