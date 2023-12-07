@@ -2,8 +2,15 @@ import sys
 import math
 from PIL import Image, ImageFilter, ImageEnhance
 import cv2
+import logging
 
-# returns (rsize, gsize, bsize)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+handler = logging.FileHandler("main.log", mode='w')
+formatter = logging.Formatter(
+    "%(name)s %(asctime)s %(levelname)s %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 def get_cube_size(cube):
@@ -60,36 +67,28 @@ def get_nearest_tiles(color, tiles):
 def get_largest_cube(cubes, image):
     max_count = 0
     largest_index = -1
-
     for i in range(len(cubes)):
         cube = cubes[i]
         count = get_cube_count(cube, image)
         if max_count < count:
             largest_index = i
             max_count = count
-
     return cubes[largest_index]
-
-# returns (cube1, cube2)
 
 
 def split_cube(cube):
     cube_size = get_cube_size(cube)
     max_size = max(cube_size)
-
     largest_dimension = -1
     for i in range(len(cube_size)):
         if cube_size[i] == max_size:
             largest_dimension = i
-
     if largest_dimension == 0:
         return (((cube[0][0], cube[0][1], cube[0][2]), (cube[0][0] + max_size // 2, cube[1][1], cube[1][2])),
                 ((cube[0][0] + max_size // 2 + 1, cube[0][1], cube[0][2]), (cube[1][0], cube[1][1], cube[1][2])))
-
     if largest_dimension == 1:
         return (((cube[0][0], cube[0][1], cube[0][2]), (cube[1][0], cube[0][1] + max_size // 2, cube[1][2])),
                 ((cube[0][0], cube[0][1] + max_size // 2 + 1, cube[0][2]), (cube[1][0], cube[1][1], cube[1][2])))
-
     if largest_dimension == 2:
         return (((cube[0][0], cube[0][1], cube[0][2]), (cube[1][0], cube[1][1], cube[0][2] + max_size // 2)),
                 ((cube[0][0], cube[0][1], cube[0][2] + max_size // 2 + 1), (cube[1][0], cube[1][1], cube[1][2])))
@@ -100,7 +99,6 @@ def get_cube_color(cube, image):
     g = 0
     b = 0
     count = 0
-
     for y in range(image.size[1]):
         for x in range(image.size[0]):
             temp = image.getpixel((x, y))
@@ -110,13 +108,9 @@ def get_cube_color(cube, image):
                 g += tempg
                 b += tempb
                 count += 1
-
     if count == 0:
         return
-
     return (r // count, g // count, b // count)
-
-# returns [color1, color2, color3, ...]
 
 
 def median_cut(image, color_number):
@@ -126,8 +120,6 @@ def median_cut(image, color_number):
     maxr = 0
     maxg = 0
     maxb = 0
-
-    # get color range
     for y in range(image.size[1]):
         for x in range(image.size[0]):
             r, g, b = image.getpixel((x, y))
@@ -138,7 +130,6 @@ def median_cut(image, color_number):
             maxg = max(maxg, g)
             maxb = max(maxb, b)
     cubes = [((minr, ming, minb), (maxr, maxg, maxb))]
-
     while (len(cubes) < color_number):
         largest_cube = get_largest_cube(cubes, image)
         cubes.remove(largest_cube)
@@ -147,7 +138,6 @@ def median_cut(image, color_number):
             cubes.append(cube1)
         if get_cube_count(cube2, image) > 0:
             cubes.append(cube2)
-
     colors = []
     for cube in cubes:
         colors.append(get_cube_color(cube, image))
@@ -158,7 +148,6 @@ def map_color(image, colors):
     for y in range(image.size[1]):
         for x in range(image.size[0]):
             color = image.getpixel((x, y))
-            # print(color)
             image.putpixel((x, y), get_nearest_color(color, colors))
 
 
@@ -190,6 +179,7 @@ def create_dither_tiles(colors):
     for i in range(len(colors)):
         for j in range(i, len(colors)):
             tiles.append(Tile(colors[i], colors[j]))
+    logger.info("Created dither tiles")
     return tiles
 
 
@@ -200,26 +190,23 @@ def create_tone_colors(tone_number):
             for btone in range(tone_number):
                 result.append(((255 * rtone // tone_number), (255 *
                               gtone // tone_number), (255 * btone // tone_number)))
+    logger.info("Created tone colors")
     return result
 
 
 def video_to_images(video_path, fps):
     images = []
-
     temp_path = "temp.png"
-
     video = cv2.VideoCapture(video_path)
-
     if not video.isOpened():
+        logger.error("Video didn't open")
         return
-
     count = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
     total_time = count / video.get(cv2.CAP_PROP_FPS)
     capture_frame_number = int(total_time * fps)
-    print("capture_frame_number: ", capture_frame_number)
-
+    logger.info(f"Number of frames: {capture_frame_number}")
     for i in range(capture_frame_number):
-        print(i)
+        logger.info(f"Frame number: {i}")
         video.set(cv2.CAP_PROP_POS_FRAMES, int(
             count * i / capture_frame_number))
         ret, frame = video.read()
@@ -227,34 +214,29 @@ def video_to_images(video_path, fps):
             cv2.imwrite(temp_path, frame)
             image = Image.open(temp_path).convert("RGB")
             images.append(pixelize(image))
+            logger.info("Image processed")
         else:
+            logger.error("Picture didn't count")
             return
-
+    logger.info("Created gif")
     return images
 
 
 def pixelize(image):
-    # parameters
     pixel_size = 20
     color_number = 16
     tone_number = 8
-
     image = image.filter(ImageFilter.MedianFilter())
     size = (image.size[0] // pixel_size, image.size[1] // pixel_size)
     image = image.resize(size)
-
     output_image = Image.new("RGB", size)
     output_image.paste(image)
-
     output_image = ImageEnhance.Color(output_image).enhance(2)
     output_image = ImageEnhance.Contrast(output_image).enhance(2)
-
     colors = median_cut(image, color_number)
     colors = get_nearest_colors(colors, create_tone_colors(tone_number))
     tiles = create_dither_tiles(colors)
     map_tile(output_image, tiles)
-
-    # output_image = output_image.resize((size[0] * pixel_size, size[1] * pixel_size), Image.NEAREST)
     output_image = output_image.resize(
         (size[0] * 5, size[1] * 5), Image.NEAREST)
     return output_image
@@ -263,13 +245,9 @@ def pixelize(image):
 def main():
     if len(sys.argv) < 3:
         print("pixelizer <input-video-path> <output-gif-path>", file=sys.stderr)
-
     input_video_path = sys.argv[1]
     output_gif_path = sys.argv[2]
-
-    # parameters
     fps = 4
-
     images = video_to_images(input_video_path, fps)
     images[0].save(output_gif_path, save_all=True, append_images=images[1:],
                    optimize=False, duration=1000//fps, loop=0, include_color_table=True)
