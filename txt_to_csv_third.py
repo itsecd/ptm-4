@@ -113,33 +113,24 @@ def get_dataset(path: str) -> Comment:
 
         for file_num in range(1, num_of_files):
             path_to_file = folder_path+f'/{(file_num):04}'+'.txt'
-
-            try:
-                file = open(path_to_file, 'r', encoding='utf-8')
-                print(f'{folder_num} : {(file_num):04}')
-            except Exception as e:
-                print(e.args)
-
             comment = Comment()
             buffer_comment_text = ""
             line_counter = 0
-            while True:
+            try: 
+                with open(path_to_file, 'r', encoding='utf-8')as file:
+                    while True:
+                        line = file.readline()
+                        if not line:
+                            break
+                        if line_counter == 0:
+                            comment.name = line
+                        else:
+                            buffer_comment_text += line
 
-                line = file.readline()
-
-                if not line:
-                    try:
-                        file.close()
-                    except Exception as e:
-                        print(e.args)
-                    break
-
-                if line_counter == 0:
-                    comment.name = line
-                else:
-                    buffer_comment_text += line
-
-                line_counter += 1
+                        line_counter += 1   
+                logging.debug(f"Отработан корректно {path_to_file}. {dt.now()}")
+            except:
+                logging.error(f"Ошибка открытия файла {path_to_file}. {dt.now()}")
 
             buffer_comment_text = buffer_comment_text.replace(u'\xa0', u' ')
 
@@ -181,15 +172,18 @@ def write_as_csv(path_to_dataset: str, paths_to_files: str) -> None:
         path_to_dataset (str): Path to surce
         paths_to_files (str): Paths to files
     """
-    with open("dataset_csv_third.csv", "w+", encoding='utf-8', newline='') as file:
-        csv_file = csv.writer(file, delimiter=';')
-        csv_file.writerow(["Absolute path", "Relative path", "Class"])
+    try:
+        with open("dataset_csv_third.csv", "w+", encoding='utf-8', newline='') as file:
+            csv_file = csv.writer(file, delimiter=';')
+            csv_file.writerow(["Absolute path", "Relative path", "Class"])
 
-        for i in range(0, len(paths_to_files)):
-            paths_to_files[i] = str(paths_to_files[i])
-            csv_file.writerow([f'{path_to_dataset + paths_to_files[i]}',
-                              paths_to_files[i], os.path.basename(paths_to_files[i])])
-
+            for i in range(0, len(paths_to_files)):
+                paths_to_files[i] = str(paths_to_files[i])
+                csv_file.writerow([f'{path_to_dataset + paths_to_files[i]}',
+                                  paths_to_files[i], os.path.basename(paths_to_files[i])])
+        logging.info(f"Все данные успешно были записаны в файл dataset_csv_third.csv... {dt.now()}")
+    except:
+        logging.error(f"В функции write_as_csv при записи в csv файл произошла ошибка. открывался файл: dataset_csv_third.csv...  {dt.now()}")
 
 if __name__ == '__main__':
 
@@ -202,4 +196,4 @@ if __name__ == '__main__':
 
     write_as_csv(path_new_dataset, paths_to_files)
 
-    print("Работа окончена")
+    logging.info(f"Работа данного скрипта завершена. {dt.now()}")
