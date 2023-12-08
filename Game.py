@@ -1,7 +1,7 @@
 from curses.textpad import rectangle
 from datetime import datetime
 import curses, random
-
+from loguru import logger
 
 class Globals:
     """
@@ -55,7 +55,9 @@ class Menu(Globals):
 
     @property
     def start(self):
+        logger.info("MENU_OPENED", file="Game.py", transcript="The menu opened")
         curses.wrapper(self.__run)
+        logger.info("MENU_CLOSED", file="Game.py", transcript="The menu closed")
 
 
     # Tira o cursor piscando, define um par de cores e depois desenha a tela.
@@ -135,7 +137,9 @@ class Play(Globals):
 
     @property
     def start(self):
+        logger.info("PLAY_STARTED", file="Game.py", transcript="The player started playing")
         curses.wrapper(self.__run)
+        logger.info("PLAY_FINISHED", file="Game.py", transcript="The player finished playing")
 
 
     # Configura a taxa de atualização da tela e carrega os "sprites iniciais" na tela.
@@ -170,7 +174,7 @@ class Play(Globals):
             if self.__current_direction in ["up", "down"]:
                 screen.timeout(60)
             else:
-                screen.timeout(40)
+                screen.timeout(60)
 
             self.__get_new_direction(screen, self.__current_direction)
 
@@ -230,6 +234,8 @@ class Play(Globals):
             self.__apple_fill
         )
 
+        logger.info("SPAWN_APPLE", file="Game.py", transcript="The apple spawned")
+
 
     # Muda de direção, ou não, com base na tecla precionada.
     def __get_new_direction(self, screen, direction):
@@ -248,13 +254,16 @@ class Play(Globals):
             and new_direction != "return"
         ):
             self.__current_direction = new_direction
+            logger.info("NEW_DIRECTION", file="Game.py", transcript="The direction of the snake has changed")
 
         # Se a tecla for "return" ele troca os valores de self.__pause...
         elif new_direction == "return":
             if self.__pause:
                 self.__pause = False
+                logger.warning("PLAYING_CONTINUED", file="Game.py", transcript="The game is continued")
             else:
                 self.__pause = True
+                logger.warning("PLAYING_PAUSED", file="Game.py", transcript="The game is paused")
 
 
     # Desenha uma nova cabeça na frente da cobra, com base na direção atual.
@@ -288,6 +297,7 @@ class Play(Globals):
     # Remove a cauda da cobra, tanto em memória quanto em tela, e contar um ponto.
     def __remove_the_tail(self, screen):
         if self.__snake_head == self.apple:
+            logger.info("APPLE_EATEN", file="Game.py", transcript="The snake ate an apple")
             self.__spawn_apple(screen)
 
             self.score[1] += 1
@@ -313,6 +323,7 @@ class Play(Globals):
             # Se a cabeça da cobra bater no seu próprio corpo...
             or self.__ghost_snake_head in self.__snake_body[1:]
         ):
+            logger.warning("SNAKE_DIED", file="Game.py", transcript="The snake hit an obstacle and died")
             return 1
 
 
@@ -333,7 +344,9 @@ class ScoreBoard(Globals):
 
     @property
     def start(self):
+        logger.info("SCORE_BOARD_OPENED", file="Game.py", transcript="The player opened score boarde")
         curses.wrapper(self.__run)
+        logger.info("SCORE_BOARD_CLOSED", file="Game.py", transcript="The player closed score boarde")
 
 
     def __run(self, screen):
@@ -367,18 +380,22 @@ class ScoreBoard(Globals):
         # Se a lista estiver vazia, basta anexar o único score registrado.
         if len(self.__score_list) == 0:
             self.__score_list.append(score)
+            logger.info("SCORE_ADDED", file="Game.py", transcript="A new point has been added")
             return
 
         # Procura uma posição para adicionar o novo valor.
         for key, value in enumerate(self.__score_list):
             if score[1] > value[1]:
                 self.__score_list.insert(key, score)
+                logger.info("SCORE_ADDED", file="Game.py", transcript="A new point has been added")
                 break
 
             elif score[1] == value[1]:
                 self.__score_list.insert(key + 1, score)
+                logger.info("SCORE_ADDED", file="Game.py", transcript="A new point has been added")
                 break
 
             elif key == len(self.__score_list) - 1:
                 self.__score_list.append(score)
+                logger.info("SCORE_ADDED", file="Game.py", transcript="A new point has been added")
                 break

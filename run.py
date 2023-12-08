@@ -31,7 +31,6 @@ def main():
             score_board.add_score(play.score[:])
 
         elif menu.selected_item == 1:
-            logger.info("SCORE_BOARD", file="run.py", transcript="Viewing game results")
             score_board.start
 
         else:
