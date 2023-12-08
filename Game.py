@@ -28,6 +28,7 @@ class Globals:
 
         self.directions_list = list()
         self.__gen_directions()
+        curses.initscr()
 
 
     # Essa função apenas constroe o self.directions_list automáticamente.
