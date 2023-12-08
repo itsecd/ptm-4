@@ -1,0 +1,104 @@
+2023-12-09 00:55:22 | INFO | GAME_STARTED | run.py | The game has started
+2023-12-09 00:55:22 | INFO | MENU_OPENED | Game.py | The menu opened
+2023-12-09 00:55:24 | INFO | MENU_CLOSED | Game.py | The menu closed
+2023-12-09 00:55:24 | INFO | PLAY_STARTED | Game.py | The player started playing
+2023-12-09 00:55:24 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:55:25 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:25 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:28 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:28 | INFO | APPLE_EATEN | Game.py | The snake ate an apple
+2023-12-09 00:55:28 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:55:29 | WARNING | SNAKE_DIED | Game.py | The snake hit an obstacle and died
+2023-12-09 00:55:29 | INFO | PLAY_FINISHED | Game.py | The player finished playing
+2023-12-09 00:55:29 | INFO | SCORE_ADDED | Game.py | A new point has been added
+2023-12-09 00:55:29 | INFO | MENU_OPENED | Game.py | The menu opened
+2023-12-09 00:55:31 | INFO | MENU_CLOSED | Game.py | The menu closed
+2023-12-09 00:55:31 | INFO | PLAY_STARTED | Game.py | The player started playing
+2023-12-09 00:55:31 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:55:32 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:32 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:32 | WARNING | SNAKE_DIED | Game.py | The snake hit an obstacle and died
+2023-12-09 00:55:32 | INFO | PLAY_FINISHED | Game.py | The player finished playing
+2023-12-09 00:55:32 | INFO | SCORE_ADDED | Game.py | A new point has been added
+2023-12-09 00:55:32 | INFO | MENU_OPENED | Game.py | The menu opened
+2023-12-09 00:55:34 | INFO | MENU_CLOSED | Game.py | The menu closed
+2023-12-09 00:55:34 | INFO | PLAY_STARTED | Game.py | The player started playing
+2023-12-09 00:55:34 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:55:35 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:35 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:38 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:38 | INFO | APPLE_EATEN | Game.py | The snake ate an apple
+2023-12-09 00:55:38 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:55:38 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:40 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:40 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:47 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:47 | INFO | APPLE_EATEN | Game.py | The snake ate an apple
+2023-12-09 00:55:47 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:55:47 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:48 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:48 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:49 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:50 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:50 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:52 | INFO | APPLE_EATEN | Game.py | The snake ate an apple
+2023-12-09 00:55:52 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:55:52 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:52 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:53 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:55:53 | WARNING | SNAKE_DIED | Game.py | The snake hit an obstacle and died
+2023-12-09 00:55:53 | INFO | PLAY_FINISHED | Game.py | The player finished playing
+2023-12-09 00:55:53 | INFO | SCORE_ADDED | Game.py | A new point has been added
+2023-12-09 00:55:53 | INFO | MENU_OPENED | Game.py | The menu opened
+2023-12-09 00:55:55 | INFO | MENU_CLOSED | Game.py | The menu closed
+2023-12-09 00:55:55 | INFO | SCORE_BOARD_OPENED | Game.py | The player opened score boarde
+2023-12-09 00:55:57 | INFO | SCORE_BOARD_CLOSED | Game.py | The player closed score boarde
+2023-12-09 00:55:57 | INFO | MENU_OPENED | Game.py | The menu opened
+2023-12-09 00:55:59 | INFO | MENU_CLOSED | Game.py | The menu closed
+2023-12-09 00:55:59 | INFO | PLAY_STARTED | Game.py | The player started playing
+2023-12-09 00:55:59 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:56:00 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:00 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:01 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:01 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:01 | WARNING | SNAKE_DIED | Game.py | The snake hit an obstacle and died
+2023-12-09 00:56:01 | INFO | PLAY_FINISHED | Game.py | The player finished playing
+2023-12-09 00:56:01 | INFO | SCORE_ADDED | Game.py | A new point has been added
+2023-12-09 00:56:01 | INFO | MENU_OPENED | Game.py | The menu opened
+2023-12-09 00:56:02 | INFO | MENU_CLOSED | Game.py | The menu closed
+2023-12-09 00:56:02 | INFO | PLAY_STARTED | Game.py | The player started playing
+2023-12-09 00:56:02 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:56:04 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:04 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:07 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:07 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:09 | INFO | APPLE_EATEN | Game.py | The snake ate an apple
+2023-12-09 00:56:09 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:56:11 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:12 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:13 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:13 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:13 | INFO | APPLE_EATEN | Game.py | The snake ate an apple
+2023-12-09 00:56:13 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:56:15 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:15 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:19 | INFO | APPLE_EATEN | Game.py | The snake ate an apple
+2023-12-09 00:56:19 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:56:19 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:19 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:30 | INFO | APPLE_EATEN | Game.py | The snake ate an apple
+2023-12-09 00:56:30 | INFO | SPAWN_APPLE | Game.py | The apple spawned
+2023-12-09 00:56:30 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:30 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:31 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:32 | INFO | NEW_DIRECTION | Game.py | The direction of the snake has changed
+2023-12-09 00:56:32 | WARNING | SNAKE_DIED | Game.py | The snake hit an obstacle and died
+2023-12-09 00:56:32 | INFO | PLAY_FINISHED | Game.py | The player finished playing
+2023-12-09 00:56:32 | INFO | SCORE_ADDED | Game.py | A new point has been added
+2023-12-09 00:56:32 | INFO | MENU_OPENED | Game.py | The menu opened
+2023-12-09 00:56:34 | INFO | MENU_CLOSED | Game.py | The menu closed
+2023-12-09 00:56:34 | INFO | SCORE_BOARD_OPENED | Game.py | The player opened score boarde
+2023-12-09 00:56:36 | INFO | SCORE_BOARD_CLOSED | Game.py | The player closed score boarde
+2023-12-09 00:56:36 | INFO | MENU_OPENED | Game.py | The menu opened
+2023-12-09 00:56:37 | INFO | MENU_CLOSED | Game.py | The menu closed
+2023-12-09 00:56:37 | INFO | GAME_OVER | run.py | The game is over
