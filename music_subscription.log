@@ -1,0 +1,18 @@
+2023-12-09T21:43:44.681505+0400 INFO MusicSubscription object created
+2023-12-09T21:43:44.682895+0400 DEBUG User Алексей Петров added to the subscription list
+2023-12-09T21:43:44.683027+0400 DEBUG User Мария Иванова added to the subscription list
+2023-12-09T21:43:44.683115+0400 INFO Added two users: Алексей Петров and Мария Иванова
+2023-12-09T21:43:44.683202+0400 DEBUG User Алексей changed name to Александр
+2023-12-09T21:43:44.683274+0400 DEBUG User Мария Иванова updated subscription months to 12
+2023-12-09T21:43:44.683336+0400 INFO Updated user data: Алексей changed name to Александр, Мария extended subscription to 12 months
+2023-12-09T21:43:44.683423+0400 DEBUG User Мария Иванова extended subscription by 3 months
+2023-12-09T21:43:44.683486+0400 INFO Extended subscription of Мария Иванова by 3 months
+2023-12-09T21:43:44.683545+0400 DEBUG Checking if user Александр Петров exists: True
+2023-12-09T21:43:44.683602+0400 DEBUG Checked if user Александр Петров exists: True
+2023-12-09T21:43:44.683654+0400 DEBUG Users sorted by name
+2023-12-09T21:43:44.683706+0400 DEBUG Sorted users by name
+2023-12-09T21:43:44.684908+0400 INFO Wrote 2 users to users.csv
+2023-12-09T21:43:44.685219+0400 DEBUG User Александр Петров added to the subscription list
+2023-12-09T21:43:44.685313+0400 DEBUG User Мария Иванова added to the subscription list
+2023-12-09T21:43:44.685381+0400 INFO Read 4 users from users.csv
+2023-12-09T21:43:44.685443+0400 INFO Read and wrote users data to users.csv
