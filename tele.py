@@ -1,3 +1,4 @@
+import logging
 import os
 import time
 
@@ -5,19 +6,20 @@ import telebot
 from telebot import types
 import win10toast
 from mss import mss
-from rich import print
 from rich.console import Console
 
 import auto
 import Internet
 
 
+logging.basicConfig(filename='tele.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
 console = Console()
 
 
 def get_keyboard() -> types.ReplyKeyboardMarkup:
     """
-    Создает и возвращает клавиатуру для бота.
+    Creates and returns a keyboard for the bot.
     """
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     but1 = types.KeyboardButton("/shutdown")
@@ -27,28 +29,30 @@ def get_keyboard() -> types.ReplyKeyboardMarkup:
     but6 = types.KeyboardButton("/lock🔒")
     but4 = types.KeyboardButton("/cancel")
     markup.add(but1, but2, but3, but5, but6, but4)
+    logging.debug('Keyboard created for the bot')
     return markup
 
 
 def execute_and_reply(bot: telebot.TeleBot, message: types.Message, command: str, reply_text: str) -> None:
     """
-    Выполняет команду ОС и отправляет ответное сообщение в чат.
+    Executes the OS command and sends a reply message to the chat.
 
-    :param bot: Экземпляр бота.
-    :param message: Сообщение от пользователя.
-    :param command: Команда для выполнения.
-    :param reply_text: Текст ответного сообщения.
+    :param bot: An instance of the bot.
+    :param message: A message from the user.
+    :param command: The command to execute.
+    :param reply_text: The text of the reply message.
     """
     os.system(command)
     bot.reply_to(message, reply_text)
+    logging.info(f'Command executed: {command} and replied with {reply_text}')
 
 
 def get_shutdown_message(txt: str):
     """
-    Возвращает соответствующее сообщение о времени выключения на основе заданной продолжительности.
+    Returns the corresponding shutdown time message based on the specified duration.
 
-    :param txt: Продолжительность в секундах.
-    :return: Сообщение для пользователя о времени до выключения.
+    :param txt: Duration in seconds.
+    :return: A message to the user about the time before shutdown.
     """
     time_ranges = [
         (18000, "часов 🕑"),
@@ -66,14 +70,15 @@ def get_shutdown_message(txt: str):
             time_value = int(txt) / (3600 if "час" in label else 60)
             return f"Компьютер выключится через {round(time_value)} {label}"
 
+    logging.debug(f'Shutdown message generated for duration: {txt}')
     return None
 
 
 def main() -> None:
     """
-    Главная функция, запускающая бота и обрабатывающая команды пользователя.
+    The main function that runs the bot and processes the user's commands.
     """
-    console.clear()
+    logging.info('Main function started')
 
     try:
         with open(os.path.join(os.getenv('APPDATA'), 'TurnOffBot', 'token'), 'r') as ff:
@@ -89,17 +94,13 @@ def main() -> None:
         try:
             Internet.check_internet_connection()
             turn_on = True
+            logging.info("Internet connection successfully established")
         except Exception as ex:
-            print(f"Ошибка при проверке интернета: {ex}")
+            logging.error(f"Error checking internet connection: {ex}")
             time.sleep(5)
-            console.clear()
-            continue
-
-        print('Made by rus152')
-        print('')
 
         bot = telebot.TeleBot(token)
-        print('Бот в данный момент ОнЛайн')
+        logging.info('Bot is now online')
 
         @bot.message_handler(commands=['start'])
         def send_welcome(message):
@@ -183,8 +184,9 @@ def main() -> None:
 
     try:
         bot.polling(none_stop=True)
+        logging.info('Bot polling started')
     except Exception as ex:
-        print(f"Ошибка при работе бота: {ex}")
+        logging.error(f'Error during bot operation: {ex}')
         time.sleep(5)
 
 
