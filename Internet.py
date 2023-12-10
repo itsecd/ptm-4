@@ -1,36 +1,30 @@
+import logging
 import requests
 import time
 
-from rich import print
-from rich.console import Console
+
+logging.basicConfig(filename='Internet.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-def check_internet_connection(timeout: int = 1, max_retries: int = 10) -> bool:
+def check_internet_connection(timeout=1, max_retries=10):
     """
-    Проверяет наличие интернет-соединения, пытаясь отправить запрос на заданный URL.
-
-    :param timeout: Максимальное время ожидания ответа от сервера (в секундах).
-    :param max_retries: Максимальное количество попыток соединения.
-    :return: True, если соединение установлено. В противном случае False.
+    Checks for internet connection by attempting to send a request to a specified URL.
     """
-    console = Console()
+    logging.info('Checking internet connection')
     retries = 0
 
     while retries < max_retries:
-        print('Проверка соединения...')
+        logging.debug(f'Attempt {retries + 1} of {max_retries}')
         try:
             requests.head("https://www.google.com/", timeout=timeout)
-            print('Соединение с интернетом есть')
-            time.sleep(2)
-            console.clear()
+            logging.info('Internet connection established')
             return True
-        except (requests.ConnectionError, requests.Timeout, requests.RequestException):
+        except (requests.ConnectionError, requests.Timeout, requests.RequestException) as e:
+            logging.warning(f'No internet connection: {e}')
             retries += 1
-            print(f"Интернета нет, попытка {retries}/{max_retries}. Повторная попытка через 5 секунд.")
             time.sleep(5)
-            console.clear()
 
-    print("Не удалось установить соединение после всех попыток.")
+    logging.error('Failed to establish an internet connection after all retries')
     return False
 
 
