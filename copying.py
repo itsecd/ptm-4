@@ -29,7 +29,7 @@ def copy_dataset(directory_obj: str, c_directory_obj: str, name: str) -> None:
             shutil.copy(src_path, dest_path)
         except Exception as err:
             logging.error(f'Error copying file {i}: {err}')
-    logging.info('All files copied')
+    logging.info(f'All files copied in {c_directory_obj1}')
     write_csv_copy(directory_obj, c_directory_obj1, name)
 
 
@@ -58,7 +58,7 @@ def write_csv_copy(directory_obj: str, c_directory_obj: str, name: str) -> None:
                                    'Class': name})    
     except Exception as err:
         logging.error(f'Error with the csv: {err}')
-    logging.info('All names are written in csv')    
+    logging.info(f'All names are written in {file}')    
 
 
 if __name__ == '__main__':
