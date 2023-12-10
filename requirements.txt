@@ -1,0 +1,5 @@
+rich~=13.6.0
+telebot~=0.0.5
+win10toast~=0.9
+mss~=9.0.1
+requests~=2.31.0
