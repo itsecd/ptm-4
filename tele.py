@@ -132,7 +132,6 @@ def main() -> None:
 
         def test(message):
             txt = message.text
-            print(txt)
             markup = get_keyboard()
 
             if txt == "Назад":
@@ -162,25 +161,30 @@ def main() -> None:
 
         @bot.message_handler(commands=['Screen'])
         def send(message):
-            bot.reply_to(message, "Запрос отправлен", )
+            bot.reply_to(message, "Запрос отправлен")
             mss().shot(mon=1)
             try:
                 mss().shot(mon=2)
             except Exception as _ex:
-                print(_ex)
+                logging.error(f"Error when creating a screenshot for the second screen: {_ex}")
+
             toaster = win10toast.ToastNotifier()
             toaster.show_toast("БОТЯРА 🔔", "Запрос на скриншот", icon_path="icon.ico")
             bot.send_message(message.chat.id, 'Скриншот сделан')
-            bot.send_document(message.chat.id, document=open('monitor-1.png', 'rb'))
+
             try:
-                bot.send_document(message.chat.id, document=open('monitor-2.png', 'rb'))
+                with open('monitor-1.png', 'rb') as file:
+                    bot.send_document(message.chat.id, document=file)
+                os.remove('monitor-1.png')
             except Exception as _ex:
-                print(_ex)
-            os.remove('monitor-1.png')
+                logging.error(f"Error when sending or deleting a screenshot of monitor-1.png: {_ex}")
+
             try:
+                with open('monitor-2.png', 'rb') as file:
+                    bot.send_document(message.chat.id, document=file)
                 os.remove('monitor-2.png')
             except Exception as _ex:
-                print(_ex)
+                logging.error(f"Error when sending or deleting a screenshot of monitor-2.png: {_ex}")
 
     try:
         bot.polling(none_stop=True)
