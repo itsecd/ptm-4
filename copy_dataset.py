@@ -66,12 +66,3 @@ def copy_dataset_add_csv() -> None:
     path_txt_new = find_path_txt(path_dataset, '_')
     copy_dataset_new(path_dataset, path_txt_old, path_txt_new)
     add_csv(path_dataset, path_txt_new)
-
-
-if __name__ == "__main__":
- 
-    path_dataset = os.path.abspath('dataset')
-    path_txt_old = find_path_txt (path_dataset, '\\')
-    path_txt_new = find_path_txt (path_dataset, '_')
-    copy_dataset_new(path_dataset, path_txt_old, path_txt_new)
-    add_csv(path_dataset, path_txt_new)

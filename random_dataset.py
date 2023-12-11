@@ -37,7 +37,7 @@ def add_to_csv_and_to_dataset_random_number(path_dataset: str, paths_txt: str) -
             shutil.copyfile(os.path.join(path_dataset, str(paths_txt[i])), os.path.join(path_random_number_dataset, new_name))
 
 
-def find_path_txt(path_dataset: str) -> List[str]:
+def find_path_txt_random(path_dataset: str) -> List[str]:
     '''
     Функция формирует и возвращает список из путей к текстовым файлам
     '''
@@ -62,12 +62,5 @@ def copy_dataset_random_add_csv() -> None:
     Функция, выполняющая копирование файлов с рандомными номерами в новый dataset и делающая csv-файл к нему
     '''
     path_dataset = os.path.abspath('dataset')
-    paths_txt = find_path_txt(path_dataset)
-    add_to_csv_and_to_dataset_random_number(path_dataset, paths_txt)
-
-
-if __name__ == "__main__":
-
-    path_dataset = os.path.abspath('dataset')
-    paths_txt = find_path_txt(path_dataset)
+    paths_txt = find_path_txt_random(path_dataset)
     add_to_csv_and_to_dataset_random_number(path_dataset, paths_txt)
