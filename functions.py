@@ -1,3 +1,7 @@
+import logging
+from random import randint
+
+
 def minesCoordinates(rows, columns, mines):
     '''
     This function will assign the coordinates of each mine.
@@ -6,7 +10,7 @@ def minesCoordinates(rows, columns, mines):
     If a duplicate is found, remove the one with the greatest index number (which is j).
     This function will return a list with the coordinates of each mine.
     '''
-    from random import randint
+    logging.info("Start minesCoordinates function")
     cellsWithMines = []
     counter = 0
 
@@ -22,7 +26,7 @@ def minesCoordinates(rows, columns, mines):
                         counter -= 1
                         checkForDuplicates = False
         counter += 1
-
+    logging.info("Finish minesCoordinate function")
     return cellsWithMines
 
 def cellsCoordinates(rows, columns):
@@ -44,7 +48,7 @@ def cellsCoordinates(rows, columns):
                 cells[i].append("?")
             else:
                 cells[i].append("N/A")
-
+    logging.debug("Cells coordinates generated")
     return cells
 
 def showCells(points, totalPoints, flags, moves, cells, columns):
@@ -93,6 +97,7 @@ def showCells(points, totalPoints, flags, moves, cells, columns):
 
         print("")
     print("")
+    logging.info("Showing cells")
 
 def checkMoves(points, flags, moves, lastMove):
     '''
@@ -105,8 +110,11 @@ def checkMoves(points, flags, moves, lastMove):
         lastMove.extend([points, flags])
         lastMove.pop(0)
         lastMove.pop(0)
-        return moves + 1
+        moves += 1
+        logging.info(f"User made a move. Points: points, Flags: flags, Moves: moves")
+        return moves
     else:
+        logging.info(f"User not made a move")
         return moves
 
 def showMines(cellsWithMines, cells):
@@ -117,6 +125,7 @@ def showMines(cellsWithMines, cells):
     '''
     for i in cellsWithMines:
         cells[i[0]][i[1]] = "M"
+    logging.info("Mines are shown")
 
 def checkMinesAround(rowChosen, columnChosen, rows, columns, cellsWithMines):
     '''
@@ -157,7 +166,7 @@ def checkMinesAround(rowChosen, columnChosen, rows, columns, cellsWithMines):
         for j in range(columnLeft, columnRight):
             if [i, j] in cellsWithMines:
                 minesAround += 1
-
+    logging.info(f"Mines around selected cell: minesAround")
     return minesAround
 
 def checkCellsAround(rowChosen, columnChosen, rows, columns, selectedCells, cellsWithMines, cells, selectedCellMinesAround, points):
@@ -189,8 +198,8 @@ def checkCellsAround(rowChosen, columnChosen, rows, columns, selectedCells, cell
             points += 1
             cellsAround.extend([[cellsAround[0][0] - 1, cellsAround[0][1]],  [cellsAround[0][0], cellsAround[0][1] - 1], \
             [cellsAround[0][0], cellsAround[0][1] + 1], [cellsAround[0][0] + 1, cellsAround[0][1]]])
+        logging.info(f"Cell not added to selectedCells")
         cellsAround.pop(0)
-
     return points
 
 def addFlag(rowChosen, rows, columnChosen, columns, cells, flags, mines):
@@ -208,8 +217,10 @@ def addFlag(rowChosen, rows, columnChosen, columns, cells, flags, mines):
         if cells[rowChosen][columnChosen] == "?" and flags != 0:
             cells[rowChosen][columnChosen] = "F"
             flags -= 1
+            logging.info("Flag added")
         elif cells[rowChosen][columnChosen] == "F" and flags < mines:
             cells[rowChosen][columnChosen] = "?"
             flags += 1
+            logging.info("Flag removed")
 
     return flags
