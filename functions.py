@@ -1,6 +1,7 @@
 import logging
 from random import randint
 
+logging.basicConfig(level=logging.INFO, filename="log_file.log", filemode="w")
 
 def minesCoordinates(rows, columns, mines):
     '''
