@@ -1,4 +1,8 @@
+import logging
+
 from functions import *
+
+logging.basicConfig(level=logging.INFO, filename="log_file.log", filemode="w")
 
 def minesweeper(rows, columns, mines):
     '''
@@ -28,15 +32,18 @@ def minesweeper(rows, columns, mines):
                 try:
                     rowChosen = int(cellChosen.split(",")[0].strip())
                     columnChosen = int(cellChosen.split(",")[1].strip())
+                    logging.info(f"The cell is selected. Chosen row: rowChosen, Chosen column: columnChosen")
                 except (ValueError, IndexError):
                     rowChosen = 0
                     columnChosen = 0
+                    logging.info(f"The cell is not selected. Chosen row: rowChosen, Chosen column: columnChosen")
 
                 if [rowChosen, columnChosen] in cellsWithMines and cells[rowChosen][columnChosen] != "F":
                     playing = False
                     moves += 1
                     showMines(cellsWithMines, cells)
                     showCells(points, totalPoints, flags, moves, cells, columns)
+                    logging.info("Loss")
                     print("You lost!")
 
                 elif rowChosen > 0 and rowChosen <= rows and columnChosen > 0 and columnChosen <= columns \
@@ -54,6 +61,7 @@ def minesweeper(rows, columns, mines):
                     moves += 1
                     showMines(cellsWithMines, cells)
                     showCells(points, totalPoints, flags, moves, cells, columns)
+                    logging.info("Winning")
                     print("You win!")
 
             case "2":
@@ -61,11 +69,14 @@ def minesweeper(rows, columns, mines):
                 try:
                     rowChosen = int(cellChosen.split(",")[0].strip())
                     columnChosen = int(cellChosen.split(",")[1].strip())
+                    logging.info(f"The cell is selected. Chosen row: rowChosen, Chosen column: columnChosen")
                 except (ValueError, IndexError):
                     rowChosen = 0
                     columnChosen = 0
+                    logging.info(f"The cell is not selected. Chosen row: rowChosen, Chosen column: columnChosen")
 
                 flags = addFlag(rowChosen, rows, columnChosen, columns, cells, flags, mines)
+                logging.info("Added flag")
 
             case _:
                 pass
