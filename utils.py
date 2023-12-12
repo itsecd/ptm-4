@@ -5,10 +5,11 @@ import logging
 import filecmp
 from datetime import datetime
 import zipfile
+
 import logging
 
 
-class container_to_save_data:
+class InterfaceFileOperation:
     def __init__(self) -> None:
         """constructor
         input:  source of files
@@ -179,4 +180,4 @@ class container_to_save_data:
 
 
 if __name__ == '__main__':
-    a = container_to_save_data()
+    a = InterfaceFileOperation()
