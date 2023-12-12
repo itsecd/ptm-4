@@ -66,7 +66,6 @@ def find_path_txt (path_dataset, delimiter) -> List[str]:
             #записываем пути
             for j in range (count):
                 path_txt = folder_name + delimiter +  f'{(j): 05}' + '.txt'
-                print(f'{folder_name}: {(j): 05}')
                 paths_txt.append(path_txt.replace(" ",""))
     except Exception as err:
         logging.error(f'Error {err} ')

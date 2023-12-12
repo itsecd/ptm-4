@@ -59,7 +59,6 @@ def find_path_txt_random(path_dataset: str) -> List[str]:
         # заполняем список путей
             for j in range(count):
                 path_txt = os.path.join(folder_name, f'{(j): 05}' + '.txt')
-                print(f'{folder_name}: {(j): 05}')
                 paths_txt.append(path_txt.replace(" ", ""))
     except Exception as er:
         logging.error(f'Error {er} with pathfinding')
