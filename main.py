@@ -11,7 +11,7 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
                          " Chrome/107.0.0.0 Safari/537.36"}
 
 
-# настройка логгирования
+# настройка логирования
 file_logger = logging.getLogger("file")
 file_logger.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler(f"lab4.log", mode='w')
@@ -34,6 +34,7 @@ def is_valid(url: str) -> bool:
     :param url: ссылка на изображение
     """
     if not url:
+        file_logger.debug(f"No file on the: {url}")
         return False
     else:
         parsed = urlparse(url)
@@ -82,7 +83,8 @@ def download_one_image(url: str, path: str, num: int) -> None:
         try:
             os.mkdir(path)
         except PermissionError as ex:
-            print(f"Exception happened: {ex}")
+            console_logger.error(f"Exception happened: {ex}", exc_info=True)
+            file_logger.error(f"Exception happened: {ex}", exc_info=True)
             sys.exit()
     img = requests.get(url)
     file = os.path.join(path, f"{str(num).zfill(4)}.jpg")
@@ -102,6 +104,7 @@ def accounting_for_downloads(url: str, keyword: str, headers: dict) -> int:
     num = 0
     for img in imgs:
         download_one_image(img, keyword, num)
+        file_logger.debug(f"Image #{num} added to {keyword}")
         num += 1
     return num
 
@@ -119,16 +122,21 @@ def image_download(url: str, keywords: list, headers: dict) -> None:
         try:
             os.mkdir("dataset")
         except PermissionError as ex:
-            print(f"Exception happened: {ex}")
+            console_logger.error(f"Exception happened: {ex}", exc_info=True)
+            file_logger.error(f"Exception happened: {ex}", exc_info=True)
             sys.exit()
     for i in range(len(keywords)):
-        print(keywords[i])
+        console_logger.info(f"Work has begun with: {keywords[i]}")
+        file_logger.debug(f"Work with: {keywords[i]}")
         amount = accounting_for_downloads(url, keywords[i], headers)
-        print(f"{amount} images of a {keywords[i]} have been downloaded")
+        console_logger.info(f"{amount} images of a {keywords[i]} have been downloaded")
+        file_logger.info(f"{amount} images of a {keywords[i]} have been downloaded")
 
 
 if __name__ == "__main__":
     keys = sys.argv
     if len(keys) == 0:
+        console_logger.info("Keywords are not specified, working with \"polar bear\", \"brown bear\"")
+        file_logger.info("Keywords are not specified, working in default mode")
         keys = ["polar bear, brown bear"]
     image_download(URL, keys, HEADERS)
