@@ -110,7 +110,7 @@ while happy_to_play:
                     json.dump(q, outfile)
                     logging.info("file 20q.txt saved")
             else:
-                logging.info("quit current game")
+                logging.warning("incorrect input - quit current game")
                 not_there_yet = False
                 print("Quitting...")
 
