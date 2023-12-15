@@ -11,6 +11,22 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
                          " Chrome/107.0.0.0 Safari/537.36"}
 
 
+# настройка логгирования
+file_logger = logging.getLogger("file")
+file_logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler(f"lab4.log", mode='w')
+file_formatter = logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s")
+file_handler.setFormatter(file_formatter)
+file_logger.addHandler(file_handler)
+
+console_logger = logging.getLogger("console")
+console_logger.setLevel(logging.INFO)
+console_handler = logging.StreamHandler()
+console_formatter = logging.Formatter("[%(asctime)s] %(message)s")
+console_handler.setFormatter(console_formatter)
+console_logger.addHandler(console_handler)
+
+
 def is_valid(url: str) -> bool:
     """
     Функция, проверяющая наличие ссылки на файл в указанном атрибуте (источника)
