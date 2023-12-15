@@ -1,0 +1,9 @@
+2023-12-15 12:40:59,662 - logger - INFO - Handled 'start'
+2023-12-15 12:41:04,365 - logger - INFO - Handled 'Зашифровать'
+2023-12-15 12:41:07,190 - logger - INFO - Encryption started
+2023-12-15 12:41:07,426 - logger - INFO - Encryption finished
+2023-12-15 12:41:10,310 - logger - INFO - Handled 'Расшифровать'
+2023-12-15 12:41:15,888 - logger - INFO - Secret key handled. Waiting for message.
+2023-12-15 12:41:21,603 - logger - INFO - Decryption started
+2023-12-15 12:41:21,603 - logger - INFO - Decryption finished
+2023-12-15 12:41:23,466 - logger - WARNING - Handled unexpected message

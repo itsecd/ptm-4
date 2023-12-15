@@ -1,7 +1,7 @@
 from cryptography.fernet import Fernet
 from sys import getdefaultencoding
 
-def main(text:str)->bytes:
+def EncodeText(text:str)->bytes:
     getdefaultencoding()
     
     cipher_key = Fernet.generate_key()

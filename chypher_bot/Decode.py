@@ -2,7 +2,7 @@ from cryptography.fernet import Fernet
 from sys import getdefaultencoding
 from base64 import urlsafe_b64encode
 
-def main(text: bytes, key:bytes) -> str:
+def DecodeText(text: bytes, key:bytes) -> str:
     
     getdefaultencoding()
     
