@@ -2,6 +2,14 @@ from cryptography.fernet import Fernet
 from sys import getdefaultencoding
 
 def EncodeText(text:str)->bytes:
+    """Encodes given bytes
+
+    Args:
+        text (str): Text to be encrypted
+
+    Returns:
+        bytes: Encrypted text
+    """
     getdefaultencoding()
     
     cipher_key = Fernet.generate_key()
