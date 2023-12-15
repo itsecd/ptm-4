@@ -1,19 +1,22 @@
 import os
 import sys
 import requests
+import logging
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 
 
 URL = "https://yandex.ru/images/"
-HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"}
+HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
+                         " Chrome/107.0.0.0 Safari/537.36"}
 
 
 def is_valid(url: str) -> bool:
-    '''
+    """
     Функция, проверяющая наличие ссылки на файл в указанном атрибуте (источника)
+
     :param url: ссылка на изображение
-    '''
+    """
     if not url:
         return False
     else:
@@ -22,13 +25,14 @@ def is_valid(url: str) -> bool:
 
 
 def get_images_urls(url: str, keyword: str, headers: dict, count=1000) -> list:
-    '''
+    """
     Функция собирает список url ведущих к файлам изображений со страницы с поисковым запросом
+
     :param url: ссылка на сайт с изображениями
     :param keyword: ключевое слово для поиска
     :param headers: системная информация передаваемая серверу
     :param count: количество изображений, которые необходимо скачать
-    '''
+    """
     page = 1
     url_list = []
     while True:
@@ -50,12 +54,13 @@ def get_images_urls(url: str, keyword: str, headers: dict, count=1000) -> list:
 
 
 def download_one_image(url: str, path: str, num: int) -> None:
-    '''
+    """
     Функция скачивает и сохраняет одно изображение
+
     :param url: ссылка на изображение
     :param path: путь к папке, куда загружаются изображения 
     :param num: номер изображения
-    '''
+    """
     path = os.path.join("dataset", path)
     if not os.path.isdir(path):
         try:
@@ -70,12 +75,13 @@ def download_one_image(url: str, path: str, num: int) -> None:
 
 
 def accounting_for_downloads(url: str, keyword: str, headers: dict) -> int:
-    '''
+    """
     Функция загружает и подсчитывает количество загруженных изображений по указанному поискового запроса
+
     :param url: ссылка на изображение
     :param keyword: ключевое слово для поиска
     :param headers: системная информация передаваемая серверу
-    '''
+    """
     imgs = get_images_urls(url, keyword, headers)
     num = 0
     for img in imgs:
@@ -85,13 +91,14 @@ def accounting_for_downloads(url: str, keyword: str, headers: dict) -> int:
 
 
 def image_download(url: str, keywords: list, headers: dict) -> None:
-    '''
+    """
     Функция вызывающая остальные функции и оповещающая о том, по какому запросу произодится парсинг
     и сколько изображений было скачано по итогу
+
     :param url: ссылка на сайт с изображениями
     :param keywords: список ключевых слов
     :param headers: системная информация передаваемая серверу
-    '''
+    """
     if not os.path.isdir("dataset"):
         try:
             os.mkdir("dataset")
@@ -105,5 +112,7 @@ def image_download(url: str, keywords: list, headers: dict) -> None:
 
 
 if __name__ == "__main__":
-    keywords = ["polar bear", "brown bear"]
-    image_download(URL, keywords, HEADERS)
+    keys = sys.argv
+    if len(keys) == 0:
+        keys = ["polar bear, brown bear"]
+    image_download(URL, keys, HEADERS)
