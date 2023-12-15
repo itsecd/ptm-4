@@ -1,3 +1,6 @@
+from game import minesweeper_logger
+
+
 def minesCoordinates(rows, columns, mines):
     '''
     This function will assign the coordinates of each mine.
@@ -22,7 +25,7 @@ def minesCoordinates(rows, columns, mines):
                         counter -= 1
                         checkForDuplicates = False
         counter += 1
-
+    minesweeper_logger.info("Generating mines")
     return cellsWithMines
 
 
@@ -45,7 +48,7 @@ def cellsCoordinates(rows, columns):
                 cells[i].append("?")
             else:
                 cells[i].append("N/A")
-
+    minesweeper_logger.info("Creating field")
     return cells
 
 
@@ -68,6 +71,7 @@ def showCells(points, totalPoints, flags, moves, cells, columns):
     If there are more than 10 columns, print two blank spaces next to each number.
     If there are 10 columns or less, print one blank space next to each number.
     '''
+    minesweeper_logger.info("Printing field")
     print(f"\n\nPoints: {points} / {totalPoints}\nFlags: {flags}\nMoves: {moves}\n")
 
     print("    ", end="")
@@ -104,6 +108,7 @@ def checkMoves(points, flags, moves, lastMove):
     A user has made a move if the number of points or the number of flags has changed since the last move.
     This function will return the number of moves.
     '''
+    minesweeper_logger.info("Calculating moves count")
     if lastMove[0] != points or lastMove[1] != flags:
         lastMove.extend([points, flags])
         lastMove.pop(0)
@@ -119,6 +124,7 @@ def showMines(cellsWithMines, cells):
     cellsWithMines and cells has been defined in game.py.
     This function is called when the user wins the game or loses the game.
     '''
+    minesweeper_logger.info("Showing all mines")
     for i in cellsWithMines:
         cells[i[0]][i[1]] = "M"
 
@@ -132,6 +138,7 @@ def checkMinesAround(rowChosen, columnChosen, rows, columns, cellsWithMines):
     The cells [1,0] and [0,1] can't be checked, because those cells don't exist.
     This function return the number of mines around the selected cell.
     '''
+    minesweeper_logger.info("Checking mines around selected cell")
     minesAround = 0
     rowLeft = rowChosen - 1
     rowRight = rowChosen + 2
@@ -183,6 +190,7 @@ def checkCellsAround(rowChosen, columnChosen, rows, columns, selectedCells, cell
     The number of rows and columns have been defined in start.py.
     rowChosen, columnChosen, selectedCells, cellsWithMines, cells, selectedCellMinesAround and points have been defined in game.py.
     '''
+    minesweeper_logger.info("Checking cells around selected cell")
     cellsAround = [[rowChosen - 1, columnChosen], [rowChosen, columnChosen - 1], [rowChosen, columnChosen + 1], \
                    [rowChosen + 1, columnChosen]]
 
@@ -217,9 +225,11 @@ def addFlag(rowChosen, rows, columnChosen, columns, cells, flags, mines):
     '''
     if rowChosen > 0 and rowChosen <= rows and columnChosen > 0 and columnChosen <= columns:
         if cells[rowChosen][columnChosen] == "?" and flags != 0:
+            minesweeper_logger.info("Adding flag")
             cells[rowChosen][columnChosen] = "F"
             flags -= 1
         elif cells[rowChosen][columnChosen] == "F" and flags < mines:
+            minesweeper_logger.info("Removing flag")
             cells[rowChosen][columnChosen] = "?"
             flags += 1
 
