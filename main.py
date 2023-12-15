@@ -23,12 +23,18 @@ DONE
 import json
 import os
 import time
+import logging
+
+cur_time = time.gmtime()
+cur_file_name = f"{cur_time.tm_year}-{cur_time.tm_mon}-{cur_time.tm_mday} {cur_time.tm_hour}-{cur_time.tm_min}-{cur_time.tm_sec}.log"
+logging.basicConfig(filename=cur_file_name, format="[%(asctime)s] [%(levelname)s] >> %(message)s", level=logging.INFO)
 
 happy_to_play = True
 while happy_to_play:
     #
     # Start a new game...
     #
+    logging.info("starting new game")
     os.system('clear')
     print("\n\n\n\n")
     print("This is a little game. I will guess the creature that")
@@ -40,10 +46,10 @@ while happy_to_play:
         with open('20q.txt') as data_file:
             #             q = byteify(json.load(data_file))
             q = json.load(data_file)
-
+            logging.info("saved file 20q.txt was used ")
         pass
     except IOError as e:
-        print("No saved data 20q.txt file found, so creating a new database...\n")
+        logging.info("no saved data 20q.txt file found, so creating a new file")
         # animals names in the database are all lower case, and
         # don't include "an" or "a"
         q.append(["Does it quack?", "duck", "pig"])
@@ -70,11 +76,14 @@ while happy_to_play:
             print("I guess, a", guess, "- am I right? (Y or N)")
             ans = input().upper()
             if ans == "Y":
+                logging.info(f"guess it's {guess} - Yes")
                 print("Yah! I got your animal in ", questions, " questions.\n\n\n")
                 not_there_yet = False
             elif ans == "N":
+                logging.info(f"guess it's {guess} - No")
                 print("What is it?")
                 animal = input()
+                logging.info(f"it's {animal}")
                 print(animal)
                 # trim off any "a" or "an" from the answer
                 # ACTUALLY - it might be a better idea to *add* the
@@ -89,6 +98,7 @@ while happy_to_play:
                       q[curr][branch])
                 question = input()
                 # add in this new question
+                logging.info(f"new auestion added - {question}")
                 q.append([question, animal, guess])
                 # A little "trick" with 'len' allows us to get the
                 # index of the item we just added
@@ -98,7 +108,9 @@ while happy_to_play:
                 # and save the new database of questions and answers...
                 with open('20q.txt', 'w') as outfile:
                     json.dump(q, outfile)
+                    logging.info("file 20q.txt saved")
             else:
+                logging.info("quit current game")
                 not_there_yet = False
                 print("Quitting...")
 
@@ -108,8 +120,10 @@ while happy_to_play:
             print("\n\n\nThanks! Now, do you want to play again? (Y or N)")
             ans = input().upper()
             if ans == "N":
+                logging.info("play again - No")
                 happy_to_play = False
             else:
+                logging.info("play again - Yes")
                 print("Cool! We will restart in a second...")
                 time.sleep(2)
 
@@ -117,5 +131,6 @@ while happy_to_play:
             # OK, deeper down the tree....
             type(q[curr][branch])
             curr = int(q[curr][branch])
+logging.info("exit")
 print("OK, bye!")
 exit
