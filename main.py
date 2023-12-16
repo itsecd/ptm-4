@@ -11,20 +11,10 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
                          " Chrome/107.0.0.0 Safari/537.36"}
 
 
-# настройка логирования
-file_logger = logging.getLogger("file")
-file_logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler(f"lab4.log", mode='w')
-file_formatter = logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s")
-file_handler.setFormatter(file_formatter)
-file_logger.addHandler(file_handler)
-
-console_logger = logging.getLogger("console")
-console_logger.setLevel(logging.INFO)
-console_handler = logging.StreamHandler()
-console_formatter = logging.Formatter("[%(asctime)s] %(message)s")
-console_handler.setFormatter(console_formatter)
-console_logger.addHandler(console_handler)
+file_log = logging.FileHandler("lab4.log")
+console_out = logging.StreamHandler()
+logging.basicConfig(format="[%(asctime)s] [%(levelname)s] %(message)s", level=logging.DEBUG,
+                    handlers=(file_log, console_out))
 
 
 def is_valid(url: str) -> bool:
@@ -34,7 +24,7 @@ def is_valid(url: str) -> bool:
     :param url: ссылка на изображение
     """
     if not url:
-        file_logger.debug(f"No file on the: {url}")
+        logging.debug(f"No file on the: {url}")
         return False
     else:
         parsed = urlparse(url)
@@ -83,8 +73,7 @@ def download_one_image(url: str, path: str, num: int) -> None:
         try:
             os.mkdir(path)
         except PermissionError as ex:
-            console_logger.error(f"Exception happened: {ex}", exc_info=True)
-            file_logger.error(f"Exception happened: {ex}", exc_info=True)
+            logging.error(f"Exception happened: {ex}", exc_info=True)
             sys.exit()
     img = requests.get(url)
     file = os.path.join(path, f"{str(num).zfill(4)}.jpg")
@@ -104,7 +93,7 @@ def accounting_for_downloads(url: str, keyword: str, headers: dict) -> int:
     num = 0
     for img in imgs:
         download_one_image(img, keyword, num)
-        file_logger.debug(f"Image #{num} added to {keyword}")
+        logging.debug(f"Image #{num} added to {keyword}")
         num += 1
     return num
 
@@ -122,21 +111,17 @@ def image_download(url: str, keywords: list, headers: dict) -> None:
         try:
             os.mkdir("dataset")
         except PermissionError as ex:
-            console_logger.error(f"Exception happened: {ex}", exc_info=True)
-            file_logger.error(f"Exception happened: {ex}", exc_info=True)
+            logging.error(f"Exception happened: {ex}", exc_info=True)
             sys.exit()
     for i in range(len(keywords)):
-        console_logger.info(f"Work has begun with: {keywords[i]}")
-        file_logger.debug(f"Work with: {keywords[i]}")
+        logging.info(f"Work has begun with: {keywords[i]}")
         amount = accounting_for_downloads(url, keywords[i], headers)
-        console_logger.info(f"{amount} images of a {keywords[i]} have been downloaded")
-        file_logger.info(f"{amount} images of a {keywords[i]} have been downloaded")
+        logging.info(f"{amount} images of a {keywords[i]} have been downloaded")
 
 
 if __name__ == "__main__":
     keys = sys.argv
     if len(keys) == 0:
-        console_logger.info("Keywords are not specified, working with \"polar bear\", \"brown bear\"")
-        file_logger.info("Keywords are not specified, working in default mode")
+        logging.info("Keywords are not specified, working with \"polar bear\", \"brown bear\"")
         keys = ["polar bear, brown bear"]
     image_download(URL, keys, HEADERS)
