@@ -1,0 +1,16 @@
+2023-12-16 22:29:12,817 - __main__ - INFO - Starting the program
+2023-12-16 22:29:12,817 - __main__ - INFO - Created hotel with clients.csv
+2023-12-16 22:29:12,817 - __main__ - INFO - Appended client Иван Иванов to CSV
+2023-12-16 22:29:12,817 - __main__ - INFO - Client Иван Иванов added
+2023-12-16 22:29:12,817 - __main__ - INFO - Appended client Петр Петров to CSV
+2023-12-16 22:29:12,817 - __main__ - INFO - Client Петр Петров added
+2023-12-16 22:29:12,817 - __main__ - INFO - Appended client Василий Гришков to CSV
+2023-12-16 22:29:12,818 - __main__ - INFO - Client Василий Гришков added
+2023-12-16 22:29:12,818 - __main__ - INFO - Appended client Николай Петрин to CSV
+2023-12-16 22:29:12,818 - __main__ - INFO - Client Николай Петрин added
+2023-12-16 22:29:12,818 - __main__ - INFO - Changed name for client Иван Иванов to Алексей Иванов
+2023-12-16 22:29:12,818 - __main__ - INFO - Extended stay for client Алексей Иванов by 5 days
+2023-12-16 22:29:12,818 - __main__ - INFO - Changed room class for client Петр Петров to Президентский
+2023-12-16 22:29:12,818 - __main__ - INFO - Client Алексей Иванов exists: True
+2023-12-16 22:29:12,818 - __main__ - INFO - Client Петр Петров removed
+2023-12-16 22:29:12,818 - __main__ - INFO - Counted clients: 12
