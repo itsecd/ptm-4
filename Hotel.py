@@ -1,3 +1,4 @@
+import csv
 from datetime import datetime, timedelta
 
 class Client:
@@ -37,6 +38,25 @@ class Hotel:
             if client.first_name == first_name and client.last_name == last_name:
                 client.room_class = new_room_class
 
+    def read_from_csv(self, filename):
+        with open(filename, 'r') as file:
+            reader = csv.reader(file)
+            next(reader)  # Skip the header
+            for row in reader:
+                first_name, last_name, check_in_date, check_out_date, room_class = row
+                check_in_date = datetime.strptime(check_in_date, '%Y-%m-%d')
+                check_out_date = datetime.strptime(check_out_date, '%Y-%m-%d')
+                client = Client(first_name, last_name, check_in_date, check_out_date, room_class)
+                self.add_client(client)
+
+    def write_to_csv(self, filename):
+        with open(filename, 'w') as file:
+            writer = csv.writer(file)
+            writer.writerow(['First Name', 'Last Name', 'Check-in Date', 'Check-out Date', 'Room Class'])
+            for client in self.clients:
+                row = [client.first_name, client.last_name, client.check_in_date.strftime('%Y-%m-%d'), client.check_out_date.strftime('%Y-%m-%d'), client.room_class]
+                writer.writerow(row)
+
 
 if __name__ == "__main__":
     try:
@@ -58,6 +78,10 @@ if __name__ == "__main__":
         print(hotel.client_exists("Алексей", "Иванов"))
 
         hotel.remove_client("Петр", "Петров")
+
+        hotel.read_from_csv("clients.csv")
+
+        hotel.write_to_csv("clients.csv")
 
     except Exception as e:
         print(f"Произошла ошибка: {e}")
