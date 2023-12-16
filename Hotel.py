@@ -10,17 +10,25 @@ class Client:
         self.room_class = room_class
 
 class Hotel:
-    def __init__(self):
+    def __init__(self, csv_filename):
         self.clients = []
+        self.csv_filename = csv_filename
 
     def add_client(self, client):
         self.clients.append(client)
+        self.append_client_to_csv(client)
 
     def remove_client(self, first_name, last_name):
         self.clients = [client for client in self.clients if client.first_name != first_name or client.last_name != last_name]
 
     def client_exists(self, first_name, last_name):
         return any(client.first_name == first_name and client.last_name == last_name for client in self.clients)
+    
+    def count_clients(self):
+        with open(self.csv_filename, 'r') as file:
+            reader = csv.reader(file)
+            next(reader) 
+            return sum(1 for row in reader)
 
     def change_name(self, old_first_name, old_last_name, new_first_name, new_last_name):
         for client in self.clients:
@@ -41,7 +49,7 @@ class Hotel:
     def read_from_csv(self, filename):
         with open(filename, 'r') as file:
             reader = csv.reader(file)
-            next(reader)  # Skip the header
+            next(reader)
             for row in reader:
                 first_name, last_name, check_in_date, check_out_date, room_class = row
                 check_in_date = datetime.strptime(check_in_date, '%Y-%m-%d')
@@ -57,17 +65,28 @@ class Hotel:
                 row = [client.first_name, client.last_name, client.check_in_date.strftime('%Y-%m-%d'), client.check_out_date.strftime('%Y-%m-%d'), client.room_class]
                 writer.writerow(row)
 
+    def append_client_to_csv(self, client):
+        with open(self.csv_filename, 'a', newline='') as file:
+            writer = csv.writer(file)
+            row = [client.first_name, client.last_name, client.check_in_date.strftime('%Y-%m-%d'), client.check_out_date.strftime('%Y-%m-%d'), client.room_class]
+            writer.writerow(row)
+
 
 if __name__ == "__main__":
     try:
         
-        hotel = Hotel()
+        hotel = Hotel("clients.csv")
 
         client1 = Client("Иван", "Иванов", datetime(2023, 12, 1), datetime(2023, 12, 10), "Стандарт")
         client2 = Client("Петр", "Петров", datetime(2023, 12, 5), datetime(2023, 12, 15), "Люкс")
+        client3 = Client("Василий", "Гришков", datetime(2023, 12, 1), datetime(2023, 12, 10), "Стандарт")
+        client4 = Client("Николай", "Петрин", datetime(2023, 12, 5), datetime(2023, 12, 15), "Люкс")
+
 
         hotel.add_client(client1)
         hotel.add_client(client2)
+        hotel.add_client(client3)
+        hotel.add_client(client4)
 
         hotel.change_name("Иван", "Иванов", "Алексей", "Иванов")
 
@@ -79,9 +98,7 @@ if __name__ == "__main__":
 
         hotel.remove_client("Петр", "Петров")
 
-        hotel.read_from_csv("clients.csv")
-
-        hotel.write_to_csv("clients.csv")
+        print(hotel.count_clients())
 
     except Exception as e:
         print(f"Произошла ошибка: {e}")
