@@ -1,0 +1,8 @@
+id,hero_class,hp,damage,armor,lvl
+9,Druid,110,25,10,9
+12,Warlock,85,40,3,9
+8,Paladin,120,20,15,8
+10,Hunter,100,35,5,7
+6,Mage,80,30,5,7
+7,Rogue,90,25,8,6
+11,Shaman,95,30,7,3
