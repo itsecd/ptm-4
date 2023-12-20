@@ -41,7 +41,7 @@ def createNewImage(data_str, width, height, pixel_size):
                         numVals += 1
 
                     except Exception:
-                        logger.info("Error overstepping the bounds of the array")
+                        logger.warning("Error overstepping the bounds of the array")
                         continue
 
             if (numVals == 0):
@@ -71,7 +71,7 @@ def processData(data):
 def main():
     if (len(sys.argv) != 4):
         print("incorrect number of arguments")
-        logger.info("Invalid arguments")
+        logger.warning("Invalid arguments: len(sys.argv) != 4")
         return
 
     image_fp = sys.argv[1]
@@ -84,7 +84,7 @@ def main():
     except Exception:
         print("Unable to open image file {image_filepath}.".format(image_filepath=image_fp))
         print("Image may nto exist")
-        logger.info("Image may to exist")
+        logger.warning("Unable to open image file {image_filepath}.")
 
     if image:
         logger.info("Image is open")
@@ -97,7 +97,7 @@ def main():
         new_image = Image.new(image.mode, image.size)
         new_image.putdata(new_data)
         new_image.save(file_output_name)
-
+        logger.info("new_image is save")
     return
 
 if __name__ == '__main__':
