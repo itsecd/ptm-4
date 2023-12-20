@@ -41,6 +41,7 @@ def createNewImage(data_str, width, height, pixel_size):
                         numVals += 1
 
                     except Exception:
+                        logger.info("Error overstepping the bounds of the array")
                         continue
 
             if (numVals == 0):
@@ -54,8 +55,8 @@ def createNewImage(data_str, width, height, pixel_size):
                     try:
                         new_image_data[a][b] = new_values
                     except Exception:
+                        logger.info("it was not created new_image_data")
                         pass
-    logger.info("Create new_image_data")
     return new_image_data
 
 def processData(data):
@@ -83,6 +84,7 @@ def main():
     except Exception:
         print("Unable to open image file {image_filepath}.".format(image_filepath=image_fp))
         print("Image may nto exist")
+        logger.info("Image may to exist")
 
     if image:
         logger.info("Image is open")
