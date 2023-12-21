@@ -1,9 +1,9 @@
-from emoji import emojize  
+import logging
 import random
 from time import sleep
 import shutil
 from simple_colors import *  
-import logging
+from emoji import emojize
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -62,17 +62,17 @@ def results():
         logger.info("The generated value is Snake")
         if user_choice == "s" or user_choice == "snake":
             print(yellow("AWWW...!!"), emojize(":neutral_face:"), yellow("\nTWO SNAKES HAD BITTEN EACH OTHER :/"))
-            logger.info("The user choiced snake")
+            logger.info("The user chose snake")
 
         elif user_choice == "w" or user_choice == "water":
             print(red("NOOO...!!"), emojize(":crying_face:"), red("\nTHE SNAKE DRANK YOUR WATER :("))
             computer_points += 1  
-            logger.info("The user choiced water")
+            logger.info("The user chose water")
 
         elif user_choice == "g" or user_choice == "gun":
             print(green("YEAH...!!"), emojize(":victory_hand:"), green("\nYOU SHOT THE SNAKE BY GUN  :)"))
             user_points += 1  
-            logger.info("The user choiced gun")
+            logger.info("The user chose gun")
 
         else:
             print("!!कृपया सही विकल्प चुनें!!") 
@@ -84,16 +84,16 @@ def results():
         if user_choice == "s" or user_choice == "snake":
             print(green("YEAH...!!"), emojize(":victory_hand:"), green("\nYOUR SNAKE DRANK THE WATER :)"))
             user_points += 1  
-            logger.info("The user choiced snake")
+            logger.info("The user chose snake")
 
         elif user_choice == "w" or user_choice == "water":
             print(yellow("AWWW...!!"), emojize(":neutral_face:"), yellow("\nWATER IS INCREASED :/"))
-            logger.info("The user choiced water")
+            logger.info("The user chose water")
 
         elif user_choice == "g" or user_choice == "gun":
             print(red("NOOO...!!"), emojize(":crying_face:"), red("\nYOUR GUN SANK INTO THE WATER :("))
             computer_points += 1  
-            logger.info("The user choiced gun")
+            logger.info("The user chose gun")
 
         else:
             print("!!कृपया सही विकल्प चुनें!!") 
@@ -105,16 +105,16 @@ def results():
         if user_choice == "s" or user_choice == "snake":
             print(red("NOOO...!!"), emojize(":crying_face:"), red("\nYOUR SNAKE WAS SHOT BY THE GUN :("))
             computer_points += 1  
-            logger.info("The user choiced snake")
+            logger.info("The user chose snake")
 
         elif user_choice == "w" or user_choice == "water":
             print(green("YEAH...!!"), emojize(":victory_hand:"), green("\nYOUR WATER HAD SUNK THE GUN INTO IT :)"))
             user_points += 1  
-            logger.info("The user choiced water")
+            logger.info("The user chose water")
 
         elif user_choice == "g" or user_choice == "gun":
             print(yellow("AWWW...!!"), emojize(":neutral_face:"), yellow("\nTWO GUNS FIRED AT EACH OTHER :/"))
-            logger.info("The user choiced gun")
+            logger.info("The user chose gun")
 
         else:
             print("!!कृपया सही विकल्प चुनें!!")  
@@ -134,10 +134,10 @@ def replay_game():
 
         
         if replay == "y" or replay == "yes":
-            logger.info("The user choiced to continue the game")
+            logger.info("The user chose to continue the game")
             break 
         elif replay == "n" or replay == "no":
-            logger.info("The user choiced to finished the game")
+            logger.info("The user chose to finished the game")
             break  
         else:
             print(red("Please enter a valid input only"))
