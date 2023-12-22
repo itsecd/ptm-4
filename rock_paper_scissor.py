@@ -1,5 +1,9 @@
 from tkinter import *
 import random
+import logging
+import sys
+import time
+import random
 
 root = Tk()
 root.title("ROCK, PAPER, SCISSOR GAME")
@@ -13,7 +17,7 @@ root.geometry("%dx%d+%d+%d" % (width, height, x, y))
 root.resizable(0, 0)
 root.config(bg="green")
 
-# ++++++++++++++++++++IMAGES++++++++++++++++++++++++++
+#Images 
 blank_image = PhotoImage(file="resources/blank.png")
 rock_player = PhotoImage(file="resources/rock_player.png")
 rock_player_ado = rock_player.subsample(3, 3)
@@ -25,8 +29,7 @@ rock_computer = PhotoImage(file="resources/rock_computer.png")
 paper_computer = PhotoImage(file="resources/paper_computer.png")
 scissor_computer = PhotoImage(file="resources/scissor_computer.png")
 
-
-# ++++++++++++++++++++METHODS++++++++++++++++++++++++++
+#Methods
 def Rock():
     global player_option
     player_option = 1
@@ -60,33 +63,42 @@ def MatchProcess():
     elif computer_option == 3:
         computer_image.configure(image=scissor_computer)
         ScissorCom()
-
+    logging.info(f"Player: {player_option}, Computer: {computer_option}")
 
 def RockCom():
     if player_option == 1:
         status_label.config(text="Game Tie")
+        logging.info("Gmae Tie")
     elif player_option == 2:
         status_label.config(text="Player Win")
+        logging.info("Player Win")
     elif player_option == 3:
         status_label.config(text="Computer Win")
+        logging.info("Computer Win")
 
 
 def PaperCom():
     if player_option == 1:
         status_label.config(text="Computer Win")
+        logging.info("Computer Win")
     elif player_option == 2:
         status_label.config(text="Game Tie")
+        logging.info("Gmae Tie")
     elif player_option == 3:
         status_label.config(text="Player Win")
+        logging.info("Player Win")
 
 
 def ScissorCom():
     if player_option == 1:
         status_label.config(text="Player Win")
+        logging.info("Player Win")
     elif player_option == 2:
         status_label.config(text="Computer Win")
+        logging.info("Computer Win")
     elif player_option == 3:
         status_label.config(text="Game Tie")
+        logging.info("Game Tie")
 
 
 def ExitApplication():
@@ -94,7 +106,7 @@ def ExitApplication():
     exit()
 
 
-# ++++++++++++++++++++LABEL WIDGET++++++++++++++++++++++++++
+#Label widget
 player_image = Label(root, image=blank_image)
 computer_image = Label(root, image=blank_image)
 player_label = Label(root, text="PLAYER")
@@ -109,7 +121,7 @@ player_image.grid(row=2, column=1, padx=30, pady=20)
 computer_image.grid(row=2, column=3, pady=20)
 status_label.grid(row=3, column=2)
 
-# ++++++++++++++++++++BUTTON WIDGET++++++++++++++++++++++++++
+#Button widget
 rock = Button(root, image=rock_player_ado, command=Rock)
 paper = Button(root, image=paper_player_ado, command=Paper)
 scissor = Button(root, image=scissor_player_ado, command=Scissor)
@@ -119,6 +131,7 @@ paper.grid(row=4, column=2, pady=30)
 scissor.grid(row=4, column=3, pady=30)
 button_quit.grid(row=5, column=2)
 
-# ++++++++++++++++++++INITIALIZATION++++++++++++    ++++++++++++++
+
+from rock_paper_scissor import root
 if __name__ == '__main__':
     root.mainloop()
