@@ -1,0 +1,25 @@
+2023-12-22 22:06:20,329 - __main__ - INFO - Starting the main block
+2023-12-22 22:06:20,336 - __main__ - INFO - Sorting clients by last name
+2023-12-22 22:06:20,336 - __main__ - INFO - Clients sorted by last name
+2023-12-22 22:06:20,336 - __main__ - INFO - Clients sorted by last name
+2023-12-22 22:06:20,337 - __main__ - INFO - Client: {'last_name': 'Ivanov', 'car_brand': 'BMW', 'entry_date': datetime.datetime(2023, 11, 1, 0, 0), 'exit_from_parking': None, 'days_parked': None}
+2023-12-22 22:06:20,337 - __main__ - INFO - Client: {'last_name': 'Petrov', 'car_brand': 'Lada', 'entry_date': datetime.datetime(2023, 12, 15, 0, 0), 'exit_from_parking': None, 'days_parked': None}
+2023-12-22 22:06:20,337 - __main__ - INFO - Sorting clients by days parked
+2023-12-22 22:06:20,337 - __main__ - INFO - Clients sorted by days parked
+2023-12-22 22:06:20,337 - __main__ - INFO - Clients sorted by days parked
+2023-12-22 22:06:20,337 - __main__ - INFO - Client: {'last_name': 'Ivanov', 'car_brand': 'BMW', 'entry_date': datetime.datetime(2023, 11, 1, 0, 0), 'exit_from_parking': None, 'days_parked': None}
+2023-12-22 22:06:20,337 - __main__ - INFO - Client: {'last_name': 'Petrov', 'car_brand': 'Lada', 'entry_date': datetime.datetime(2023, 12, 15, 0, 0), 'exit_from_parking': None, 'days_parked': None}
+2023-12-22 22:06:20,337 - __main__ - INFO - Changed last name for Ivanov to Lavruk
+2023-12-22 22:06:20,337 - __main__ - INFO - Changed last name for Ivanov to Lavruk
+2023-12-22 22:06:20,337 - __main__ - INFO - Changed days parked for Petrov to 12
+2023-12-22 22:06:20,337 - __main__ - INFO - Changed days parked for Petrov to 12
+2023-12-22 22:06:20,337 - __main__ - INFO - Updated clients
+2023-12-22 22:06:20,337 - __main__ - INFO - Client: {'last_name': 'Lavruk', 'car_brand': 'BMW', 'entry_date': datetime.datetime(2023, 11, 1, 0, 0), 'exit_from_parking': None, 'days_parked': None}
+2023-12-22 22:06:20,337 - __main__ - INFO - Client: {'last_name': 'Petrov', 'car_brand': 'Lada', 'entry_date': datetime.datetime(2023, 12, 15, 0, 0), 'exit_from_parking': None, 'days_parked': 12}
+2023-12-22 22:06:20,337 - __main__ - INFO - Writing clients to file journal.csv
+2023-12-22 22:06:20,338 - __main__ - INFO - Clients written to file
+2023-12-22 22:06:20,338 - __main__ - INFO - Reading clients from file journal.csv
+2023-12-22 22:06:20,340 - __main__ - INFO - Clients read from file
+2023-12-22 22:06:20,340 - __main__ - INFO - Clients read from csv
+2023-12-22 22:06:20,340 - __main__ - INFO - Client: {'last_name': 'Lavruk', 'car_brand': 'BMW', 'entry_date': datetime.datetime(2023, 11, 1, 0, 0), 'exit_from_parking': None, 'days_parked': None}
+2023-12-22 22:06:20,340 - __main__ - INFO - Client: {'last_name': 'Petrov', 'car_brand': 'Lada', 'entry_date': datetime.datetime(2023, 12, 15, 0, 0), 'exit_from_parking': None, 'days_parked': 12}
