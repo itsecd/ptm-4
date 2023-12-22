@@ -1,0 +1,11 @@
+2023-12-23 01:26:28,960 - INFO - Employee created: John Doe, Age: 30, Position: Software Engineer, Email: john@example.com,Phone: 555-1234, ID: 1
+2023-12-23 01:26:28,960 - INFO - Employee created: Jane Smith, Age: 28, Position: Data Scientist, Email: jane@example.com,Phone: 555-5678, ID: 2
+2023-12-23 01:26:28,961 - INFO - Employee created: Alice Johnson, Age: 35, Position: Project Manager, Email: alice@example.com,Phone: 555-9876, ID: 3
+2023-12-23 01:26:28,961 - INFO - Employee created: Bob Williams, Age: 32, Position: UX Designer, Email: bob@example.com,Phone: 555-8765, ID: 4
+2023-12-23 01:26:28,961 - INFO - Employee created: Eva Brown, Age: 29, Position: Software Developer, Email: eva@example.com,Phone: 555-3456, ID: 5
+2023-12-23 01:26:28,972 - INFO - Employee created: Charlie Jones, Age: 27, Position: Data Analyst, Email: charlie@example.com,Phone: 555-2345, ID: 6
+2023-12-23 01:26:28,972 - INFO - Employee's age has been changed: 30
+2023-12-23 01:26:28,972 - INFO - Employee's phone has been changed: 555-8800
+2023-12-23 01:26:28,972 - INFO - Employees were sorted by first name
+2023-12-23 01:26:28,973 - INFO - Employees written to csv file: sorted_employees.csv
+2023-12-23 01:26:28,973 - ERROR - Error reading to CSV file: 123.csv - [Errno 2] No such file or directory: '123.csv'
