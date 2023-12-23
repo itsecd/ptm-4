@@ -1,3 +1,10 @@
+import logging
+from random import randint
+
+logging.basicConfig(filename='minesweeper.log', level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+
 def minesCoordinates(rows, columns, mines):
     '''
     This function will assign the coordinates of each mine.
@@ -6,12 +13,12 @@ def minesCoordinates(rows, columns, mines):
     If a duplicate is found, remove the one with the greatest index number (which is j).
     This function will return a list with the coordinates of each mine.
     '''
-    from random import randint
     cellsWithMines = []
     counter = 0
 
     while counter < mines:
-        cellsWithMines.append([randint(1, rows), randint(1, columns)])
+        mine_coord = [randint(1, rows), randint(1, columns)]
+        cellsWithMines.append(mine_coord)
 
         if len(cellsWithMines) > 1:
             checkForDuplicates = True
@@ -21,9 +28,12 @@ def minesCoordinates(rows, columns, mines):
                         cellsWithMines.pop(j)
                         counter -= 1
                         checkForDuplicates = False
+                        logging.warning(f"Duplicate mine found at coordinates: {mine_coord}. Removed.")
+
         counter += 1
 
     return cellsWithMines
+
 
 def cellsCoordinates(rows, columns):
     '''
@@ -38,7 +48,7 @@ def cellsCoordinates(rows, columns):
 
     for i in range(1, rows + 1):
         cells[i] = []
-        
+
         for j in range(columns + 1):
             if j != 0:
                 cells[i].append("?")
@@ -46,6 +56,7 @@ def cellsCoordinates(rows, columns):
                 cells[i].append("N/A")
 
     return cells
+
 
 def showCells(points, totalPoints, flags, moves, cells, columns):
     '''
@@ -68,31 +79,32 @@ def showCells(points, totalPoints, flags, moves, cells, columns):
     '''
     print(f"\n\nPoints: {points} / {totalPoints}\nFlags: {flags}\nMoves: {moves}\n")
 
-    print("    ", end = "")
+    print("    ", end="")
     for i in range(1, columns + 1):
         if columns > 10:
             if i > 9:
-                print(i, end = " ")
+                print(i, end=" ")
             else:
-                print(i, end = "  ")
+                print(i, end="  ")
         else:
-            print(i, end = " ")
+            print(i, end=" ")
     print("\n")
 
     for i in cells.keys():
         if i > 9:
-            print(i, end = "  ")
+            print(i, end="  ")
         else:
-            print(i, end = "   ")
+            print(i, end="   ")
 
         for j in range(1, columns + 1):
             if columns > 10:
-                print(cells[i][j], end = "  ")
+                print(cells[i][j], end="  ")
             else:
-                print(cells[i][j], end = " ")
+                print(cells[i][j], end=" ")
 
         print("")
     print("")
+
 
 def checkMoves(points, flags, moves, lastMove):
     '''
@@ -109,6 +121,7 @@ def checkMoves(points, flags, moves, lastMove):
     else:
         return moves
 
+
 def showMines(cellsWithMines, cells):
     '''
     This function will change every cell with a mine in the cells dictionary to the character "M".
@@ -117,6 +130,7 @@ def showMines(cellsWithMines, cells):
     '''
     for i in cellsWithMines:
         cells[i[0]][i[1]] = "M"
+
 
 def checkMinesAround(rowChosen, columnChosen, rows, columns, cellsWithMines):
     '''
@@ -132,7 +146,7 @@ def checkMinesAround(rowChosen, columnChosen, rows, columns, cellsWithMines):
     rowRight = rowChosen + 2
     columnLeft = columnChosen - 1
     columnRight = columnChosen + 2
-      
+
     if rowChosen == 1 and columnChosen != 1:
         rowLeft = rowChosen
 
@@ -157,10 +171,11 @@ def checkMinesAround(rowChosen, columnChosen, rows, columns, cellsWithMines):
         for j in range(columnLeft, columnRight):
             if [i, j] in cellsWithMines:
                 minesAround += 1
-
     return minesAround
 
-def checkCellsAround(rowChosen, columnChosen, rows, columns, selectedCells, cellsWithMines, cells, selectedCellMinesAround, points):
+
+def checkCellsAround(rowChosen, columnChosen, rows, columns, selectedCells, cellsWithMines, cells,
+                     selectedCellMinesAround, points):
     '''
     This function will check if the cell above, below, to the right, and to the left of the selected cell has the same number of mines around it.
     Those cells will be added to cellsAround.
@@ -176,26 +191,35 @@ def checkCellsAround(rowChosen, columnChosen, rows, columns, selectedCells, cell
     The number of rows and columns have been defined in start.py.
     rowChosen, columnChosen, selectedCells, cellsWithMines, cells, selectedCellMinesAround and points have been defined in game.py.
     '''
-    cellsAround = [[rowChosen - 1, columnChosen], [rowChosen, columnChosen - 1], [rowChosen, columnChosen + 1], \
-    [rowChosen + 1, columnChosen]]
+    cellsAround = [[rowChosen - 1, columnChosen],
+                   [rowChosen, columnChosen - 1],
+                   [rowChosen, columnChosen + 1],
+                   [rowChosen + 1, columnChosen]]
 
     while len(cellsAround) != 0:
-        if cellsAround[0][0] > 0 and cellsAround[0][0] <= rows and cellsAround[0][1] > 0 and cellsAround[0][1] <= columns \
-        and [cellsAround[0][0], cellsAround[0][1]] not in selectedCells and [cellsAround[0][0], cellsAround[0][1]] not in cellsWithMines \
-        and cells[cellsAround[0][0]][cellsAround[0][1] - 1] != "F" \
-        and checkMinesAround(cellsAround[0][0], cellsAround[0][1], rows, columns, cellsWithMines) == selectedCellMinesAround:
+        if (cellsAround[0][0] > 0 and
+                cellsAround[0][0] <= rows and
+                cellsAround[0][1] > 0 and
+                cellsAround[0][1] <= columns and
+                [cellsAround[0][0], cellsAround[0][1]] not in selectedCells and
+                [cellsAround[0][0], cellsAround[0][1]] not in cellsWithMines and
+                cells[cellsAround[0][0]][cellsAround[0][1] - 1] != "F"
+                and checkMinesAround(cellsAround[0][0], cellsAround[0][1], rows, columns, cellsWithMines)
+                == selectedCellMinesAround):
             cells[cellsAround[0][0]][cellsAround[0][1]] = selectedCellMinesAround
             selectedCells.append([cellsAround[0][0], cellsAround[0][1]])
             points += 1
-            cellsAround.extend([[cellsAround[0][0] - 1, cellsAround[0][1]],  [cellsAround[0][0], cellsAround[0][1] - 1], \
-            [cellsAround[0][0], cellsAround[0][1] + 1], [cellsAround[0][0] + 1, cellsAround[0][1]]])
+            cellsAround.extend([[cellsAround[0][0] - 1, cellsAround[0][1]],
+                                [cellsAround[0][0], cellsAround[0][1] - 1],
+                                [cellsAround[0][0], cellsAround[0][1] + 1],
+                                [cellsAround[0][0] + 1, cellsAround[0][1]]])
         cellsAround.pop(0)
-
     return points
+
 
 def addFlag(rowChosen, rows, columnChosen, columns, cells, flags, mines):
     '''
-    This function will change the selected cell in the cells dictionary to the character "F", if the cell is not a flag, 
+    This function will change the selected cell in the cells dictionary to the character "F", if the cell is not a flag,
     and the number of flags is not 0.
     Alternatively, it will change the selected cell in the cells dictionary to the character "?", if the cell is a flag,
     and the number of flags is lesser than the number of mines.
@@ -211,5 +235,5 @@ def addFlag(rowChosen, rows, columnChosen, columns, cells, flags, mines):
         elif cells[rowChosen][columnChosen] == "F" and flags < mines:
             cells[rowChosen][columnChosen] = "?"
             flags += 1
-
+    logging.debug(f"Number of flags after addFlag: {flags}")
     return flags

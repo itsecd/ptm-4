@@ -1,4 +1,8 @@
+import logging
 from functions import *
+
+logging.basicConfig(filename='minesweeper.log', level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 def minesweeper(rows, columns, mines):
     '''
@@ -14,7 +18,7 @@ def minesweeper(rows, columns, mines):
     moves = 0
     lastMove = [points, flags]
     selectedCells = []
-    
+
     playing = True
 
     while playing:
@@ -31,23 +35,25 @@ def minesweeper(rows, columns, mines):
                 except (ValueError, IndexError):
                     rowChosen = 0
                     columnChosen = 0
-
+                logging.debug(f"Player's choice: Cell, {[rowChosen, columnChosen]}")
                 if [rowChosen, columnChosen] in cellsWithMines and cells[rowChosen][columnChosen] != "F":
                     playing = False
                     moves += 1
                     showMines(cellsWithMines, cells)
                     showCells(points, totalPoints, flags, moves, cells, columns)
                     print("You lost!")
+                    logging.info("Player hit a mine. Game over.")
 
-                elif rowChosen > 0 and rowChosen <= rows and columnChosen > 0 and columnChosen <= columns \
-                and cells[rowChosen][columnChosen] != "F" and [rowChosen, columnChosen] not in selectedCells:
+                elif (rowChosen > 0 and rowChosen <= rows and columnChosen > 0 and columnChosen <= columns
+                      and cells[rowChosen][columnChosen] != "F" and [rowChosen, columnChosen] not in selectedCells):
 
                     selectedCellMinesAround = checkMinesAround(rowChosen, columnChosen, rows, columns, cellsWithMines)
                     cells[rowChosen][columnChosen] = selectedCellMinesAround
                     selectedCells.append([rowChosen, columnChosen])
                     points += 1
 
-                    points = checkCellsAround(rowChosen, columnChosen, rows, columns, selectedCells, cellsWithMines, cells, selectedCellMinesAround, points)
+                    points = checkCellsAround(rowChosen, columnChosen, rows, columns, selectedCells, cellsWithMines,
+                                              cells, selectedCellMinesAround, points)
 
                 if points == totalPoints:
                     playing = False
@@ -55,6 +61,7 @@ def minesweeper(rows, columns, mines):
                     showMines(cellsWithMines, cells)
                     showCells(points, totalPoints, flags, moves, cells, columns)
                     print("You win!")
+                    logging.info("Player won the game.")
 
             case "2":
                 cellChosen = input("Select cell: ")
@@ -64,10 +71,9 @@ def minesweeper(rows, columns, mines):
                 except (ValueError, IndexError):
                     rowChosen = 0
                     columnChosen = 0
-
                 flags = addFlag(rowChosen, rows, columnChosen, columns, cells, flags, mines)
-
+                logging.debug(f"Player's choice: Flag, {[rowChosen, columnChosen]}")
             case _:
                 pass
-        
+
         moves = checkMoves(points, flags, moves, lastMove)
