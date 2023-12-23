@@ -1,0 +1,21 @@
+2023-12-23 12:23:18,930 - DEBUG - Created field with 5 rows, 5 columns, 5 mines
+2023-12-23 12:23:22,730 - DEBUG - Player's choice: 1, [5, 5]
+2023-12-23 12:23:30,665 - DEBUG - Player's choice: 1, [4, 2]
+2023-12-23 12:23:37,036 - DEBUG - Player's choice: 1, [1, 1]
+2023-12-23 12:23:42,738 - DEBUG - Player's choice: 1, [1, 2]
+2023-12-23 12:23:46,723 - DEBUG - Number of flags after addFlag: 4
+2023-12-23 12:23:46,723 - DEBUG - Player's choice: 2, [2, 3]
+2023-12-23 12:23:51,221 - DEBUG - Player's choice: 1, [2, 4]
+2023-12-23 12:23:56,691 - DEBUG - Player's choice: 1, [3, 3]
+2023-12-23 12:24:01,863 - DEBUG - Player's choice: 1, [4, 3]
+2023-12-23 12:24:01,864 - INFO - Player hit a mine. Game over.
+2023-12-23 12:24:01,865 - DEBUG - Asking for restart the game...
+2023-12-23 12:24:03,287 - DEBUG - Restart choice: n
+2023-12-23 12:27:12,500 - ERROR - Too many bombs!
+2023-12-23 12:27:26,861 - ERROR - Not enough rows/columns!
+2023-12-23 12:27:38,253 - INFO - Created field with 4 rows, 4 columns, 0 mines
+2023-12-23 12:27:41,989 - DEBUG - Player's choice: Cell, [0, 0]
+2023-12-23 12:27:44,144 - DEBUG - Player's choice: Cell, [2, 2]
+2023-12-23 12:27:44,144 - INFO - Player won the game.
+2023-12-23 12:27:44,144 - INFO - Asking for restart the game...
+2023-12-23 12:27:45,820 - DEBUG - Restart choice: n
