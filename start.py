@@ -1,11 +1,10 @@
 import logging
+
 from game import minesweeper
 
 logging.basicConfig(filename='minesweeper.log', level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
-
 playing = True
-
 while playing:
     restart = ""
 

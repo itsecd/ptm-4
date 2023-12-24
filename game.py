@@ -1,9 +1,11 @@
 import logging
+
 from functions import minesCoordinates, cellsCoordinates, showCells, checkMoves, showMines, checkMinesAround, \
     checkCellsAround, addFlag
 
 logging.basicConfig(filename='minesweeper.log', level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 def minesweeper(rows, columns, mines):
     '''

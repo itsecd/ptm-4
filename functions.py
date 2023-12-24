@@ -1,4 +1,5 @@
 import logging
+
 from random import randint
 
 logging.basicConfig(filename='minesweeper.log', level=logging.DEBUG,
