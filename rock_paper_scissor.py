@@ -5,6 +5,8 @@ import sys
 import time
 import random
 
+logging.basicConfig(filename='game.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
+logging.info('Application started')
 root = Tk()
 root.title("ROCK, PAPER, SCISSOR GAME")
 width = 690
@@ -103,6 +105,7 @@ def ScissorCom():
 
 def ExitApplication():
     root.destroy()
+    logging.info('Application stopped')
     exit()
 
 
@@ -132,6 +135,3 @@ scissor.grid(row=4, column=3, pady=30)
 button_quit.grid(row=5, column=2)
 
 
-from rock_paper_scissor import root
-if __name__ == '__main__':
-    root.mainloop()
