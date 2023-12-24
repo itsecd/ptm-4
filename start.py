@@ -27,7 +27,8 @@ while playing:
             minesweeper(rows=16, columns=16, mines=40)
 
         case "3":
-            input("\nNote: to select a cell, enter the number of the row, and the number of the column, separated by a comma.\nExample: 4,5\nPress enter to continue.")
+            input("\nNote: to select a cell, enter the number of the row, and the number of the column, separated by a "
+                  "comma.\nExample: 4,5\nPress enter to continue.")
             logging.info("Created field with 30 rows, 16 columns, 99 mines")
             minesweeper(rows=30, columns=16, mines=99)
 

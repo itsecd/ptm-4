@@ -31,7 +31,7 @@ def minesCoordinates(rows, columns, mines):
                         logging.warning(f"Duplicate mine found at coordinates: {mine_coord}. Removed.")
 
         counter += 1
-
+    logging.info("Mines were placed.")
     return cellsWithMines
 
 
@@ -54,7 +54,7 @@ def cellsCoordinates(rows, columns):
                 cells[i].append("?")
             else:
                 cells[i].append("N/A")
-
+    logging.info("List of cells coordinates was made.")
     return cells
 
 
@@ -104,6 +104,7 @@ def showCells(points, totalPoints, flags, moves, cells, columns):
 
         print("")
     print("")
+    logging.info("Field was built.")
 
 
 def checkMoves(points, flags, moves, lastMove):
@@ -117,8 +118,10 @@ def checkMoves(points, flags, moves, lastMove):
         lastMove.extend([points, flags])
         lastMove.pop(0)
         lastMove.pop(0)
+        logging.info(f"Total player moves: {moves+1}")
         return moves + 1
     else:
+        logging.info(f"Total player moves: {moves}")
         return moves
 
 
@@ -130,6 +133,7 @@ def showMines(cellsWithMines, cells):
     '''
     for i in cellsWithMines:
         cells[i[0]][i[1]] = "M"
+    logging.info("Mines were shown.")
 
 
 def checkMinesAround(rowChosen, columnChosen, rows, columns, cellsWithMines):
@@ -171,6 +175,7 @@ def checkMinesAround(rowChosen, columnChosen, rows, columns, cellsWithMines):
         for j in range(columnLeft, columnRight):
             if [i, j] in cellsWithMines:
                 minesAround += 1
+    logging.info(f"There's {minesAround} mines around cell [{rowChosen, columnChosen}]")
     return minesAround
 
 
@@ -214,6 +219,7 @@ def checkCellsAround(rowChosen, columnChosen, rows, columns, selectedCells, cell
                                 [cellsAround[0][0], cellsAround[0][1] + 1],
                                 [cellsAround[0][0] + 1, cellsAround[0][1]]])
         cellsAround.pop(0)
+    logging.info(f"Number of opened cells : {points}")
     return points
 
 

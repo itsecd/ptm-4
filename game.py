@@ -1,5 +1,6 @@
 import logging
-from functions import *
+from functions import minesCoordinates, cellsCoordinates, showCells, checkMoves, showMines, checkMinesAround, \
+    checkCellsAround, addFlag
 
 logging.basicConfig(filename='minesweeper.log', level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
@@ -75,5 +76,4 @@ def minesweeper(rows, columns, mines):
                 logging.debug(f"Player's choice: Flag, {[rowChosen, columnChosen]}")
             case _:
                 pass
-
         moves = checkMoves(points, flags, moves, lastMove)

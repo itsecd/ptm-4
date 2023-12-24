@@ -19,3 +19,270 @@
 2023-12-23 12:27:44,144 - INFO - Player won the game.
 2023-12-23 12:27:44,144 - INFO - Asking for restart the game...
 2023-12-23 12:27:45,820 - DEBUG - Restart choice: n
+2023-12-24 13:07:47,960 - ERROR - Not enough rows/columns!
+2023-12-24 13:07:52,377 - ERROR - Not Enough bombs!
+2023-12-24 13:07:58,864 - ERROR - Too many bombs!
+2023-12-24 13:08:02,330 - INFO - Created field with 5 rows, 5 columns, 4 mines
+2023-12-24 13:08:03,681 - INFO - Field was built.
+2023-12-24 13:08:06,792 - DEBUG - Player's choice: Cell, [0, 0]
+2023-12-24 13:08:06,792 - INFO - Total player moves: 0
+2023-12-24 13:08:06,792 - INFO - Field was built.
+2023-12-24 13:08:08,659 - DEBUG - Player's choice: Cell, [0, 0]
+2023-12-24 13:08:08,659 - INFO - Total player moves: 0
+2023-12-24 13:08:08,659 - INFO - Field was built.
+2023-12-24 13:08:11,155 - DEBUG - Player's choice: Cell, [1, 1]
+2023-12-24 13:08:11,155 - INFO - There's 0 mines around cell [(1, 1)]
+2023-12-24 13:08:11,155 - INFO - There's 0 mines around cell [(1, 2)]
+2023-12-24 13:08:11,155 - INFO - There's 1 mines around cell [(2, 1)]
+2023-12-24 13:08:11,155 - INFO - There's 1 mines around cell [(1, 3)]
+2023-12-24 13:08:11,155 - INFO - There's 1 mines around cell [(2, 2)]
+2023-12-24 13:08:11,155 - INFO - Total player moves: 1
+2023-12-24 13:08:11,156 - INFO - Field was built.
+2023-12-24 13:08:14,354 - DEBUG - Player's choice: Cell, [0, 0]
+2023-12-24 13:08:14,354 - INFO - Total player moves: 1
+2023-12-24 13:08:14,355 - INFO - Field was built.
+2023-12-24 13:08:16,747 - DEBUG - Player's choice: Cell, [1, 3]
+2023-12-24 13:08:16,747 - INFO - There's 1 mines around cell [(1, 3)]
+2023-12-24 13:08:16,747 - INFO - There's 1 mines around cell [(1, 4)]
+2023-12-24 13:08:16,747 - INFO - There's 3 mines around cell [(2, 3)]
+2023-12-24 13:08:16,747 - INFO - There's 1 mines around cell [(1, 5)]
+2023-12-24 13:08:16,747 - INFO - There's 3 mines around cell [(2, 5)]
+2023-12-24 13:08:16,747 - INFO - Total player moves: 2
+2023-12-24 13:08:16,747 - INFO - Field was built.
+2023-12-24 13:08:21,269 - DEBUG - Player's choice: Cell, [2, 1]
+2023-12-24 13:08:21,269 - INFO - There's 1 mines around cell [(2, 1)]
+2023-12-24 13:08:21,270 - INFO - There's 1 mines around cell [(2, 2)]
+2023-12-24 13:08:21,270 - INFO - There's 1 mines around cell [(3, 1)]
+2023-12-24 13:08:21,270 - INFO - There's 3 mines around cell [(2, 3)]
+2023-12-24 13:08:21,270 - INFO - There's 1 mines around cell [(4, 1)]
+2023-12-24 13:08:21,270 - INFO - There's 1 mines around cell [(4, 2)]
+2023-12-24 13:08:21,270 - INFO - There's 0 mines around cell [(5, 1)]
+2023-12-24 13:08:21,270 - INFO - There's 2 mines around cell [(4, 3)]
+2023-12-24 13:08:21,270 - INFO - There's 0 mines around cell [(5, 2)]
+2023-12-24 13:08:21,270 - INFO - Total player moves: 3
+2023-12-24 13:08:21,271 - INFO - Field was built.
+2023-12-24 13:08:26,368 - DEBUG - Player's choice: Cell, [2, 3]
+2023-12-24 13:08:26,368 - INFO - There's 3 mines around cell [(2, 3)]
+2023-12-24 13:08:26,368 - INFO - There's 3 mines around cell [(3, 3)]
+2023-12-24 13:08:26,368 - INFO - There's 2 mines around cell [(4, 3)]
+2023-12-24 13:08:26,368 - INFO - Total player moves: 4
+2023-12-24 13:08:26,368 - INFO - Field was built.
+2023-12-24 13:08:37,634 - DEBUG - Number of flags after addFlag: 3
+2023-12-24 13:08:37,634 - DEBUG - Player's choice: Flag, [3, 2]
+2023-12-24 13:08:37,634 - INFO - Total player moves: 5
+2023-12-24 13:08:37,634 - INFO - Field was built.
+2023-12-24 13:08:41,864 - DEBUG - Number of flags after addFlag: 3
+2023-12-24 13:08:41,864 - DEBUG - Player's choice: Flag, [1, 4]
+2023-12-24 13:08:41,864 - INFO - Total player moves: 5
+2023-12-24 13:08:41,865 - INFO - Field was built.
+2023-12-24 13:08:44,371 - DEBUG - Number of flags after addFlag: 2
+2023-12-24 13:08:44,371 - DEBUG - Player's choice: Flag, [2, 4]
+2023-12-24 13:08:44,371 - INFO - Total player moves: 6
+2023-12-24 13:08:44,371 - INFO - Field was built.
+2023-12-24 13:08:49,316 - DEBUG - Number of flags after addFlag: 1
+2023-12-24 13:08:49,316 - DEBUG - Player's choice: Flag, [3, 4]
+2023-12-24 13:08:49,316 - INFO - Total player moves: 7
+2023-12-24 13:08:49,317 - INFO - Field was built.
+2023-12-24 13:08:54,276 - DEBUG - Player's choice: Cell, [2, 5]
+2023-12-24 13:08:54,276 - INFO - There's 3 mines around cell [(2, 5)]
+2023-12-24 13:08:54,276 - INFO - Total player moves: 8
+2023-12-24 13:08:54,276 - INFO - Field was built.
+2023-12-24 13:08:57,979 - DEBUG - Player's choice: Cell, [3, 5]
+2023-12-24 13:08:57,979 - INFO - Mines were shown.
+2023-12-24 13:08:57,979 - INFO - Field was built.
+2023-12-24 13:08:57,979 - INFO - Player hit a mine. Game over.
+2023-12-24 13:08:57,979 - INFO - Total player moves: 9
+2023-12-24 13:08:57,979 - INFO - Asking for restart the game...
+2023-12-24 13:09:02,956 - DEBUG - Restart choice: n
+2023-12-24 13:12:58,717 - INFO - Created field with 16 rows, 16 columns, 40 mines
+2023-12-24 13:12:58,718 - WARNING - Duplicate mine found at coordinates: [2, 15]. Removed.
+2023-12-24 13:12:58,718 - WARNING - Duplicate mine found at coordinates: [4, 13]. Removed.
+2023-12-24 13:12:58,719 - WARNING - Duplicate mine found at coordinates: [3, 7]. Removed.
+2023-12-24 13:12:58,720 - INFO - Field was built.
+2023-12-24 13:13:03,261 - DEBUG - Player's choice: Cell, [1, 5]
+2023-12-24 13:13:03,261 - INFO - There's 0 mines around cell [(1, 5)]
+2023-12-24 13:13:03,261 - INFO - There's 0 mines around cell [(1, 4)]
+2023-12-24 13:13:03,261 - INFO - There's 0 mines around cell [(1, 6)]
+2023-12-24 13:13:03,261 - INFO - There's 1 mines around cell [(2, 5)]
+2023-12-24 13:13:03,261 - INFO - There's 0 mines around cell [(1, 3)]
+2023-12-24 13:13:03,261 - INFO - There's 0 mines around cell [(2, 4)]
+2023-12-24 13:13:03,262 - INFO - There's 1 mines around cell [(1, 7)]
+2023-12-24 13:13:03,262 - INFO - There's 2 mines around cell [(2, 6)]
+2023-12-24 13:13:03,262 - INFO - There's 0 mines around cell [(1, 2)]
+2023-12-24 13:13:03,262 - INFO - There's 0 mines around cell [(2, 3)]
+2023-12-24 13:13:03,262 - INFO - There's 1 mines around cell [(2, 5)]
+2023-12-24 13:13:03,262 - INFO - There's 1 mines around cell [(3, 4)]
+2023-12-24 13:13:03,262 - INFO - There's 0 mines around cell [(1, 1)]
+2023-12-24 13:13:03,262 - INFO - There's 0 mines around cell [(2, 2)]
+2023-12-24 13:13:03,262 - INFO - There's 0 mines around cell [(3, 3)]
+2023-12-24 13:13:03,263 - INFO - There's 0 mines around cell [(2, 1)]
+2023-12-24 13:13:03,263 - INFO - There's 0 mines around cell [(3, 2)]
+2023-12-24 13:13:03,263 - INFO - There's 1 mines around cell [(3, 4)]
+2023-12-24 13:13:03,263 - INFO - There's 1 mines around cell [(4, 3)]
+2023-12-24 13:13:03,263 - INFO - There's 0 mines around cell [(3, 1)]
+2023-12-24 13:13:03,263 - INFO - There's 1 mines around cell [(4, 2)]
+2023-12-24 13:13:03,263 - INFO - There's 0 mines around cell [(4, 1)]
+2023-12-24 13:13:03,263 - INFO - There's 1 mines around cell [(4, 2)]
+2023-12-24 13:13:03,263 - INFO - There's 0 mines around cell [(5, 1)]
+2023-12-24 13:13:03,263 - INFO - There's 1 mines around cell [(5, 2)]
+2023-12-24 13:13:03,264 - INFO - There's 1 mines around cell [(6, 1)]
+2023-12-24 13:13:03,264 - INFO - Points : 15
+2023-12-24 13:13:03,264 - INFO - Total player moves: 1
+2023-12-24 13:13:03,265 - INFO - Field was built.
+2023-12-24 13:13:07,061 - DEBUG - Player's choice: Cell, [1, 7]
+2023-12-24 13:13:07,061 - INFO - There's 1 mines around cell [(1, 7)]
+2023-12-24 13:13:07,061 - INFO - There's 2 mines around cell [(1, 8)]
+2023-12-24 13:13:07,062 - INFO - There's 3 mines around cell [(2, 7)]
+2023-12-24 13:13:07,062 - INFO - Points : 16
+2023-12-24 13:13:07,062 - INFO - Total player moves: 2
+2023-12-24 13:13:07,063 - INFO - Field was built.
+2023-12-24 13:13:11,412 - DEBUG - Player's choice: Cell, [2, 6]
+2023-12-24 13:13:11,412 - INFO - There's 2 mines around cell [(2, 6)]
+2023-12-24 13:13:11,412 - INFO - There's 1 mines around cell [(2, 5)]
+2023-12-24 13:13:11,412 - INFO - There's 3 mines around cell [(2, 7)]
+2023-12-24 13:13:11,412 - INFO - Points : 17
+2023-12-24 13:13:11,412 - INFO - Total player moves: 3
+2023-12-24 13:13:11,413 - INFO - Field was built.
+2023-12-24 13:13:19,270 - DEBUG - Player's choice: Cell, [2, 4]
+2023-12-24 13:13:19,270 - INFO - Total player moves: 3
+2023-12-24 13:13:19,271 - INFO - Field was built.
+2023-12-24 13:13:23,473 - DEBUG - Player's choice: Cell, [2, 6]
+2023-12-24 13:13:23,473 - INFO - Total player moves: 3
+2023-12-24 13:13:23,475 - INFO - Field was built.
+2023-12-24 13:13:26,736 - DEBUG - Player's choice: Cell, [2, 5]
+2023-12-24 13:13:26,736 - INFO - There's 1 mines around cell [(2, 5)]
+2023-12-24 13:13:26,736 - INFO - There's 2 mines around cell [(3, 5)]
+2023-12-24 13:13:26,736 - INFO - Points : 18
+2023-12-24 13:13:26,736 - INFO - Total player moves: 4
+2023-12-24 13:13:26,737 - INFO - Field was built.
+2023-12-24 13:13:30,205 - DEBUG - Player's choice: Cell, [3, 4]
+2023-12-24 13:13:30,205 - INFO - There's 1 mines around cell [(3, 4)]
+2023-12-24 13:13:30,205 - INFO - There's 2 mines around cell [(3, 5)]
+2023-12-24 13:13:30,205 - INFO - There's 2 mines around cell [(4, 4)]
+2023-12-24 13:13:30,205 - INFO - Points : 19
+2023-12-24 13:13:30,205 - INFO - Total player moves: 5
+2023-12-24 13:13:30,206 - INFO - Field was built.
+2023-12-24 13:13:33,360 - DEBUG - Player's choice: Cell, [4, 2]
+2023-12-24 13:13:33,360 - INFO - There's 1 mines around cell [(4, 2)]
+2023-12-24 13:13:33,360 - INFO - There's 1 mines around cell [(4, 3)]
+2023-12-24 13:13:33,360 - INFO - There's 1 mines around cell [(5, 2)]
+2023-12-24 13:13:33,360 - INFO - There's 2 mines around cell [(4, 4)]
+2023-12-24 13:13:33,360 - INFO - There's 2 mines around cell [(6, 2)]
+2023-12-24 13:13:33,361 - INFO - Points : 22
+2023-12-24 13:13:33,361 - INFO - Total player moves: 6
+2023-12-24 13:13:33,361 - INFO - Field was built.
+2023-12-24 13:13:38,611 - DEBUG - Player's choice: Cell, [6, 1]
+2023-12-24 13:13:38,611 - INFO - There's 1 mines around cell [(6, 1)]
+2023-12-24 13:13:38,611 - INFO - There's 2 mines around cell [(6, 2)]
+2023-12-24 13:13:38,611 - INFO - Points : 23
+2023-12-24 13:13:38,611 - INFO - Total player moves: 7
+2023-12-24 13:13:38,612 - INFO - Field was built.
+2023-12-24 13:13:42,959 - DEBUG - Player's choice: Cell, [6, 2]
+2023-12-24 13:13:42,960 - INFO - There's 2 mines around cell [(6, 2)]
+2023-12-24 13:13:42,960 - INFO - There's 1 mines around cell [(6, 3)]
+2023-12-24 13:13:42,960 - INFO - There's 1 mines around cell [(7, 2)]
+2023-12-24 13:13:42,960 - INFO - Points : 24
+2023-12-24 13:13:42,960 - INFO - Total player moves: 8
+2023-12-24 13:13:42,961 - INFO - Field was built.
+2023-12-24 13:13:47,262 - DEBUG - Number of flags after addFlag: 39
+2023-12-24 13:13:47,262 - DEBUG - Player's choice: Flag, [5, 3]
+2023-12-24 13:13:47,262 - INFO - Total player moves: 9
+2023-12-24 13:13:47,264 - INFO - Field was built.
+2023-12-24 13:13:52,459 - DEBUG - Player's choice: Cell, [4, 4]
+2023-12-24 13:13:52,459 - INFO - There's 2 mines around cell [(4, 4)]
+2023-12-24 13:13:52,459 - INFO - Points : 25
+2023-12-24 13:13:52,459 - INFO - Total player moves: 10
+2023-12-24 13:13:52,461 - INFO - Field was built.
+2023-12-24 13:13:57,208 - DEBUG - Player's choice: Cell, [3, 5]
+2023-12-24 13:13:57,208 - INFO - There's 2 mines around cell [(3, 5)]
+2023-12-24 13:13:57,208 - INFO - Points : 26
+2023-12-24 13:13:57,208 - INFO - Total player moves: 11
+2023-12-24 13:13:57,210 - INFO - Field was built.
+2023-12-24 13:14:02,620 - DEBUG - Number of flags after addFlag: 38
+2023-12-24 13:14:02,620 - DEBUG - Player's choice: Flag, [4, 5]
+2023-12-24 13:14:02,620 - INFO - Total player moves: 12
+2023-12-24 13:14:02,621 - INFO - Field was built.
+2023-12-24 13:14:11,557 - DEBUG - Number of flags after addFlag: 37
+2023-12-24 13:14:11,557 - DEBUG - Player's choice: Flag, [3, 6]
+2023-12-24 13:14:11,557 - INFO - Total player moves: 13
+2023-12-24 13:14:11,558 - INFO - Field was built.
+2023-12-24 13:14:15,859 - DEBUG - Player's choice: Cell, [2, 7]
+2023-12-24 13:14:15,859 - INFO - There's 3 mines around cell [(2, 7)]
+2023-12-24 13:14:15,860 - INFO - Points : 27
+2023-12-24 13:14:15,860 - INFO - Total player moves: 14
+2023-12-24 13:14:15,861 - INFO - Field was built.
+2023-12-24 13:14:25,588 - DEBUG - Number of flags after addFlag: 36
+2023-12-24 13:14:25,589 - DEBUG - Player's choice: Flag, [3, 7]
+2023-12-24 13:14:25,589 - INFO - Total player moves: 15
+2023-12-24 13:14:25,590 - INFO - Field was built.
+2023-12-24 13:14:32,577 - DEBUG - Player's choice: Cell, [3, 8]
+2023-12-24 13:14:32,577 - INFO - There's 3 mines around cell [(3, 8)]
+2023-12-24 13:14:32,577 - INFO - There's 3 mines around cell [(3, 9)]
+2023-12-24 13:14:32,577 - INFO - There's 2 mines around cell [(4, 8)]
+2023-12-24 13:14:32,578 - INFO - There's 2 mines around cell [(4, 9)]
+2023-12-24 13:14:32,578 - INFO - Points : 29
+2023-12-24 13:14:32,578 - INFO - Total player moves: 16
+2023-12-24 13:14:32,579 - INFO - Field was built.
+2023-12-24 13:14:40,656 - DEBUG - Player's choice: Cell, [4, 6]
+2023-12-24 13:14:40,656 - INFO - There's 3 mines around cell [(4, 6)]
+2023-12-24 13:14:40,656 - INFO - There's 2 mines around cell [(4, 7)]
+2023-12-24 13:14:40,657 - INFO - There's 3 mines around cell [(5, 6)]
+2023-12-24 13:14:40,657 - INFO - There's 2 mines around cell [(5, 5)]
+2023-12-24 13:14:40,657 - INFO - There's 1 mines around cell [(5, 7)]
+2023-12-24 13:14:40,657 - INFO - There's 4 mines around cell [(6, 6)]
+2023-12-24 13:14:40,657 - INFO - Points : 31
+2023-12-24 13:14:40,657 - INFO - Total player moves: 17
+2023-12-24 13:14:40,658 - INFO - Field was built.
+2023-12-24 13:14:44,907 - DEBUG - Player's choice: Cell, [2, 8]
+2023-12-24 13:14:44,908 - INFO - Mines were shown.
+2023-12-24 13:14:44,908 - INFO - Field was built.
+2023-12-24 13:14:44,908 - INFO - Player hit a mine. Game over.
+2023-12-24 13:14:44,909 - INFO - Total player moves: 18
+2023-12-24 13:14:44,909 - INFO - Asking for restart the game...
+2023-12-24 13:14:47,426 - DEBUG - Restart choice: n
+2023-12-24 13:20:58,152 - INFO - Created field with 16 rows, 16 columns, 40 mines
+2023-12-24 13:20:58,152 - WARNING - Duplicate mine found at coordinates: [15, 8]. Removed.
+2023-12-24 13:20:58,152 - WARNING - Duplicate mine found at coordinates: [3, 14]. Removed.
+2023-12-24 13:20:58,153 - WARNING - Duplicate mine found at coordinates: [7, 16]. Removed.
+2023-12-24 13:20:58,153 - WARNING - Duplicate mine found at coordinates: [10, 12]. Removed.
+2023-12-24 13:20:58,153 - WARNING - Duplicate mine found at coordinates: [4, 3]. Removed.
+2023-12-24 13:20:58,154 - WARNING - Duplicate mine found at coordinates: [7, 7]. Removed.
+2023-12-24 13:20:58,155 - WARNING - Duplicate mine found at coordinates: [1, 11]. Removed.
+2023-12-24 13:20:58,155 - WARNING - Duplicate mine found at coordinates: [7, 12]. Removed.
+2023-12-24 13:20:58,155 - INFO - Mines were placed.
+2023-12-24 13:20:58,155 - INFO - List of cells coordinates was made.
+2023-12-24 13:20:58,156 - INFO - Field was built.
+2023-12-24 13:21:00,888 - DEBUG - Player's choice: Cell, [1, 1]
+2023-12-24 13:21:00,888 - INFO - Mines were shown.
+2023-12-24 13:21:00,889 - INFO - Field was built.
+2023-12-24 13:21:00,889 - INFO - Player hit a mine. Game over.
+2023-12-24 13:21:00,889 - INFO - Total player moves: 1
+2023-12-24 13:21:00,889 - INFO - Asking for restart the game...
+2023-12-24 13:21:05,294 - DEBUG - Restart choice: n
+2023-12-24 13:21:51,764 - INFO - Created field with 30 rows, 16 columns, 99 mines
+2023-12-24 13:21:51,767 - WARNING - Duplicate mine found at coordinates: [19, 7]. Removed.
+2023-12-24 13:21:51,769 - WARNING - Duplicate mine found at coordinates: [21, 7]. Removed.
+2023-12-24 13:21:51,770 - WARNING - Duplicate mine found at coordinates: [24, 5]. Removed.
+2023-12-24 13:21:51,770 - WARNING - Duplicate mine found at coordinates: [18, 9]. Removed.
+2023-12-24 13:21:51,772 - WARNING - Duplicate mine found at coordinates: [28, 9]. Removed.
+2023-12-24 13:21:51,775 - WARNING - Duplicate mine found at coordinates: [1, 11]. Removed.
+2023-12-24 13:21:51,780 - WARNING - Duplicate mine found at coordinates: [19, 1]. Removed.
+2023-12-24 13:21:51,785 - WARNING - Duplicate mine found at coordinates: [23, 14]. Removed.
+2023-12-24 13:21:51,789 - INFO - Mines were placed.
+2023-12-24 13:21:51,789 - INFO - List of cells coordinates was made.
+2023-12-24 13:21:51,791 - INFO - Field was built.
+2023-12-24 13:21:54,580 - DEBUG - Player's choice: Cell, [5, 4]
+2023-12-24 13:21:54,580 - INFO - There's 2 mines around cell [(5, 4)]
+2023-12-24 13:21:54,581 - INFO - There's 1 mines around cell [(4, 4)]
+2023-12-24 13:21:54,581 - INFO - There's 1 mines around cell [(5, 3)]
+2023-12-24 13:21:54,581 - INFO - There's 3 mines around cell [(6, 4)]
+2023-12-24 13:21:54,581 - INFO - Number of opened cells : 1
+2023-12-24 13:21:54,581 - INFO - Total player moves: 1
+2023-12-24 13:21:54,584 - INFO - Field was built.
+2023-12-24 13:22:04,118 - DEBUG - Player's choice: Cell, [6, 7]
+2023-12-24 13:22:04,119 - INFO - Mines were shown.
+2023-12-24 13:22:04,120 - INFO - Field was built.
+2023-12-24 13:22:04,120 - INFO - Player hit a mine. Game over.
+2023-12-24 13:22:04,120 - INFO - Total player moves: 2
+2023-12-24 13:22:04,120 - INFO - Asking for restart the game...
+2023-12-24 13:22:05,925 - DEBUG - Restart choice: n
