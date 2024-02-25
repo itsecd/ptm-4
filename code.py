@@ -1,3 +1,4 @@
+import logging
 from emoji import emojize  # pip install emoji
 import random
 from time import sleep
@@ -5,10 +6,14 @@ import shutil
 from simple_colors import *  # pip install simple_colors
 
 
+logging.basicConfig(filename='game_log.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 def intro():
     """
     Function to print the basic introduction about te game
     """
+    logging.info("Starting the game introduction")
+
     columns = shutil.get_terminal_size().columns
 
     print(magenta("SNAKE (🐍) WATER (💧) GUN (🔫)".center(columns)))  # Printing the name of the game
@@ -18,6 +23,8 @@ def intro():
     print(cyan("GAME DEVELOPED BY - 👑 AKSHAT DODHIYA 👑".center(columns)))  # Printing the name of the developer
 
     sleep(2)  # Making program to sleep to execute next part of the program after sometime
+
+    logging.info("Game introduction completed")
 
 
 intro()  # Calling the function intro() to introduce the game
@@ -33,6 +40,8 @@ def choices():
     """
     This function takes input of user's choice and also takes random input from the computer from list 'options'
     """
+
+    logging.info("Getting user and computer choices")
     global computer_choice, user_choice  # Declaring variables as global to use in function
     options = ["Snake", "Water", "Gun"]  # List of options for computer to choose randomly
     computer_choice = random.choice(options)  # function to store random choice from list 'options'
@@ -41,6 +50,7 @@ def choices():
           "\t\tW for", emojize(":droplet:"),
           "\t\tG for", emojize(":pistol:"))  # Printing options for user to select
     user_choice = input().lower()  # storing input of the user in lower case
+    logging.info(f"User choice: {user_choice}, Computer choice: {computer_choice}")
 
 
 def results():
@@ -48,6 +58,8 @@ def results():
     This function calculates points of both computer and user and
      it also prints whether the user won or lost in that chance and flag value is also handled in this function
     """
+    logging.info("Calculating results")
+
     global computer_points, user_points, flag  # Globalising variables for editing it's values
     flag = 0  # Initialising the value of flag to zero in each iteration
     if computer_choice == "Snake":
@@ -98,6 +110,8 @@ def results():
             print("!!कृपया सही विकल्प चुनें!!")  # Error message in 'HINDI' for invalid choice
             flag = 1  # Changing flag value to iterate the loop again in same chance
 
+    logging.info("Results calculated")
+
 
 def replay_game():
     """
@@ -120,6 +134,9 @@ def replay_game():
 
 
 while 1:  # Infinite loop to play the game as many times as the user wants
+
+    
+
     computer_points, user_points, flag, chance = 0, 0, 0, 0  # Initialising values to zero at the beginning of the game
     computer_choice, user_choice, replay = "", "", ""  # Emptying strings at the beginning of the game
 
@@ -128,6 +145,8 @@ while 1:  # Infinite loop to play the game as many times as the user wants
         if n < 1:
             print(red('Please enter only natural number', 'bold'))
             continue
+
+        logging.info("Game started. Number of chances: " + str(n))
 
     except Exception as e:
         print(red('Please enter only natural number', 'bold'))
@@ -138,6 +157,8 @@ while 1:  # Infinite loop to play the game as many times as the user wants
         results()  # Calling function to calculate result of a particular chance
         if flag == 0:  # Incrementing flag's value only if the input given by the user will be valid
             chance += 1
+
+    logging.info("Game completed. Final scores - User: {}, Computer: {}".format(user_points, computer_points))
 
     # Displaying points of both computer and user
     print("\n\t\t\tYOUR SCORE :", user_points)
