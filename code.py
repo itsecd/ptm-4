@@ -149,6 +149,7 @@ while 1:  # Infinite loop to play the game as many times as the user wants
         logging.info("Game started. Number of chances: " + str(n))
 
     except Exception as e:
+        logging.warning('Please enter only natural numbers')
         print(red('Please enter only natural number', 'bold'))
         continue
 
@@ -177,8 +178,10 @@ while 1:  # Infinite loop to play the game as many times as the user wants
     replay_game()
 
     if replay == "n" or replay == "no":
+        logging.info("User decided not to replay the game")
         print(red("\n\t\t\tSAD TO SEE YOU GO !!", 'bold'), emojize(":disappointed_face:"))  # Printing exit statement
         exit()  # exiting the game
     if replay == "y" or replay == "yes":
+        logging.info("User decided to replay the game") 
         print(green("\n\t\t\tYO LET'S PLAY AGAIN", 'bold'), emojize(":smiling_face_with_smiling_eyes:"))
         # Printing a statement and replaying the game
